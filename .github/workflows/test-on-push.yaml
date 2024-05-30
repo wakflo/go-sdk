@@ -1,0 +1,52 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Test on ${{ matrix.gover }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gover:
+          - "1.21"
+          - "1.22"
+          - "1.23"
+    env:
+      GOVER: ${{ matrix.gover }}
+      GOLANGCILINT_VER: v1.55.2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GOVER }}
+
+      - name: Tidy
+        run: make tidy
+
+      - name: Test
+        run: make test
+
+      - name: Cover
+        uses: codecov/codecov-action@v4
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v3.3.1
+        with:
+          version: ${{ env.GOLANGCILINT_VER }}
+          skip-cache: true
+          args: --timeout=10m0s
+
+      - name: Run go mod tidy check diff
+        run: make modtidy check-diff
+      - name: Run go mod tidy
+        run: make modtidy
