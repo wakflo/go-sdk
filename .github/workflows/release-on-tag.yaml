@@ -52,7 +52,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: Automatic Go Dapr client release
+          body: Automatic Go Wakflo SDK release
           draft: false
           prerelease: false
 
