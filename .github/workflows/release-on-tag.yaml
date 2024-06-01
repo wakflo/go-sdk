@@ -50,8 +50,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          token: ${{secrets.GITHUB_TOKEN}}
+          config-file: release-please-config.json
+#          tag_name: ${{ github.ref }}
+#          release_name: Release ${{ github.ref }}
 #          body: Automatic Go Wakflo SDK release
 #          draft: false
 #          prerelease: false
