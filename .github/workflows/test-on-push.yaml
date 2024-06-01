@@ -70,7 +70,7 @@ jobs:
           release-type: go
           package-name: go-sdk
           target-branch: main
-          signoff: "xraph <rex@wakflo.com>"
+          config-file: release-please-config.json
           token: ${{ secrets.GIT_RELEASE_TOKEN }} # <-- PAT secret name
 
       - uses: actions/checkout@v4

@@ -45,13 +45,14 @@ jobs:
         run: |
           echo "RELEASE_VERSION=$(echo ${GITHUB_REF:10})" >> $GITHUB_ENV
 
-      - name: Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          token: ${{secrets.GITHUB_TOKEN}}
-          config-file: release-please-config.json
+
+#      - name: Release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          token: ${{secrets.GITHUB_TOKEN}}
+#          config-file: release-please-config.json
 #          tag_name: ${{ github.ref }}
 #          release_name: Release ${{ github.ref }}
 #          body: Automatic Go Wakflo SDK release

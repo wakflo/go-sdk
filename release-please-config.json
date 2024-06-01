@@ -9,6 +9,7 @@
       "exclude-paths": [
         "tools"
       ],
+      "signoff": "xraph <rex@wakflo.com>",
       "include-v-in-tag": true,
       "initial-version": "v0.0.1"
     }
