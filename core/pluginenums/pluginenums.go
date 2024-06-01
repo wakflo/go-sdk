@@ -15,6 +15,7 @@
 package pluginenums
 
 import (
+	"errors"
 	"fmt"
 	"io"
 )
@@ -69,7 +70,7 @@ func (e PluginLanguage) IsValid() bool {
 func (e PluginLanguage) UnmarshalGQL(v interface{}) error {
 	str, ok := v.(string)
 	if !ok {
-		return fmt.Errorf("enums must be strings")
+		return errors.New("enums must be strings")
 	}
 
 	rsp := PluginLanguage(str)
@@ -134,7 +135,7 @@ func (e PluginCompiler) IsValid() bool {
 func (e PluginCompiler) UnmarshalGQL(v interface{}) error {
 	str, ok := v.(string)
 	if !ok {
-		return fmt.Errorf("enums must be strings")
+		return errors.New("enums must be strings")
 	}
 
 	rsp := PluginCompiler(str)

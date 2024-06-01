@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -26,37 +27,36 @@ type FieldLogicOperators string
 
 const (
 	Eq      FieldLogicOperators = "=="
-	EEq                         = "==="
-	NEq                         = "!="
-	NNEq                        = "!=="
-	Not                         = "!"
-	NNot                        = "!!"
-	Or                          = "or"
-	And                         = "and"
-	Lt                          = "<"
-	Gt                          = ">"
-	GEq                         = ">="
-	LEq                         = "<="
-	Between                     = "between"
-	Max                         = "max"
-	Min                         = "min"
-	Plus                        = "+"
-	Minus                       = "-"
-	Divide                      = "/"
-	Modulo                      = "%"
-	Map                         = "map"
-	Reduce                      = "reduce"
-	Filter                      = "filter"
-	All                         = "all"
-	//None                        = "none"
-	Some   = "some"
-	Merge  = "merge"
-	In     = "in"
-	Cat    = "cat"
-	Substr = "substr"
+	EEq     FieldLogicOperators = "==="
+	NEq     FieldLogicOperators = "!="
+	NNEq    FieldLogicOperators = "!=="
+	Not     FieldLogicOperators = "!"
+	NNot    FieldLogicOperators = "!!"
+	Or      FieldLogicOperators = "or"
+	And     FieldLogicOperators = "and"
+	Lt      FieldLogicOperators = "<"
+	Gt      FieldLogicOperators = ">"
+	GEq     FieldLogicOperators = ">="
+	LEq     FieldLogicOperators = "<="
+	Between FieldLogicOperators = "between"
+	Max     FieldLogicOperators = "max"
+	Min     FieldLogicOperators = "min"
+	Plus    FieldLogicOperators = "+"
+	Minus   FieldLogicOperators = "-"
+	Divide  FieldLogicOperators = "/"
+	Modulo  FieldLogicOperators = "%"
+	Map     FieldLogicOperators = "map"
+	Reduce  FieldLogicOperators = "reduce"
+	Filter  FieldLogicOperators = "filter"
+	All     FieldLogicOperators = "all"
+	Some    FieldLogicOperators = "some"
+	Merge   FieldLogicOperators = "merge"
+	In      FieldLogicOperators = "in"
+	Cat     FieldLogicOperators = "cat"
+	Substr  FieldLogicOperators = "substr"
 )
 
-func (FieldLogicOperators) SqlTypeName() string {
+func (FieldLogicOperators) SQLTypeName() string {
 	return "auth_type"
 }
 
@@ -130,7 +130,7 @@ func (_j FieldLogicOperators) MarshalBinary() ([]byte, error) {
 func (_j *FieldLogicOperators) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("FieldLogicOperators cannot be derived from empty string")
+		return errors.New("FieldLogicOperators cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -143,7 +143,7 @@ func (_j *FieldLogicOperators) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for FieldLogicOperators.
 func (_j FieldLogicOperators) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_j.String()))
+	_, _ = fmt.Fprint(w, strconv.Quote(_j.String()))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for FieldLogicOperators.
@@ -160,7 +160,7 @@ func (_j *FieldLogicOperators) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of FieldLogicOperators: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("FieldLogicOperators cannot be derived from empty string")
+		return errors.New("FieldLogicOperators cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -186,7 +186,7 @@ func (_j *FieldLogicOperators) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("FieldLogicOperators should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("FieldLogicOperators cannot be derived from empty string")
+		return errors.New("FieldLogicOperators cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -211,7 +211,7 @@ func (_j *FieldLogicOperators) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of FieldLogicOperators: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("FieldLogicOperators cannot be derived from empty string")
+		return errors.New("FieldLogicOperators cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -234,7 +234,7 @@ func (_j FieldLogicOperators) MarshalText() ([]byte, error) {
 func (_j *FieldLogicOperators) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("FieldLogicOperators cannot be derived from empty string")
+		return errors.New("FieldLogicOperators cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -260,7 +260,7 @@ func (_j *FieldLogicOperators) UnmarshalYAML(unmarshal func(interface{}) error) 
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("FieldLogicOperators cannot be derived from empty string")
+		return errors.New("FieldLogicOperators cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -318,12 +318,11 @@ var (
 		"reduce":  Reduce,
 		"filter":  Filter,
 		"all":     All,
-		//"none":    None,
-		"some":   Some,
-		"merge":  Merge,
-		"in":     In,
-		"cat":    Cat,
-		"substr": Substr,
+		"some":    Some,
+		"merge":   Merge,
+		"in":      In,
+		"cat":     Cat,
+		"substr":  Substr,
 	}
 	_FieldLogicOperatorsLowerStringToValueMap = map[string]FieldLogicOperators{
 		"==":      Eq,
@@ -349,11 +348,10 @@ var (
 		"reduce":  Reduce,
 		"filter":  Filter,
 		"all":     All,
-		//"none":    None,
-		"some":   Some,
-		"merge":  Merge,
-		"in":     In,
-		"cat":    Cat,
-		"substr": Substr,
+		"some":    Some,
+		"merge":   Merge,
+		"in":      In,
+		"cat":     Cat,
+		"substr":  Substr,
 	}
 )

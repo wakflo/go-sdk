@@ -15,17 +15,16 @@
 package core
 
 import (
+	"time"
+
 	"github.com/grokify/goauth/authutil"
 	"github.com/grokify/goauth/google"
 	"golang.org/x/oauth2"
-	"time"
 )
 
-type BasicAuthSrategy struct {
-}
+type BasicAuthSrategy struct{}
 
-type WakfloAuthStrategy struct {
-}
+type WakfloAuthStrategy struct{}
 
 type AuthStrategy struct {
 	google.Credentials
@@ -36,8 +35,8 @@ type AuthState struct {
 	ClientID     *string          `json:"clientId,omitempty"`
 	Code         *string          `json:"code,omitempty"`
 	ClientSecret *string          `json:"clientSecret,omitempty"`
-	AuthUrl      *string          `json:"authUrl,omitempty"`
-	TokenUrl     *string          `json:"tokenUrl,omitempty"`
+	AuthURL      *string          `json:"authUrl,omitempty"`
+	TokenURL     *string          `json:"tokenUrl,omitempty"`
 	Username     *string          `json:"username,omitempty"`
 	Password     *string          `json:"password,omitempty"`
 	Secret       *string          `json:"secret,omitempty"`
@@ -52,23 +51,22 @@ type AuthState struct {
 }
 
 type AuthContext struct {
-	AccessToken  string              `json:"accessToken,omitempty"`
-	Token        *oauth2.Token       `json:"token,omitempty"`
-	TokenSource  *oauth2.TokenSource `json:"tokenSource,omitempty"`
-	refreshToken string              `json:"refreshToken,omitempty"`
-	TokenType    string              `json:"tokenType,omitempty"`
-	Username     string              `json:"username,omitempty"`
-	Password     string              `json:"password,omitempty"`
-	Secret       string              `json:"secret,omitempty"`
+	AccessToken string              `json:"accessToken,omitempty"`
+	Token       *oauth2.Token       `json:"token,omitempty"`
+	TokenSource *oauth2.TokenSource `json:"tokenSource,omitempty"`
+	TokenType   string              `json:"tokenType,omitempty"`
+	Username    string              `json:"username,omitempty"`
+	Password    string              `json:"password,omitempty"`
+	Secret      string              `json:"secret,omitempty"`
 }
 
 type ConnectorAuthMetadata struct {
 	ClientID     *string `json:"clientId,omitempty"`
 	ClientSecret *string `json:"clientSecret,omitempty"`
-	AuthUrl      *string `json:"authUrl,omitempty"`
-	TokenUrl     *string `json:"tokenUrl,omitempty"`
+	AuthURL      *string `json:"authUrl,omitempty"`
+	TokenURL     *string `json:"tokenUrl,omitempty"`
 	Username     *string `json:"username,omitempty"`
 	Password     *string `json:"password,omitempty"`
 	Secret       *string `json:"secret,omitempty"`
-	RedirectUrl  *string `json:"redirectUrl,omitempty"`
+	RedirectURL  *string `json:"redirectUrl,omitempty"`
 }

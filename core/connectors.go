@@ -15,19 +15,20 @@
 package core
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"github.com/wakflo/go-sdk/core/authenums"
 	"github.com/wakflo/go-sdk/core/connectorenums"
 	"github.com/wakflo/go-sdk/core/pluginenums"
-	"time"
 )
 
-// JsonObject is a type alias for map[string]interface{}.
-type JsonObject = map[string]interface{}
+// JSONObject is a type alias for map[string]interface{}.
+type JSONObject = map[string]interface{}
 
 // ConnectorProperties is a Task operation type.
 type ConnectorProperties struct {
-	Input          JsonObject  `json:"input"`
+	Input          JSONObject  `json:"input"`
 	Output         interface{} `json:"output"`
 	LastTestTime   *int        `json:"lastTestTime"`
 	LastTestStatus *TestStatus `json:"lastTestStatus"`
@@ -112,21 +113,6 @@ type Operation struct {
 	RequireAuth bool `json:"requireAuth"`
 }
 
-// UnmarshalJSON implements the json.Unmarshaler interface for Operation.
-//func (p *Operation) UnmarshalJSON(bytes []byte) error {
-//	var data Operation
-//	if err := json.Unmarshal(bytes, &data); err != nil {
-//		return err
-//	}
-//
-//	p.Name = data.Name
-//	p.DisplayName = data.DisplayName
-//	p.Description = data.Description
-//	p.Output = data.Output
-//	p.SampleOutput = data.SampleOutput
-//	return nil
-//}
-
 type Operations = map[string]*Operation
 
 type OperationsList = []*Operation
@@ -153,8 +139,10 @@ type Trigger struct {
 	RequireAuth bool `json:"requireAuth"`
 }
 
-type Triggers = map[string]*Trigger
-type TriggersList = []*Trigger
+type (
+	Triggers     = map[string]*Trigger
+	TriggersList = []*Trigger
+)
 
 type WorkflowRunMetadata struct {
 	// ID holds the value of the "id" field.

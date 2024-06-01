@@ -14,4 +14,4 @@
 
 package sdk
 
-type Json = any
+type JSON = any

@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -26,11 +27,11 @@ type RunModeType string
 
 const (
 	TriggerRun   RunModeType = "trigger"
-	ManualRun                = "manual"
-	ScheduledRun             = "schedule"
+	ManualRun    RunModeType = "manual"
+	ScheduledRun RunModeType = "schedule"
 )
 
-func (RunModeType) SqlTypeName() string {
+func (RunModeType) SQLTypeName() string {
 	return "run_mode_type"
 }
 
@@ -78,7 +79,7 @@ func (_j RunModeType) MarshalBinary() ([]byte, error) {
 func (_j *RunModeType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("RunModeType cannot be derived from empty string")
+		return errors.New("RunModeType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -108,7 +109,7 @@ func (_j *RunModeType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of RunModeType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("RunModeType cannot be derived from empty string")
+		return errors.New("RunModeType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -134,7 +135,7 @@ func (_j *RunModeType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("RunModeType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("RunModeType cannot be derived from empty string")
+		return errors.New("RunModeType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -159,7 +160,7 @@ func (_j *RunModeType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of RunModeType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("RunModeType cannot be derived from empty string")
+		return errors.New("RunModeType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -182,7 +183,7 @@ func (_j RunModeType) MarshalText() ([]byte, error) {
 func (_j *RunModeType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("RunModeType cannot be derived from empty string")
+		return errors.New("RunModeType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -208,7 +209,7 @@ func (_j *RunModeType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("RunModeType cannot be derived from empty string")
+		return errors.New("RunModeType cannot be derived from empty string")
 	}
 
 	var ok bool

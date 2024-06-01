@@ -23,23 +23,21 @@ import (
 	"strconv"
 )
 
-var (
-	ErrNoValidEnum = errors.New("not a valid enum")
-)
+var ErrNoValidEnum = errors.New("not a valid enum")
 
 type StepType string
 
 const (
 	Normal    StepType = "normal"
-	Branch             = "branch"
-	Boolean            = "boolean"
-	Loop               = "loop"
-	Condition          = "condition"
-	Start              = "start"
-	End                = "end"
+	Branch    StepType = "branch"
+	Boolean   StepType = "boolean"
+	Loop      StepType = "loop"
+	Condition StepType = "condition"
+	Start     StepType = "start"
+	End       StepType = "end"
 )
 
-func (StepType) SqlTypeName() string {
+func (StepType) SQLTypeName() string {
 	return "connector_step_type"
 }
 
@@ -91,7 +89,7 @@ func (_j StepType) MarshalBinary() ([]byte, error) {
 func (_j *StepType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("StepType cannot be derived from empty string")
+		return errors.New("StepType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -121,7 +119,7 @@ func (_j *StepType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of StepType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("StepType cannot be derived from empty string")
+		return errors.New("StepType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -147,7 +145,7 @@ func (_j *StepType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("StepType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("StepType cannot be derived from empty string")
+		return errors.New("StepType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -172,7 +170,7 @@ func (_j *StepType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of StepType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("StepType cannot be derived from empty string")
+		return errors.New("StepType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -195,7 +193,7 @@ func (_j StepType) MarshalText() ([]byte, error) {
 func (_j *StepType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("StepType cannot be derived from empty string")
+		return errors.New("StepType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -221,7 +219,7 @@ func (_j *StepType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("StepType cannot be derived from empty string")
+		return errors.New("StepType cannot be derived from empty string")
 	}
 
 	var ok bool

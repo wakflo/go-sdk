@@ -29,7 +29,7 @@ func NewAuthSecretField() *AuthSecretField {
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
 	c.builder.WithType(sdkcore.String)
-	c.builder.WithFieldType(sdkcore.Secret)
+	c.builder.WithFieldType(sdkcore.SecretTextType)
 	c.builder.WithDescription("Secret Connection")
 	c.builder.WithTitle("Secret Connection")
 
@@ -56,7 +56,7 @@ func (b *AuthSecretField) setProps() *AuthSecretField {
 		"secret": NewShortTextField().
 			SetDisplayName("Secret").
 			SetDescription("auth secret key").
-			SetDefaultValue(*b.builder.schema.AuthUrl).
+			SetDefaultValue(*b.builder.schema.AuthURL).
 			SetRequired(true).Build(),
 	})
 	return b

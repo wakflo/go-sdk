@@ -16,22 +16,24 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"github.com/wakflo/go-sdk/core/jobstatusenum"
 	"io"
 	"slices"
 	"strconv"
+
+	"github.com/wakflo/go-sdk/core/jobstatusenum"
 )
 
 type AuthStatus string
 
 const (
 	Disabled AuthStatus = "disabled"
-	Active              = "active"
-	Failed              = "failed"
+	Active   AuthStatus = "active"
+	Failed   AuthStatus = "failed"
 )
 
-func (AuthStatus) SqlTypeName() string {
+func (AuthStatus) SQLTypeName() string {
 	return "auth_status"
 }
 
@@ -79,7 +81,7 @@ func (_j AuthStatus) MarshalBinary() ([]byte, error) {
 func (_j *AuthStatus) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("AuthStatus cannot be derived from empty string")
+		return errors.New("AuthStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -109,7 +111,7 @@ func (_j *AuthStatus) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of AuthStatus: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthStatus cannot be derived from empty string")
+		return errors.New("AuthStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -135,7 +137,7 @@ func (_j *AuthStatus) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("AuthStatus should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthStatus cannot be derived from empty string")
+		return errors.New("AuthStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -160,7 +162,7 @@ func (_j *AuthStatus) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of AuthStatus: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthStatus cannot be derived from empty string")
+		return errors.New("AuthStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -183,7 +185,7 @@ func (_j AuthStatus) MarshalText() ([]byte, error) {
 func (_j *AuthStatus) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("AuthStatus cannot be derived from empty string")
+		return errors.New("AuthStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -209,7 +211,7 @@ func (_j *AuthStatus) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthStatus cannot be derived from empty string")
+		return errors.New("AuthStatus cannot be derived from empty string")
 	}
 
 	var ok bool

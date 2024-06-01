@@ -41,4 +41,14 @@ bin/
 
 tmp/
 
+
+# IDE
+.vscode
 .idea
+
+# vendor
+vendor
+
+# docs
+golang.org
+coverage.txt

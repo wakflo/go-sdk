@@ -23,22 +23,20 @@ import (
 	"strconv"
 )
 
-var (
-	ErrNoValidEnum = errors.New("not a valid enum")
-)
+var ErrNoValidEnum = errors.New("not a valid enum")
 
 type AuthType string
 
 const (
 	None   AuthType = "none"
-	Basic           = "basic"
-	Secret          = "secret"
-	ApiKey          = "api_key"
-	OAuth2          = "oauth2"
-	Custom          = "custom"
+	Basic  AuthType = "basic"
+	Secret AuthType = "secret"
+	APIKey AuthType = "api_key"
+	OAuth2 AuthType = "oauth2"
+	Custom AuthType = "custom"
 )
 
-func (AuthType) SqlTypeName() string {
+func (AuthType) SQLTypeName() string {
 	return "auth_type"
 }
 
@@ -89,7 +87,7 @@ func (_j AuthType) MarshalBinary() ([]byte, error) {
 func (_j *AuthType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("AuthType cannot be derived from empty string")
+		return errors.New("AuthType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -119,7 +117,7 @@ func (_j *AuthType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of AuthType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthType cannot be derived from empty string")
+		return errors.New("AuthType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -145,7 +143,7 @@ func (_j *AuthType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("AuthType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthType cannot be derived from empty string")
+		return errors.New("AuthType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -170,7 +168,7 @@ func (_j *AuthType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of AuthType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthType cannot be derived from empty string")
+		return errors.New("AuthType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -193,7 +191,7 @@ func (_j AuthType) MarshalText() ([]byte, error) {
 func (_j *AuthType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("AuthType cannot be derived from empty string")
+		return errors.New("AuthType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -219,7 +217,7 @@ func (_j *AuthType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AuthType cannot be derived from empty string")
+		return errors.New("AuthType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -256,7 +254,7 @@ var (
 	_AuthTypeStringToValueMap = map[string]AuthType{
 		"basic":   Basic,
 		"secret":  Secret,
-		"api_key": ApiKey,
+		"api_key": APIKey,
 		"oauth2":  OAuth2,
 		"none":    None,
 		"custom":  Custom,
@@ -264,7 +262,7 @@ var (
 	_AuthTypeLowerStringToValueMap = map[string]AuthType{
 		"basic":   Basic,
 		"secret":  Secret,
-		"api_key": ApiKey,
+		"api_key": APIKey,
 		"oauth2":  OAuth2,
 		"none":    None,
 		"custom":  Custom,

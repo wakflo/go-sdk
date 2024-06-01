@@ -15,17 +15,16 @@
 package sdk
 
 import (
-	"context"
 	"errors"
 	"fmt"
+	"testing"
+
 	sdkcore "github.com/wakflo/go-sdk/core"
 	"golang.org/x/exp/maps"
-	"testing"
 )
 
 type SpiderTestRuntime struct {
 	instance *ConnectorPlugin
-	ctx      context.Context
 	t        *testing.T
 }
 
@@ -56,7 +55,7 @@ func (s *SpiderTestRuntime) TriggerConfig(name string) *sdkcore.Trigger {
 	return s.instance.TriggerMetadata[name]
 }
 
-func (s *SpiderTestRuntime) RunOperation(name string, run *RunContext) (Json, error) {
+func (s *SpiderTestRuntime) RunOperation(name string, run *RunContext) (JSON, error) {
 	ops, err := s.getOperationByName(name)
 	if err != nil {
 		return nil, err
@@ -64,7 +63,7 @@ func (s *SpiderTestRuntime) RunOperation(name string, run *RunContext) (Json, er
 	return ops.Run(run)
 }
 
-func (s *SpiderTestRuntime) RunTrigger(name string, run *RunContext) (Json, error) {
+func (s *SpiderTestRuntime) RunTrigger(name string, run *RunContext) (JSON, error) {
 	trigger, err := s.getTriggerByName(name)
 	if err != nil {
 		return nil, err
@@ -77,7 +76,7 @@ func (s *SpiderTestRuntime) RunAuth() error {
 }
 
 func (s *SpiderTestRuntime) Close() error {
-	//return s.db.Close()
+	// return s.db.Close()
 	return nil
 }
 

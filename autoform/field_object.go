@@ -44,7 +44,7 @@ func (b *ObjectField) SetDefaultValue(defaultValue interface{}) *ObjectField {
 
 func (b *ObjectField) SetProperties(properties map[string]*sdkcore.AutoFormSchema) *ObjectField {
 	var required []string
-	var order []string
+	order := make([]string, 0, len(properties))
 
 	for key, schema := range properties {
 		order = append(order, key)

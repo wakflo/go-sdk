@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -26,12 +27,12 @@ type CodeEditorLanguage string
 
 const (
 	Javascript CodeEditorLanguage = "javascript"
-	GoLang                        = "go"
-	Typescript                    = "typescript"
-	Lua                           = "lua"
+	GoLang     CodeEditorLanguage = "go"
+	Typescript CodeEditorLanguage = "typescript"
+	Lua        CodeEditorLanguage = "lua"
 )
 
-func (CodeEditorLanguage) SqlTypeName() string {
+func (CodeEditorLanguage) SQLTypeName() string {
 	return "code_editor_language_type"
 }
 
@@ -80,7 +81,7 @@ func (_j CodeEditorLanguage) MarshalBinary() ([]byte, error) {
 func (_j *CodeEditorLanguage) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("CodeEditorLanguage cannot be derived from empty string")
+		return errors.New("CodeEditorLanguage cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -110,7 +111,7 @@ func (_j *CodeEditorLanguage) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of CodeEditorLanguage: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("CodeEditorLanguage cannot be derived from empty string")
+		return errors.New("CodeEditorLanguage cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -136,7 +137,7 @@ func (_j *CodeEditorLanguage) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("CodeEditorLanguage should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("CodeEditorLanguage cannot be derived from empty string")
+		return errors.New("CodeEditorLanguage cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -161,7 +162,7 @@ func (_j *CodeEditorLanguage) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of CodeEditorLanguage: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("CodeEditorLanguage cannot be derived from empty string")
+		return errors.New("CodeEditorLanguage cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -184,7 +185,7 @@ func (_j CodeEditorLanguage) MarshalText() ([]byte, error) {
 func (_j *CodeEditorLanguage) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("CodeEditorLanguage cannot be derived from empty string")
+		return errors.New("CodeEditorLanguage cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -210,7 +211,7 @@ func (_j *CodeEditorLanguage) UnmarshalYAML(unmarshal func(interface{}) error) e
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("CodeEditorLanguage cannot be derived from empty string")
+		return errors.New("CodeEditorLanguage cannot be derived from empty string")
 	}
 
 	var ok bool

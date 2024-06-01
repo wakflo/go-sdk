@@ -17,6 +17,6 @@ package core
 type DynamicOptionsContext struct {
 	Auth          *AuthContext   `json:"auth,omitempty"`
 	Step          *ConnectorStep `json:"step,omitempty"`
-	Input         JsonObject     `json:"input"`
+	Input         JSONObject     `json:"input"`
 	ResolvedInput any            `json:"resolvedInput"`
 }

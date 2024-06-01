@@ -16,7 +16,6 @@ package autoform
 
 import (
 	sdkcore "github.com/wakflo/go-sdk/core"
-	"sync"
 )
 
 type BaseComponentField struct {
@@ -31,7 +30,6 @@ func NewBaseComponentField() *BaseComponentField {
 }
 
 type DefaultBaseComponentField struct {
-	mu       sync.Mutex
 	schema   *sdkcore.AutoFormSchema
 	builder  *SchemaBuilder
 	Required bool

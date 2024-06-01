@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -26,10 +27,10 @@ type TestStatus string
 
 const (
 	Fail TestStatus = "fail"
-	Pass            = "pass"
+	Pass TestStatus = "pass"
 )
 
-func (TestStatus) SqlTypeName() string {
+func (TestStatus) SQLTypeName() string {
 	return "test_status"
 }
 
@@ -76,7 +77,7 @@ func (_j TestStatus) MarshalBinary() ([]byte, error) {
 func (_j *TestStatus) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("TestStatus cannot be derived from empty string")
+		return errors.New("TestStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -89,7 +90,7 @@ func (_j *TestStatus) UnmarshalBinary(text []byte) error {
 
 // MarshalGQL implements the graphql.Marshaler interface for TestStatus.
 func (_j TestStatus) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(_j.String()))
+	_, _ = fmt.Fprint(w, strconv.Quote(_j.String()))
 }
 
 // UnmarshalGQL implements the graphql.Unmarshaler interface for TestStatus.
@@ -106,7 +107,7 @@ func (_j *TestStatus) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of TestStatus: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TestStatus cannot be derived from empty string")
+		return errors.New("TestStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -132,7 +133,7 @@ func (_j *TestStatus) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("TestStatus should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TestStatus cannot be derived from empty string")
+		return errors.New("TestStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -157,7 +158,7 @@ func (_j *TestStatus) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of TestStatus: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TestStatus cannot be derived from empty string")
+		return errors.New("TestStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -180,7 +181,7 @@ func (_j TestStatus) MarshalText() ([]byte, error) {
 func (_j *TestStatus) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("TestStatus cannot be derived from empty string")
+		return errors.New("TestStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -206,7 +207,7 @@ func (_j *TestStatus) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TestStatus cannot be derived from empty string")
+		return errors.New("TestStatus cannot be derived from empty string")
 	}
 
 	var ok bool

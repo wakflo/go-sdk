@@ -14,13 +14,14 @@
 
 package core
 
-//MULTI_SELECT_DROPDOWN = 'MULTI_SELECT_DROPDOWN',
-//STATIC_MULTI_SELECT_DROPDOWN = 'STATIC_MULTI_SELECT_DROPDOWN',
-//DYNAMIC = 'DYNAMIC',
-//CUSTOM_AUTH = 'CUSTOM_AUTH',
+// MULTI_SELECT_DROPDOWN = 'MULTI_SELECT_DROPDOWN',
+// STATIC_MULTI_SELECT_DROPDOWN = 'STATIC_MULTI_SELECT_DROPDOWN',
+// DYNAMIC = 'DYNAMIC',
+// CUSTOM_AUTH = 'CUSTOM_AUTH',
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -31,32 +32,32 @@ type AutoFormFieldType string
 
 const (
 	ShortTextType      AutoFormFieldType = "short_text"
-	LongTextType                         = "long_text"
-	MarkdownType                         = "markdown"
-	DropdownType                         = "dropdown"
-	MultiSelectType                      = "multi_select"
-	StaticDropdownType                   = "static_dropdown"
-	NumberType                           = "number"
-	CheckboxType                         = "checkbox"
-	Oauth2Type                           = "oauth"
-	SecretTextType                       = "secret"
-	ArrayType                            = "array"
-	GroupArrayType                       = "group-array"
-	ObjectType                           = "fieldset"
-	BasicAuthType                        = "basic_auth"
-	JsonType                             = "json"
-	DateTimeType                         = "datetime"
-	FileType                             = "file"
-	FileStringType                       = "file_string"
-	BooleanType                          = "boolean"
-	DynamicType                          = "dynamic"
-	CodeEditorType                       = "code"
-	RichTextType                         = "richtext"
-	BranchType                           = "branch"
-	WrapperType                          = "wrapper"
+	LongTextType       AutoFormFieldType = "long_text"
+	MarkdownType       AutoFormFieldType = "markdown"
+	DropdownType       AutoFormFieldType = "dropdown"
+	MultiSelectType    AutoFormFieldType = "multi_select"
+	StaticDropdownType AutoFormFieldType = "static_dropdown"
+	NumberType         AutoFormFieldType = "number"
+	CheckboxType       AutoFormFieldType = "checkbox"
+	Oauth2Type         AutoFormFieldType = "oauth"
+	SecretTextType     AutoFormFieldType = "secret"
+	ArrayType          AutoFormFieldType = "array"
+	GroupArrayType     AutoFormFieldType = "group-array"
+	ObjectType         AutoFormFieldType = "fieldset"
+	BasicAuthType      AutoFormFieldType = "basic_auth"
+	JSONType           AutoFormFieldType = "json"
+	DateTimeType       AutoFormFieldType = "datetime"
+	FileType           AutoFormFieldType = "file"
+	FileStringType     AutoFormFieldType = "file_string"
+	BooleanType        AutoFormFieldType = "boolean"
+	DynamicType        AutoFormFieldType = "dynamic"
+	CodeEditorType     AutoFormFieldType = "code"
+	RichTextType       AutoFormFieldType = "richtext"
+	BranchType         AutoFormFieldType = "branch"
+	WrapperType        AutoFormFieldType = "wrapper"
 )
 
-func (AutoFormFieldType) SqlTypeName() string {
+func (AutoFormFieldType) SQLTypeName() string {
 	return "auth_type"
 }
 
@@ -125,7 +126,7 @@ func (_j AutoFormFieldType) MarshalBinary() ([]byte, error) {
 func (_j *AutoFormFieldType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("AutoFormFieldType cannot be derived from empty string")
+		return errors.New("AutoFormFieldType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -155,7 +156,7 @@ func (_j *AutoFormFieldType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of AutoFormFieldType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AutoFormFieldType cannot be derived from empty string")
+		return errors.New("AutoFormFieldType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -181,7 +182,7 @@ func (_j *AutoFormFieldType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("AutoFormFieldType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AutoFormFieldType cannot be derived from empty string")
+		return errors.New("AutoFormFieldType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -206,7 +207,7 @@ func (_j *AutoFormFieldType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of AutoFormFieldType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AutoFormFieldType cannot be derived from empty string")
+		return errors.New("AutoFormFieldType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -229,7 +230,7 @@ func (_j AutoFormFieldType) MarshalText() ([]byte, error) {
 func (_j *AutoFormFieldType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("AutoFormFieldType cannot be derived from empty string")
+		return errors.New("AutoFormFieldType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -255,7 +256,7 @@ func (_j *AutoFormFieldType) UnmarshalYAML(unmarshal func(interface{}) error) er
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("AutoFormFieldType cannot be derived from empty string")
+		return errors.New("AutoFormFieldType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -304,7 +305,7 @@ var (
 		"group-array":     GroupArrayType,
 		"fieldset":        ObjectType,
 		"basic_auth":      BasicAuthType,
-		"json":            JsonType,
+		"json":            JSONType,
 		"datetime":        DateTimeType,
 		"file":            FileType,
 		"file_string":     FileStringType,
@@ -330,7 +331,7 @@ var (
 		"group-array":     GroupArrayType,
 		"fieldset":        ObjectType,
 		"basic_auth":      BasicAuthType,
-		"json":            JsonType,
+		"json":            JSONType,
 		"datetime":        DateTimeType,
 		"file":            FileType,
 		"file_string":     FileStringType,

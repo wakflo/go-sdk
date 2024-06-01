@@ -35,7 +35,7 @@ const (
 	Loop
 )
 
-func (ConnectorType) SqlTypeName() string {
+func (ConnectorType) SQLTypeName() string {
 	return "connector_type"
 }
 
@@ -48,6 +48,6 @@ const (
 	Plugin
 )
 
-func (ConnectorPlatform) SqlTypeName() string {
+func (ConnectorPlatform) SQLTypeName() string {
 	return "connector_platform"
 }

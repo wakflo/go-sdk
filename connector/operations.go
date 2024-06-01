@@ -16,6 +16,7 @@ package sdk
 
 import (
 	"context"
+
 	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
@@ -28,7 +29,7 @@ type OperationInfo struct {
 	Input map[string]*sdkcore.AutoFormSchema `json:"input,omitempty"`
 	// Auth holds the value of the "auth" field.
 	Auth          *sdkcore.AutoFormSchema   `json:"auth"`
-	SampleOutput  sdkcore.JsonObject        `json:"sample_output"`
+	SampleOutput  sdkcore.JSONObject        `json:"sample_output"`
 	ErrorSettings sdkcore.StepErrorSettings `json:"error_settings"`
 	RequireAuth   bool                      `json:"require_auth"`
 }
@@ -55,8 +56,8 @@ type CreateIOperationArgs struct {
 	Input       *map[string]interface{}
 	Output      *map[string]interface{}
 
-	Run                *func(ctx context.Context) (Json, error)
-	Auth               *func(ctx context.Context) (Json, error)
-	Test               *func(ctx context.Context) (Json, error)
-	GenerateSampleData *func(ctx context.Context) (Json, error)
+	Run                *func(ctx context.Context) (JSON, error)
+	Auth               *func(ctx context.Context) (JSON, error)
+	Test               *func(ctx context.Context) (JSON, error)
+	GenerateSampleData *func(ctx context.Context) (JSON, error)
 }

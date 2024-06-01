@@ -23,21 +23,19 @@ import (
 	"strconv"
 )
 
-var (
-	ErrNoValidEnum = errors.New("not a valid enum")
-)
+var ErrNoValidEnum = errors.New("not a valid enum")
 
 type ConnectorCategory string
 
 const (
 	Apps    ConnectorCategory = "apps"
-	Core                      = "core"
-	AI                        = "ai"
-	Scripts                   = "scripts"
-	Tools                     = "tools"
+	Core    ConnectorCategory = "core"
+	AI      ConnectorCategory = "ai"
+	Scripts ConnectorCategory = "scripts"
+	Tools   ConnectorCategory = "tools"
 )
 
-func (ConnectorCategory) SqlTypeName() string {
+func (ConnectorCategory) SQLTypeName() string {
 	return "connector_category"
 }
 
@@ -87,7 +85,7 @@ func (_j ConnectorCategory) MarshalBinary() ([]byte, error) {
 func (_j *ConnectorCategory) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("ConnectorCategory cannot be derived from empty string")
+		return errors.New("ConnectorCategory cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -117,7 +115,7 @@ func (_j *ConnectorCategory) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of ConnectorCategory: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ConnectorCategory cannot be derived from empty string")
+		return errors.New("ConnectorCategory cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -143,7 +141,7 @@ func (_j *ConnectorCategory) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("ConnectorCategory should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ConnectorCategory cannot be derived from empty string")
+		return errors.New("ConnectorCategory cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -168,7 +166,7 @@ func (_j *ConnectorCategory) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of ConnectorCategory: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ConnectorCategory cannot be derived from empty string")
+		return errors.New("ConnectorCategory cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -191,7 +189,7 @@ func (_j ConnectorCategory) MarshalText() ([]byte, error) {
 func (_j *ConnectorCategory) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("ConnectorCategory cannot be derived from empty string")
+		return errors.New("ConnectorCategory cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -217,7 +215,7 @@ func (_j *ConnectorCategory) UnmarshalYAML(unmarshal func(interface{}) error) er
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ConnectorCategory cannot be derived from empty string")
+		return errors.New("ConnectorCategory cannot be derived from empty string")
 	}
 
 	var ok bool

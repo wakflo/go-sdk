@@ -15,15 +15,16 @@
 package core
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	stepsenum "github.com/wakflo/go-sdk/core/stepsenums"
-	"time"
 )
 
 type WorkflowSettings struct {
 	Config  map[string]interface{} `json:"config"`
 	LastRun *time.Time             `json:"LastRun"`
-	//OutputSchema jsonschema4.JsonSchema4 `json:"output_schema"`
+	// OutputSchema jsonschema4.JsonSchema4 `json:"output_schema"`
 }
 
 // StepEdge is the graph edge reference of the steps
@@ -67,7 +68,7 @@ type ConnectorStepPosition struct {
 
 type ConnectorStepData struct {
 	OperationID      *string             `json:"operationId"`
-	AuthConnectionId *uuid.UUID          `json:"authConnectionId"`
+	AuthConnectionID *uuid.UUID          `json:"authConnectionId"`
 	Properties       ConnectorProperties `json:"properties"`
 }
 
@@ -115,8 +116,8 @@ type ConnectorStep struct {
 
 	Metadata ConnectorStepMetadata `json:"metadata,omitempty"`
 
-	// ParentId of the step
-	ParentId *string `json:"parentId,omitempty"`
+	// ParentID of the step
+	ParentID *string `json:"parentId,omitempty"`
 
 	// ErrorSettings of the step
 	ErrorSettings StepErrorSettings `json:"errorSettings,omitempty"`
@@ -146,8 +147,7 @@ type TriggerPubSubConfig struct {
 	Endpoint string `json:"endpoint,omitempty"`
 }
 
-type TriggerManualConfig struct {
-}
+type TriggerManualConfig struct{}
 
 type TriggerScheduledConfig struct {
 	// Field of the step

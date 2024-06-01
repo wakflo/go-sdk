@@ -25,7 +25,7 @@ const (
 	Custom
 )
 
-func (AuthHandlerType) SqlTypeName() string {
+func (AuthHandlerType) SQLTypeName() string {
 	return "auth_handler_type"
 }
 
@@ -36,7 +36,7 @@ const (
 	Basic AuthType = iota
 	Digest
 	OAuth
-	ApiKey
+	APIKey
 	BearerToken
 )
 

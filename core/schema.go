@@ -23,13 +23,13 @@ type AutoFormType string
 
 const (
 	Undefined AutoFormType = "undefined"
-	String                 = "string"
-	Number                 = "number"
-	Object                 = "object"
-	Array                  = "array"
-	Boolean                = "boolean"
-	Nullable               = "null"
-	Integer                = "integer"
+	String    AutoFormType = "string"
+	Number    AutoFormType = "number"
+	Object    AutoFormType = "object"
+	Array     AutoFormType = "array"
+	Boolean   AutoFormType = "boolean"
+	Nullable  AutoFormType = "null"
+	Integer   AutoFormType = "integer"
 )
 
 func (s AutoFormType) String() string {
@@ -117,8 +117,8 @@ type AutoFormSchema struct {
 	Then *AutoFormSchema `json:"then,omitempty"`
 
 	Scope    []string `json:"scope,omitempty"`
-	TokenUrl *string  `json:"tokenUrl,omitempty"`
-	AuthUrl  *string  `json:"authUrl,omitempty"`
+	TokenURL *string  `json:"tokenUrl,omitempty"`
+	AuthURL  *string  `json:"authUrl,omitempty"`
 
 	Username *string `json:"username,omitempty"`
 	Password *string `json:"password,omitempty"`
@@ -181,10 +181,6 @@ type AutoFormFieldSelectOptions struct {
 	Value    string `json:"value"`
 	Label    string `json:"label"`
 	Metadata any    `json:"metadata,omitempty"`
-}
-
-type DynamicOptionsLinker struct {
-	dynamicOptionsFn DynamicOptionsFn
 }
 
 type DynamicOptionsFn = func(ctx *DynamicOptionsContext) (interface{}, error)

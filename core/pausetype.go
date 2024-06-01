@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -29,7 +30,7 @@ const (
 	WebhookPause PauseType = "WEBHOOK"
 )
 
-func (PauseType) SqlTypeName() string {
+func (PauseType) SQLTypeName() string {
 	return "run_pause_type"
 }
 
@@ -76,7 +77,7 @@ func (_j PauseType) MarshalBinary() ([]byte, error) {
 func (_j *PauseType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("PauseType cannot be derived from empty string")
+		return errors.New("PauseType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -106,7 +107,7 @@ func (_j *PauseType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of PauseType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("PauseType cannot be derived from empty string")
+		return errors.New("PauseType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -132,7 +133,7 @@ func (_j *PauseType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("PauseType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("PauseType cannot be derived from empty string")
+		return errors.New("PauseType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -157,7 +158,7 @@ func (_j *PauseType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of PauseType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("PauseType cannot be derived from empty string")
+		return errors.New("PauseType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -180,7 +181,7 @@ func (_j PauseType) MarshalText() ([]byte, error) {
 func (_j *PauseType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("PauseType cannot be derived from empty string")
+		return errors.New("PauseType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -206,7 +207,7 @@ func (_j *PauseType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("PauseType cannot be derived from empty string")
+		return errors.New("PauseType cannot be derived from empty string")
 	}
 
 	var ok bool

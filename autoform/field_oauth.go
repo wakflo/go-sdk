@@ -24,7 +24,7 @@ type OAuthField struct {
 	props map[string]sdkcore.AutoFormSchema
 }
 
-func NewOAuthField(authUrl string, tokenUrl *string, scopes []string) *OAuthField {
+func NewOAuthField(authURL string, tokenURL *string, scopes []string) *OAuthField {
 	c := &OAuthField{
 		BaseComponentField: NewBaseComponentField(),
 		props:              map[string]sdkcore.AutoFormSchema{},
@@ -39,8 +39,8 @@ func NewOAuthField(authUrl string, tokenUrl *string, scopes []string) *OAuthFiel
 	c.builder.schema.Presentation.Required = required
 	c.builder.schema.IsRequired = required
 
-	c.builder.schema.AuthUrl = &authUrl
-	c.builder.schema.TokenUrl = tokenUrl
+	c.builder.schema.AuthURL = &authURL
+	c.builder.schema.TokenURL = tokenURL
 	c.builder.schema.Scope = scopes
 
 	return c
@@ -68,13 +68,13 @@ func (b *OAuthField) setProps() *OAuthField {
 		"appUrl": NewShortTextField().
 			SetDisplayName("app url").
 			SetDescription("oauth app url").
-			SetDefaultValue(*b.builder.schema.AuthUrl).
+			SetDefaultValue(*b.builder.schema.AuthURL).
 			SetRequired(true).Build(),
 
 		"tokenUrl": NewShortTextField().
 			SetDisplayName("token url").
 			SetDescription("oauth token url").
-			SetDefaultValue(*b.builder.schema.TokenUrl).
+			SetDefaultValue(*b.builder.schema.TokenURL).
 			SetRequired(false).Build(),
 
 		"scope": NewShortTextField().

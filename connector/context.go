@@ -20,12 +20,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"time"
+
 	valid "github.com/asaskevich/govalidator"
 	"github.com/cavaliergopher/grab/v3"
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/wakflo/go-sdk/autoform"
 	sdkcore "github.com/wakflo/go-sdk/core"
-	"time"
 )
 
 // IRunnable is an interface that represents a runnable entity.
@@ -33,17 +34,17 @@ import (
 // Test runs a test of the runnable entity with the provided context, and returns the result as a JSON object or an error.
 type IRunnable interface {
 	// Run executes the runnable entity with the provided context and run context, and returns the result as a JSON object or an error.
-	Run(ctx *RunContext) (Json, error)
+	Run(ctx *RunContext) (JSON, error)
 
 	// Test runs a test of the runnable entity with the provided context, and returns the result as a JSON object or an error.
-	Test(ctx *RunContext) (Json, error)
+	Test(ctx *RunContext) (JSON, error)
 }
 
 // PauseMetadata represents metadata for pausing execution.
 //
 // Type represents the type of pause, which can be either "DELAY" or "WEBHOOK".
 // ResumeAt is an optional field that represents the time at which the execution should resume.
-// RequestId is an optional field that represents the ID of the request associated with the pause.
+// RequestID is an optional field that represents the ID of the request associated with the pause.
 // Response is an optional field that represents the response associated with the pause.
 //
 // Example usage:
@@ -51,7 +52,7 @@ type IRunnable interface {
 //	metadata := PauseMetadata{
 //	   Type:      sdkcore.PauseType("DELAY"),
 //	   ResumeAt:  &time.Time{},
-//	   RequestId: &"requestID",
+//	   RequestID: &"requestID",
 //	   Response:  &any{},
 //	}
 //
@@ -63,7 +64,7 @@ type IRunnable interface {
 //
 // RunContext.PauseExecution is a method that accepts PauseMetadata as a parameter:
 //
-//	func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (Json, error) {
+//	func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (JSON, error) {
 //	   rctx.isPaused = true
 //	   rctx.pausedTime = metadata.ResumeAt
 //	   return &PauseMetadataFull{
@@ -78,7 +79,7 @@ type IRunnable interface {
 //	   Auth          *sdkcore.AuthContext         `json:"auth"`
 //	   State         *sdkcore.StepsState          `json:"state"`
 //	   Workflow      *sdkcore.WorkflowRunMetadata `json:"workflow"`
-//	   Input         sdkcore.JsonObject           `json:"input"`
+//	   Input         sdkcore.JSONObject           `json:"input"`
 //	   ResolvedInput any                          `json:"resolvedInput"`
 //	   LastRun       *time.Time                   `json:"lastRun"`
 //	   Files         sdkcore.FileManager
@@ -89,11 +90,11 @@ type IRunnable interface {
 //	   pausedTime    *time.Time
 //	}
 //
-// Json is an alias for any:
-// type Json = any
+// JSON is an alias for any:
+// type JSON = any
 //
 // sdkcore.PauseType is a type that represents the pause type and has the following methods:
-// - SqlTypeName() string
+// - SQLTypeName() string
 // - Values() []string
 // - IsValid() bool
 // - Validate() error
@@ -112,7 +113,7 @@ type IRunnable interface {
 type PauseMetadata struct {
 	Type      sdkcore.PauseType `json:"type"`
 	ResumeAt  *time.Time        `json:"resumeAt"`
-	RequestId *string           `json:"requestId"`
+	RequestID *string           `json:"requestId"`
 	Response  *any              `json:"response"`
 }
 
@@ -122,7 +123,7 @@ type PauseMetadata struct {
 //	type PauseMetadata struct {
 //		Type      sdkcore.PauseType `json:"type"`
 //		ResumeAt  *time.Time        `json:"resumeAt"`
-//		RequestId *string           `json:"requestId"`
+//		RequestID *string           `json:"requestId"`
 //		Response  *any              `json:"response"`
 //	}
 //
@@ -135,7 +136,7 @@ type PauseMetadata struct {
 // This type is used in the RunContext.PauseExecution method to represent the metadata of a pause execution.
 // Usage example:
 //
-//	func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (Json, error) {
+//	func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (JSON, error) {
 //		rctx.isPaused = true
 //		rctx.pausedTime = metadata.ResumeAt
 //		return &PauseMetadataFull{
@@ -162,7 +163,7 @@ type RunContext struct {
 	Auth          *sdkcore.AuthContext         `json:"auth"`
 	State         *sdkcore.StepsState          `json:"state"`
 	Workflow      *sdkcore.WorkflowRunMetadata `json:"workflow"`
-	Input         sdkcore.JsonObject           `json:"input"`
+	Input         sdkcore.JSONObject           `json:"input"`
 	ResolvedInput any                          `json:"resolvedInput"`
 	LastRun       *time.Time                   `json:"lastRun"`
 	Files         sdkcore.FileManager
@@ -186,7 +187,7 @@ func (rctx *RunContext) IsPaused() bool {
 // PauseExecution pauses the execution of the RunContext.
 // It sets the isPaused field of the RunContext to true and the pausedTime field to the provided resume time from the PauseMetadata.
 // It returns a pointer to a PauseMetadataFull object and nil error.
-func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (Json, error) {
+func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (JSON, error) {
 	rctx.isPaused = true
 	rctx.pausedTime = metadata.ResumeAt
 	return &PauseMetadataFull{

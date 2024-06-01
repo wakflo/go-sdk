@@ -17,6 +17,7 @@ package sdk
 import (
 	"context"
 	"errors"
+
 	"github.com/robfig/cron/v3"
 	"github.com/wakflo/go-sdk/autoform"
 	sdkcore "github.com/wakflo/go-sdk/core"
@@ -176,15 +177,15 @@ func ValidateConnectorInfo(info *CreateConnectorArgs) error {
 		return errors.New("connector options missing")
 	}
 
-	if len(info.Name) < 0 {
+	if len(info.Name) < 1 {
 		return errors.New("connector name missing")
 	}
 
-	if len(info.Description) < 0 {
+	if len(info.Description) < 1 {
 		return errors.New("connector description missing")
 	}
 
-	if len(info.Version) < 0 {
+	if len(info.Version) < 1 {
 		return errors.New("connector version missing")
 	}
 
@@ -198,11 +199,11 @@ func ValidateTriggerInfo(info *TriggerInfo) error {
 		return errors.New("trigger info missing")
 	}
 
-	if len(info.Name) < 0 {
+	if len(info.Name) < 1 {
 		return errors.New("trigger info name missing")
 	}
 
-	if len(info.Description) < 0 {
+	if len(info.Description) < 1 {
 		return errors.New("trigger info description missing")
 	}
 
@@ -217,11 +218,11 @@ func ValidateOperationInfo(info *OperationInfo) error {
 		return errors.New("operation info missing")
 	}
 
-	if len(info.Name) < 0 {
+	if len(info.Name) < 1 {
 		return errors.New("operation info name missing")
 	}
 
-	if len(info.Description) < 0 {
+	if len(info.Description) < 1 {
 		return errors.New("operation info description missing")
 	}
 

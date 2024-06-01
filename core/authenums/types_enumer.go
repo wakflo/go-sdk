@@ -547,7 +547,7 @@ func _AuthTypeNoOp() {
 	_ = x[Basic-(0)]
 	_ = x[Digest-(1)]
 	_ = x[OAuth-(2)]
-	_ = x[ApiKey-(3)]
+	_ = x[APIKey-(3)]
 	_ = x[BearerToken-(4)]
 }
 
@@ -592,14 +592,14 @@ var (
 		_AuthTypeString[0:5]:   Basic,
 		_AuthTypeString[5:11]:  Digest,
 		_AuthTypeString[11:17]: OAuth,
-		_AuthTypeString[17:24]: ApiKey,
+		_AuthTypeString[17:24]: APIKey,
 		_AuthTypeString[24:36]: BearerToken,
 	}
 	_AuthTypeLowerStringToValueMap = map[string]AuthType{
 		_AuthTypeLowerString[0:5]:   Basic,
 		_AuthTypeLowerString[5:11]:  Digest,
 		_AuthTypeLowerString[11:17]: OAuth,
-		_AuthTypeLowerString[17:24]: ApiKey,
+		_AuthTypeLowerString[17:24]: APIKey,
 		_AuthTypeLowerString[24:36]: BearerToken,
 	}
 )

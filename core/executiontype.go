@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -29,7 +30,7 @@ const (
 	Resume ExecutionType = "RESUME"
 )
 
-func (ExecutionType) SqlTypeName() string {
+func (ExecutionType) SQLTypeName() string {
 	return "trigger_hook_type"
 }
 
@@ -76,7 +77,7 @@ func (_j ExecutionType) MarshalBinary() ([]byte, error) {
 func (_j *ExecutionType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("ExecutionType cannot be derived from empty string")
+		return errors.New("ExecutionType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -106,7 +107,7 @@ func (_j *ExecutionType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of ExecutionType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ExecutionType cannot be derived from empty string")
+		return errors.New("ExecutionType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -132,7 +133,7 @@ func (_j *ExecutionType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("ExecutionType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ExecutionType cannot be derived from empty string")
+		return errors.New("ExecutionType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -157,7 +158,7 @@ func (_j *ExecutionType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of ExecutionType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ExecutionType cannot be derived from empty string")
+		return errors.New("ExecutionType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -180,7 +181,7 @@ func (_j ExecutionType) MarshalText() ([]byte, error) {
 func (_j *ExecutionType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("ExecutionType cannot be derived from empty string")
+		return errors.New("ExecutionType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -206,7 +207,7 @@ func (_j *ExecutionType) UnmarshalYAML(unmarshal func(interface{}) error) error 
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("ExecutionType cannot be derived from empty string")
+		return errors.New("ExecutionType cannot be derived from empty string")
 	}
 
 	var ok bool

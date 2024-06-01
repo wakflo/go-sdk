@@ -36,8 +36,8 @@ jobs:
       - name: Test
         run: make test
 
-      - name: Cover
-        uses: codecov/codecov-action@v4
+#      - name: Cover
+#        uses: codecov/codecov-action@v4
 
       - name: Lint
         uses: golangci/golangci-lint-action@v3.3.1

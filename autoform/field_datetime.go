@@ -15,8 +15,9 @@
 package autoform
 
 import (
-	sdkcore "github.com/wakflo/go-sdk/core"
 	"time"
+
+	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
 type DateTimeField struct {

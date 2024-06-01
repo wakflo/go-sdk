@@ -45,7 +45,7 @@ func (b *InputMapField) Build() *sdkcore.AutoFormSchema {
 
 func (b *InputMapField) SetProperties(properties map[string]*sdkcore.AutoFormSchema) *InputMapField {
 	var required []string
-	var order []string
+	order := make([]string, 0, len(properties))
 
 	for key, schema := range properties {
 		order = append(order, key)
@@ -59,6 +59,7 @@ func (b *InputMapField) SetProperties(properties map[string]*sdkcore.AutoFormSch
 	b.builder.WithOrder(order)
 	return b
 }
+
 func (b *InputMapField) SetOrder(order []string) *InputMapField {
 	b.builder.WithOrder(order)
 	return b

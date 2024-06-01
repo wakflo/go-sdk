@@ -23,23 +23,21 @@ import (
 	"strconv"
 )
 
-var (
-	ErrNoValidEnum = errors.New("not a valid enum")
-)
+var ErrNoValidEnum = errors.New("not a valid enum")
 
 type JobStatus string
 
 const (
 	Queued     JobStatus = "queued"
-	Running              = "running"
-	Completed            = "completed"
-	Cancelling           = "cancelling"
-	Canceled             = "canceled"
-	Failed               = "failed"
-	Paused               = "paused"
+	Running    JobStatus = "running"
+	Completed  JobStatus = "completed"
+	Cancelling JobStatus = "cancelling"
+	Canceled   JobStatus = "canceled"
+	Failed     JobStatus = "failed"
+	Paused     JobStatus = "paused"
 )
 
-func (JobStatus) SqlTypeName() string {
+func (JobStatus) SQLTypeName() string {
 	return "job_status"
 }
 
@@ -91,7 +89,7 @@ func (_j JobStatus) MarshalBinary() ([]byte, error) {
 func (_j *JobStatus) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("JobStatus cannot be derived from empty string")
+		return errors.New("JobStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -121,7 +119,7 @@ func (_j *JobStatus) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of JobStatus: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("JobStatus cannot be derived from empty string")
+		return errors.New("JobStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -147,7 +145,7 @@ func (_j *JobStatus) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("JobStatus should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("JobStatus cannot be derived from empty string")
+		return errors.New("JobStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -172,7 +170,7 @@ func (_j *JobStatus) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of JobStatus: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("JobStatus cannot be derived from empty string")
+		return errors.New("JobStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -195,7 +193,7 @@ func (_j JobStatus) MarshalText() ([]byte, error) {
 func (_j *JobStatus) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("JobStatus cannot be derived from empty string")
+		return errors.New("JobStatus cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -221,7 +219,7 @@ func (_j *JobStatus) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("JobStatus cannot be derived from empty string")
+		return errors.New("JobStatus cannot be derived from empty string")
 	}
 
 	var ok bool

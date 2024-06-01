@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -26,13 +27,13 @@ type TriggerType string
 
 const (
 	Scheduled TriggerType = "scheduled"
-	Event                 = "event"
-	PubSub                = "pubsub"
-	Manual                = "manual"
-	Webhook               = "webhook"
+	Event     TriggerType = "event"
+	PubSub    TriggerType = "pubsub"
+	Manual    TriggerType = "manual"
+	Webhook   TriggerType = "webhook"
 )
 
-func (TriggerType) SqlTypeName() string {
+func (TriggerType) SQLTypeName() string {
 	return "trigger_type"
 }
 
@@ -82,7 +83,7 @@ func (_j TriggerType) MarshalBinary() ([]byte, error) {
 func (_j *TriggerType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerType cannot be derived from empty string")
+		return errors.New("TriggerType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -112,7 +113,7 @@ func (_j *TriggerType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of TriggerType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerType cannot be derived from empty string")
+		return errors.New("TriggerType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -138,7 +139,7 @@ func (_j *TriggerType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("TriggerType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerType cannot be derived from empty string")
+		return errors.New("TriggerType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -163,7 +164,7 @@ func (_j *TriggerType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of TriggerType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerType cannot be derived from empty string")
+		return errors.New("TriggerType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -186,7 +187,7 @@ func (_j TriggerType) MarshalText() ([]byte, error) {
 func (_j *TriggerType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerType cannot be derived from empty string")
+		return errors.New("TriggerType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -212,7 +213,7 @@ func (_j *TriggerType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerType cannot be derived from empty string")
+		return errors.New("TriggerType cannot be derived from empty string")
 	}
 
 	var ok bool

@@ -16,6 +16,7 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"slices"
@@ -32,7 +33,7 @@ const (
 	Renew      TriggerHookType = "RENEW"
 )
 
-func (TriggerHookType) SqlTypeName() string {
+func (TriggerHookType) SQLTypeName() string {
 	return "trigger_hook_type"
 }
 
@@ -82,7 +83,7 @@ func (_j TriggerHookType) MarshalBinary() ([]byte, error) {
 func (_j *TriggerHookType) UnmarshalBinary(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerHookType cannot be derived from empty string")
+		return errors.New("TriggerHookType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -112,7 +113,7 @@ func (_j *TriggerHookType) UnmarshalGQL(value interface{}) error {
 		return fmt.Errorf("invalid value of TriggerHookType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerHookType cannot be derived from empty string")
+		return errors.New("TriggerHookType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -138,7 +139,7 @@ func (_j *TriggerHookType) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("TriggerHookType should be a string, got %q", data)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerHookType cannot be derived from empty string")
+		return errors.New("TriggerHookType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -163,7 +164,7 @@ func (_j *TriggerHookType) Scan(value interface{}) error {
 		return fmt.Errorf("invalid value of TriggerHookType: %[1]T(%[1]v)", value)
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerHookType cannot be derived from empty string")
+		return errors.New("TriggerHookType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -186,7 +187,7 @@ func (_j TriggerHookType) MarshalText() ([]byte, error) {
 func (_j *TriggerHookType) UnmarshalText(text []byte) error {
 	str := string(text)
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerHookType cannot be derived from empty string")
+		return errors.New("TriggerHookType cannot be derived from empty string")
 	}
 
 	var ok bool
@@ -212,7 +213,7 @@ func (_j *TriggerHookType) UnmarshalYAML(unmarshal func(interface{}) error) erro
 		return err
 	}
 	if len(str) == 0 {
-		return fmt.Errorf("TriggerHookType cannot be derived from empty string")
+		return errors.New("TriggerHookType cannot be derived from empty string")
 	}
 
 	var ok bool
