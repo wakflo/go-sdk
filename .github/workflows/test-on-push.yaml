@@ -1,5 +1,12 @@
 name: Test
 
+permissions:
+  id-token: write # Enable OIDC
+  pull-requests: write
+  contents: write
+  packages: write
+  issues: write
+
 on:
   push:
   pull_request:
@@ -49,3 +56,21 @@ jobs:
         run: make modtidy check-diff
       - name: Run go mod tidy
         run: make modtidy
+
+  prerelease:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Release
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: go
+          package-name: go-sdk
+          default-branch: main
+          signoff: "xraph <rex@wakflo.com>"
+          token: ${{ secrets.GIT_RELEASE_TOKEN }} # <-- PAT secret name
