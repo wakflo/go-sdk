@@ -52,9 +52,9 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: Automatic Go Wakflo SDK release
-          draft: false
-          prerelease: false
+#          body: Automatic Go Wakflo SDK release
+#          draft: false
+#          prerelease: false
 
 #      - name: Notify
 #        uses: rjstone/discord-webhook-notify@v1
