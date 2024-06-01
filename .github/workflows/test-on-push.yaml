@@ -70,6 +70,7 @@ jobs:
         uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
           token: ${{ secrets.GIT_RELEASE_TOKEN }} # <-- PAT secret name
 #      - name: tag major and minor versions
 #        if: ${{ steps.release.outputs.release_created }}
