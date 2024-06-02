@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/wakflo/go-sdk/compare/v0.2.0...v0.2.1) (2024-06-02)
+
+
+### Bug Fixes
+
+* downgraded mod go version ([dd8ac9b](https://github.com/wakflo/go-sdk/commit/dd8ac9b64c7e39874e712751168b2fbeffdcc5eb))
+* downgraded mod go version ([4e9ab7f](https://github.com/wakflo/go-sdk/commit/4e9ab7fc0a18199aa6d7e36130d21e3e3808a9bd))
+
 ## [0.2.0](https://github.com/wakflo/go-sdk/compare/v0.1.0...v0.2.0) (2024-06-01)
 
 
