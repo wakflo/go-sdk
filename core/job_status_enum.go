@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package jobstatusenum
+package core
 
 import (
 	"encoding/json"
@@ -23,18 +23,16 @@ import (
 	"strconv"
 )
 
-var ErrNoValidEnum = errors.New("not a valid enum")
-
 type JobStatus string
 
 const (
-	Queued     JobStatus = "queued"
-	Running    JobStatus = "running"
-	Completed  JobStatus = "completed"
-	Cancelling JobStatus = "cancelling"
-	Canceled   JobStatus = "canceled"
-	Failed     JobStatus = "failed"
-	Paused     JobStatus = "paused"
+	JobStatusQueued     JobStatus = "queued"
+	JobStatusRunning    JobStatus = "running"
+	JobStatusCompleted  JobStatus = "completed"
+	JobStatusCancelling JobStatus = "cancelling"
+	JobStatusCanceled   JobStatus = "canceled"
+	JobStatusFailed     JobStatus = "failed"
+	JobStatusPaused     JobStatus = "paused"
 )
 
 func (JobStatus) SQLTypeName() string {
@@ -234,7 +232,7 @@ func (_j *JobStatus) UnmarshalYAML(unmarshal func(interface{}) error) error {
 func JobStatusFromString(raw string) (JobStatus, bool) {
 	v, ok := _JobStatusStringToValueMap[raw]
 	if !ok {
-		return Queued, false
+		return JobStatusQueued, false
 	}
 	return v, true
 }
@@ -254,21 +252,21 @@ func JobStatusFromStringIgnoreCase(raw string) (JobStatus, bool) {
 
 var (
 	_JobStatusStringToValueMap = map[string]JobStatus{
-		"queued":     Queued,
-		"running":    Running,
-		"completed":  Completed,
-		"cancelling": Cancelling,
-		"canceled":   Canceled,
-		"failed":     Failed,
-		"paused":     Paused,
+		"queued":     JobStatusQueued,
+		"running":    JobStatusRunning,
+		"completed":  JobStatusCompleted,
+		"cancelling": JobStatusCancelling,
+		"canceled":   JobStatusCanceled,
+		"failed":     JobStatusFailed,
+		"paused":     JobStatusPaused,
 	}
 	_JobStatusLowerStringToValueMap = map[string]JobStatus{
-		"queued":     Queued,
-		"running":    Running,
-		"completed":  Completed,
-		"cancelling": Cancelling,
-		"canceled":   Canceled,
-		"failed":     Failed,
-		"paused":     Paused,
+		"queued":     JobStatusQueued,
+		"running":    JobStatusRunning,
+		"completed":  JobStatusCompleted,
+		"cancelling": JobStatusCancelling,
+		"canceled":   JobStatusCanceled,
+		"failed":     JobStatusFailed,
+		"paused":     JobStatusPaused,
 	}
 )

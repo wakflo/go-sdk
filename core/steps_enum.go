@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package stepsenum
+package core
 
 import (
 	"encoding/json"
@@ -23,18 +23,16 @@ import (
 	"strconv"
 )
 
-var ErrNoValidEnum = errors.New("not a valid enum")
-
 type StepType string
 
 const (
-	Normal    StepType = "normal"
-	Branch    StepType = "branch"
-	Boolean   StepType = "boolean"
-	Loop      StepType = "loop"
-	Condition StepType = "condition"
-	Start     StepType = "start"
-	End       StepType = "end"
+	StepTypeNormal    StepType = "normal"
+	StepTypeBranch    StepType = "branch"
+	StepTypeBoolean   StepType = "boolean"
+	StepTypeLoop      StepType = "loop"
+	StepTypeCondition StepType = "condition"
+	StepTypeStart     StepType = "start"
+	StepTypeEnd       StepType = "end"
 )
 
 func (StepType) SQLTypeName() string {
@@ -234,7 +232,7 @@ func (_j *StepType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 func StepTypeFromString(raw string) (StepType, bool) {
 	v, ok := _StepTypeStringToValueMap[raw]
 	if !ok {
-		return Normal, false
+		return StepTypeNormal, false
 	}
 	return v, true
 }
@@ -254,21 +252,21 @@ func StepTypeFromStringIgnoreCase(raw string) (StepType, bool) {
 
 var (
 	_StepTypeStringToValueMap = map[string]StepType{
-		"branch":    Branch,
-		"boolean":   Boolean,
-		"normal":    Normal,
-		"loop":      Loop,
-		"condition": Condition,
-		"start":     Start,
-		"end":       End,
+		"branch":    StepTypeBranch,
+		"boolean":   StepTypeBoolean,
+		"normal":    StepTypeNormal,
+		"loop":      StepTypeLoop,
+		"condition": StepTypeCondition,
+		"start":     StepTypeStart,
+		"end":       StepTypeEnd,
 	}
 	_StepTypeLowerStringToValueMap = map[string]StepType{
-		"branch":    Branch,
-		"boolean":   Boolean,
-		"normal":    Normal,
-		"loop":      Loop,
-		"condition": Condition,
-		"start":     Start,
-		"end":       End,
+		"branch":    StepTypeBranch,
+		"boolean":   StepTypeBoolean,
+		"normal":    StepTypeNormal,
+		"loop":      StepTypeLoop,
+		"condition": StepTypeCondition,
+		"start":     StepTypeStart,
+		"end":       StepTypeEnd,
 	}
 )

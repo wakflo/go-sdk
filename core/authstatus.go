@@ -21,8 +21,6 @@ import (
 	"io"
 	"slices"
 	"strconv"
-
-	"github.com/wakflo/go-sdk/core/jobstatusenum"
 )
 
 type AuthStatus string
@@ -54,7 +52,7 @@ func (_j AuthStatus) IsValid() bool {
 // Validate whether the value is within the range of enum values.
 func (_j AuthStatus) Validate() error {
 	if !_j.IsValid() {
-		return fmt.Errorf("AuthStatus(%v) is %w", _j, jobstatusenum.ErrNoValidEnum)
+		return fmt.Errorf("AuthStatus(%v) is %w", _j, ErrNoValidEnum)
 	}
 	return nil
 }

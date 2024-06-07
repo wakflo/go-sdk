@@ -14,17 +14,15 @@
 
 package core
 
-import "github.com/wakflo/go-sdk/core/jobstatusenum"
-
 type StepState struct {
 	ConnectorName string `json:"connectorName"`
 	Version       string `json:"version"`
 
-	Input  map[string]interface{}  `json:"input"`
-	Output interface{}             `json:"output"`
-	Logs   SystemActivityLogs      `json:"logs"`
-	Status jobstatusenum.JobStatus `json:"status"`
-	Index  int                     `json:"index"`
+	Input  map[string]interface{} `json:"input"`
+	Output interface{}            `json:"output"`
+	Logs   SystemActivityLogs     `json:"logs"`
+	Status JobStatus              `json:"status"`
+	Index  int                    `json:"index"`
 }
 
 type StepsState struct {

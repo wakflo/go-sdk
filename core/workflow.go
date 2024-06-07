@@ -18,7 +18,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	stepsenum "github.com/wakflo/go-sdk/core/stepsenums"
 )
 
 type WorkflowSettings struct {
@@ -104,7 +103,7 @@ type ConnectorStep struct {
 	NodeIndex int `json:"nodeIndex"`
 
 	// Icon of the step
-	Type stepsenum.StepType `json:"type,omitempty"`
+	Type StepType `json:"type,omitempty"`
 
 	// Data of the step
 	Data ConnectorStepData `json:"data,omitempty"`

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package pluginenums
+package core
 
 import (
 	"errors"
@@ -24,15 +24,15 @@ import (
 type PluginLanguage string
 
 const (
-	Rust   PluginLanguage = "rust"
-	Golang PluginLanguage = "golang"
-	Python PluginLanguage = "python"
-	Zig    PluginLanguage = "zig"
+	PluginLanguageRust   PluginLanguage = "rust"
+	PluginLanguageGolang PluginLanguage = "golang"
+	PluginLanguagePython PluginLanguage = "python"
+	PluginLanguageZig    PluginLanguage = "zig"
 )
 
 // Values provides list valid values for Enum.
 func (PluginLanguage) Values() (kinds []string) {
-	for _, s := range []PluginLanguage{Rust, Golang, Python, Zig} {
+	for _, s := range []PluginLanguage{PluginLanguageRust, PluginLanguageGolang, PluginLanguagePython, PluginLanguageZig} {
 		kinds = append(kinds, string(s))
 	}
 	return
@@ -40,13 +40,13 @@ func (PluginLanguage) Values() (kinds []string) {
 
 func (e PluginLanguage) String() string {
 	switch e {
-	case Python:
+	case PluginLanguagePython:
 		return "python"
-	case Zig:
+	case PluginLanguageZig:
 		return "zig"
-	case Golang:
+	case PluginLanguageGolang:
 		return "golang"
-	case Rust:
+	case PluginLanguageRust:
 		return "rust"
 	default:
 		return "rust"
@@ -55,10 +55,10 @@ func (e PluginLanguage) String() string {
 
 func (e PluginLanguage) IsValid() bool {
 	switch e {
-	case Python:
-	case Zig:
-	case Golang:
-	case Rust:
+	case PluginLanguagePython:
+	case PluginLanguageZig:
+	case PluginLanguageGolang:
+	case PluginLanguageRust:
 		return true
 	default:
 		return false

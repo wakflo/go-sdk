@@ -19,8 +19,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/wakflo/go-sdk/core/authenums"
-	"github.com/wakflo/go-sdk/core/connectorenums"
-	"github.com/wakflo/go-sdk/core/pluginenums"
 )
 
 // JSONObject is a type alias for map[string]interface{}.
@@ -57,14 +55,14 @@ type ConnectorPlugin struct {
 	// Version holds the value of the "version" field.
 	Version string `json:"version"`
 	// TeamType holds the value of the "language" field.
-	Language pluginenums.PluginLanguage `json:"language,omitempty"`
+	Language PluginLanguage `json:"language,omitempty"`
 }
 
 // WorkspacePluginMetadata is a WorkspacePluginMetadata model.
 type WorkspacePluginMetadata struct {
-	Operations []TaskOperation            `json:"properties,omitempty"`
-	Compiler   pluginenums.PluginCompiler `json:"compiler"`
-	Language   pluginenums.PluginLanguage `json:"language,omitempty"`
+	Operations []TaskOperation `json:"properties,omitempty"`
+	Compiler   PluginCompiler  `json:"compiler"`
+	Language   PluginLanguage  `json:"language,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Description holds the value of the "deleted" field.
@@ -81,8 +79,8 @@ type WorkspacePluginMetadata struct {
 
 // PluginMetadata is a PluginMetadata model.
 type PluginMetadata struct {
-	Compiler pluginenums.PluginCompiler `json:"compiler"`
-	Language pluginenums.PluginLanguage `json:"language,omitempty"`
+	Compiler PluginCompiler `json:"compiler"`
+	Language PluginLanguage `json:"language,omitempty"`
 }
 
 // AuthOperation is an auth operation struct.
@@ -207,9 +205,9 @@ type ConnectorVersionMetadata struct {
 	// FileHash holds the value of the "file_hash" field.
 	FileHash *string `json:"file_hash,omitempty"`
 	// Type holds the value of the "type" field.
-	Type connectorenums.ConnectorType `json:"type,omitempty"`
+	Type ConnectorType `json:"type,omitempty"`
 	// Platform holds the value of the "platform" field.
-	Platform connectorenums.ConnectorPlatform `json:"platform,omitempty"`
+	Platform ConnectorPlatform `json:"platform,omitempty"`
 	// Metadata holds the value of the "metadata" field.
 	Metadata PluginMetadata `json:"metadata,omitempty"`
 	// MinimumSupportedVersion holds the value of the "minimum_supported_version" field.
