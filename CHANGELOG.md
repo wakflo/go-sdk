@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.2](https://github.com/wakflo/go-sdk/compare/v0.2.1...v0.2.2) (2024-06-07)
+
+
+### Bug Fixes
+
+* downgraded mod go version ([401e40e](https://github.com/wakflo/go-sdk/commit/401e40ec9a8afa9f9a5f6d4335d1fd279ad4762d))
+* refactored enums ([ce1d2c7](https://github.com/wakflo/go-sdk/commit/ce1d2c79f90b869b220c5b08400738f211b998e0))
+* refactored enums ([19b073c](https://github.com/wakflo/go-sdk/commit/19b073c95bec3473fd0e0c3f7cc24db932398358))
+
 ## [0.2.1](https://github.com/wakflo/go-sdk/compare/v0.2.0...v0.2.1) (2024-06-02)
 
 
