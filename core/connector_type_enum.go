@@ -33,7 +33,7 @@ const (
 )
 
 func (ConnectorType) SQLTypeName() string {
-	return "auth_type"
+	return "connector_type"
 }
 
 // Values returns a slice of all String values of the enum.
