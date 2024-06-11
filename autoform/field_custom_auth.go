@@ -45,6 +45,19 @@ func (b *CustomAuthField) SetRequired(required bool) *CustomAuthField {
 }
 
 func (b *CustomAuthField) SetFields(fields map[string]*sdkcore.AutoFormSchema) *CustomAuthField {
+	var required []string
+	order := make([]string, 0, len(fields))
+
+	for key, schema := range fields {
+		order = append(order, key)
+		if schema.IsRequired {
+			required = append(required, key)
+		}
+	}
+
 	b.builder.WithProperties(fields)
+	b.builder.WithRequired(required)
+	b.builder.WithOrder(order)
+	return b
 	return b
 }
