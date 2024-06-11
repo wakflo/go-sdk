@@ -40,7 +40,8 @@ const (
 	NumberType         AutoFormFieldType = "number"
 	CheckboxType       AutoFormFieldType = "checkbox"
 	Oauth2Type         AutoFormFieldType = "oauth"
-	SecretTextType     AutoFormFieldType = "secret"
+	SecretAuthType     AutoFormFieldType = "secret"
+	CustomAuthType     AutoFormFieldType = "custom_auth"
 	ArrayType          AutoFormFieldType = "array"
 	GroupArrayType     AutoFormFieldType = "group-array"
 	ObjectType         AutoFormFieldType = "fieldset"
@@ -74,6 +75,7 @@ func (AutoFormFieldType) Values() []string {
 		"checkbox",
 		"oauth",
 		"secret",
+		"custom_auth",
 		"array",
 		"group-array",
 		"fieldset",
@@ -300,7 +302,8 @@ var (
 		"number":          NumberType,
 		"checkbox":        CheckboxType,
 		"oauth":           Oauth2Type,
-		"secret":          SecretTextType,
+		"secret":          SecretAuthType,
+		"custom_auth":     CustomAuthType,
 		"array":           ArrayType,
 		"group-array":     GroupArrayType,
 		"fieldset":        ObjectType,
@@ -326,7 +329,8 @@ var (
 		"number":          NumberType,
 		"checkbox":        CheckboxType,
 		"oauth":           Oauth2Type,
-		"secret":          SecretTextType,
+		"secret":          SecretAuthType,
+		"custom_auth":     CustomAuthType,
 		"array":           ArrayType,
 		"group-array":     GroupArrayType,
 		"fieldset":        ObjectType,

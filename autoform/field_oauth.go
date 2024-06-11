@@ -21,7 +21,8 @@ import (
 
 type OAuthField struct {
 	*BaseComponentField
-	props map[string]sdkcore.AutoFormSchema
+	props  map[string]sdkcore.AutoFormSchema
+	extras map[string]*sdkcore.AutoFormSchema
 }
 
 func NewOAuthField(authURL string, tokenURL *string, scopes []string) *OAuthField {
@@ -63,8 +64,13 @@ func (b *OAuthField) SetRequired(required bool) *OAuthField {
 	return b
 }
 
+func (b *OAuthField) SetExtraFields(fields map[string]*sdkcore.AutoFormSchema) *OAuthField {
+	b.builder.WithProperties(fields)
+	return b
+}
+
 func (b *OAuthField) setProps() *OAuthField {
-	b.builder.WithProperties(map[string]*sdkcore.AutoFormSchema{
+	tr := map[string]*sdkcore.AutoFormSchema{
 		"appUrl": NewShortTextField().
 			SetDisplayName("app url").
 			SetDescription("oauth app url").
@@ -82,11 +88,34 @@ func (b *OAuthField) setProps() *OAuthField {
 			SetDefaultValue(arrutil.JoinSlice(",", b.builder.schema.Scope)).
 			SetDescription("oauth scope url").
 			SetRequired(false).Build(),
-	})
+	}
+
+	f := tr
+	if tr != nil {
+		f = MergeMaps(tr, b.extras)
+	}
+
+	b.builder.WithProperties(f)
 	return b
 }
 
 func (b *OAuthField) SetDisplayName(title string) *OAuthField {
 	b.builder.WithTitle(title)
 	return b
+}
+
+func MergeMaps[T any](map1, map2 map[string]T) map[string]T {
+	UniqueMap := make(map[string]T)
+
+	// for loop for the first map
+	for key, val := range map1 {
+		UniqueMap[key] = val
+	}
+
+	// for loop for the second map
+	for key, val := range map2 {
+		UniqueMap[key] = val
+	}
+	// return merged result
+	return UniqueMap
 }
