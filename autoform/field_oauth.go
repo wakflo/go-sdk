@@ -91,7 +91,7 @@ func (b *OAuthField) setProps() *OAuthField {
 	}
 
 	f := tr
-	if tr != nil {
+	if b.extras != nil {
 		f = MergeMaps(tr, b.extras)
 	}
 
