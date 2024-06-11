@@ -9,7 +9,7 @@ type CustomAuthField struct {
 	props map[string]sdkcore.AutoFormSchema
 }
 
-func NewCustomAuthField(authURL string, tokenURL *string, scopes []string) *CustomAuthField {
+func NewCustomAuthField() *CustomAuthField {
 	c := &CustomAuthField{
 		BaseComponentField: NewBaseComponentField(),
 		props:              map[string]sdkcore.AutoFormSchema{},
@@ -23,10 +23,6 @@ func NewCustomAuthField(authURL string, tokenURL *string, scopes []string) *Cust
 	c.Required = required
 	c.builder.schema.Presentation.Required = required
 	c.builder.schema.IsRequired = required
-
-	c.builder.schema.AuthURL = &authURL
-	c.builder.schema.TokenURL = tokenURL
-	c.builder.schema.Scope = scopes
 
 	return c
 }
