@@ -59,5 +59,4 @@ func (b *CustomAuthField) SetFields(fields map[string]*sdkcore.AutoFormSchema) *
 	b.builder.WithRequired(required)
 	b.builder.WithOrder(order)
 	return b
-	return b
 }
