@@ -76,7 +76,6 @@ func (b *OAuthField) setProps() *OAuthField {
 			SetDescription("oauth app url").
 			SetDefaultValue(*b.builder.schema.AuthURL).
 			SetRequired(true).Build(),
-
 		"tokenUrl": NewShortTextField().
 			SetDisplayName("token url").
 			SetDescription("oauth token url").
