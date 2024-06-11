@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/wakflo/go-sdk/compare/v0.2.2...v0.2.3) (2024-06-11)
+
+
+### Bug Fixes
+
+* refactored autoform ([3916174](https://github.com/wakflo/go-sdk/commit/3916174e7a61a5d00af40220b3657bc9b640d47a))
+
 ## [0.2.2](https://github.com/wakflo/go-sdk/compare/v0.2.1...v0.2.2) (2024-06-07)
 
 
