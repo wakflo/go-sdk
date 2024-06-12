@@ -32,24 +32,24 @@ type AuthStrategy struct {
 }
 
 type AuthState struct {
-	ClientID     *string             `json:"clientId,omitempty"`
-	Code         *string             `json:"code,omitempty"`
-	ClientSecret *string             `json:"clientSecret,omitempty"`
-	AuthURL      *string             `json:"authUrl,omitempty"`
-	TokenURL     *string             `json:"tokenUrl,omitempty"`
-	Username     *string             `json:"username,omitempty"`
-	Password     *string             `json:"password,omitempty"`
-	Secret       *string             `json:"secret,omitempty"`
-	Key          *string             `json:"key,omitempty"`
-	RedirectURL  *string             `json:"redirectURL,omitempty"`
-	GrantType    *string             `json:"grantType,omitempty"`
-	AccessToken  *string             `json:"accessToken,omitempty"`
-	RefreshToken *string             `json:"refreshToken,omitempty"`
-	Scopes       []string            `json:"scopes,omitempty"`
-	TokenType    *string             `json:"tokenType,omitempty"`
-	Endpoint     *oauth2.Endpoint    `json:"endpoint,omitempty"`
-	Expiry       *time.Time          `json:"expiry,omitempty"`
-	Extra        map[string][]string `json:"extra,omitempty"`
+	ClientID     *string           `json:"clientId,omitempty"`
+	Code         *string           `json:"code,omitempty"`
+	ClientSecret *string           `json:"clientSecret,omitempty"`
+	AuthURL      *string           `json:"authUrl,omitempty"`
+	TokenURL     *string           `json:"tokenUrl,omitempty"`
+	Username     *string           `json:"username,omitempty"`
+	Password     *string           `json:"password,omitempty"`
+	Secret       *string           `json:"secret,omitempty"`
+	Key          *string           `json:"key,omitempty"`
+	RedirectURL  *string           `json:"redirectURL,omitempty"`
+	GrantType    *string           `json:"grantType,omitempty"`
+	AccessToken  *string           `json:"accessToken,omitempty"`
+	RefreshToken *string           `json:"refreshToken,omitempty"`
+	Scopes       []string          `json:"scopes,omitempty"`
+	TokenType    *string           `json:"tokenType,omitempty"`
+	Endpoint     *oauth2.Endpoint  `json:"endpoint,omitempty"`
+	Expiry       *time.Time        `json:"expiry,omitempty"`
+	Extra        map[string]string `json:"extra,omitempty"`
 }
 
 type AuthContext struct {
@@ -61,18 +61,18 @@ type AuthContext struct {
 	Password    string              `json:"password,omitempty"`
 	Secret      string              `json:"secret,omitempty"`
 	Key         string              `json:"key,omitempty"`
-	Extra       map[string][]string `json:"extra,omitempty"`
+	Extra       map[string]string   `json:"extra,omitempty"`
 }
 
 type ConnectorAuthMetadata struct {
-	ClientID     *string             `json:"clientId,omitempty"`
-	ClientSecret *string             `json:"clientSecret,omitempty"`
-	AuthURL      *string             `json:"authUrl,omitempty"`
-	TokenURL     *string             `json:"tokenUrl,omitempty"`
-	Username     *string             `json:"username,omitempty"`
-	Password     *string             `json:"password,omitempty"`
-	Secret       *string             `json:"secret,omitempty"`
-	RedirectURL  *string             `json:"redirectUrl,omitempty"`
-	Key          *string             `json:"key,omitempty"`
-	Extra        map[string][]string `json:"extra,omitempty"`
+	ClientID     *string           `json:"clientId,omitempty"`
+	ClientSecret *string           `json:"clientSecret,omitempty"`
+	AuthURL      *string           `json:"authUrl,omitempty"`
+	TokenURL     *string           `json:"tokenUrl,omitempty"`
+	Username     *string           `json:"username,omitempty"`
+	Password     *string           `json:"password,omitempty"`
+	Secret       *string           `json:"secret,omitempty"`
+	RedirectURL  *string           `json:"redirectUrl,omitempty"`
+	Key          *string           `json:"key,omitempty"`
+	Extra        map[string]string `json:"extra,omitempty"`
 }
