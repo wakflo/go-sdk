@@ -130,7 +130,7 @@ type AutoFormSchema struct {
 	dynamicOptionsFn *DynamicOptionsFn
 }
 
-func (af *AutoFormSchema) GetDynamicOptionsFn(ctx *DynamicOptionsContext) (interface{}, error) {
+func (af *AutoFormSchema) GetDynamicOptionsFn(ctx *DynamicFieldContext) (interface{}, error) {
 	fn := *af.dynamicOptionsFn
 	return fn(ctx)
 }
@@ -183,4 +183,4 @@ type AutoFormFieldSelectOptions struct {
 	Metadata any    `json:"metadata,omitempty"`
 }
 
-type DynamicOptionsFn = func(ctx *DynamicOptionsContext) (interface{}, error)
+type DynamicOptionsFn = func(ctx *DynamicFieldContext) (interface{}, error)

@@ -162,3 +162,19 @@ type TriggerWorkflowConfig struct {
 	// WorkflowID of the trigger
 	WorkflowID string `json:"workflow_id,omitempty"`
 }
+
+type WorkflowVersion struct {
+	ID uuid.UUID `json:"id,omitempty"`
+	// WorkflowID holds the value of the "workflow_id" field.
+	WorkflowID uuid.UUID `json:"workflow_id,omitempty"`
+	// Name holds the value of the "workflow_id" field.
+	Name string `json:"name,omitempty"`
+	// Steps holds the value of the "steps" field.
+	Steps map[string]ConnectorStep `json:"steps,omitempty"`
+	// TeamID holds the value of the "team_id" field.
+	TeamID uuid.UUID `json:"team_id,omitempty"`
+	// Version holds the value of the "version" field.
+	Version int `json:"version,omitempty"`
+	// LastRun field stores the timestamp of the last run of a workflow version.
+	LastRun *time.Time `json:"last_run,omitempty"`
+}

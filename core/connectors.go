@@ -144,15 +144,17 @@ type (
 
 type WorkflowRunMetadata struct {
 	// ID holds the value of the "id" field.
-	ID uuid.UUID `json:"id,omitempty"`
+	WorkflowID uuid.UUID `json:"workflowId,omitempty"`
 	// Name holds the value of the "name" field.
-	Name string `json:"name,omitempty"`
-	// DisplayName holds the value of the "displayName" field.
-	DisplayName string `json:"displayName,omitempty"`
+	WorkflowName string `json:"workflowName,omitempty"`
+	// StepName holds the value of the "name" field.
+	StepName string `json:"stepName,omitempty"`
 	// ConnectorName holds the value of the "connectorName" field.
 	ConnectorName string `json:"connectorName,omitempty"`
 	// ConnectorVersion holds the value of the "connectorVersion" field.
 	ConnectorVersion string `json:"connectorVersion,omitempty"`
+	// LastRun represents the timestamp of the last run of a workflow.
+	LastRun *time.Time `json:"lastRun"`
 }
 
 type TriggerSettings struct {
@@ -186,6 +188,8 @@ type ConnectorVersionMetadata struct {
 	Version string `json:"version,omitempty"`
 	// Namespace holds the value of the "namespace" field.
 	Namespace *string `json:"namespace,omitempty"`
+	// Namespace holds the value of the "namespace" field.
+	RegistryName string `json:"registry_name,omitempty"`
 	// Documentation holds the value of the "documentation" field.
 	Documentation *string `json:"documentation,omitempty"`
 	// ReleaseNotes holds the value of the "release_notes" field.

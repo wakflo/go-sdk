@@ -26,11 +26,11 @@ import (
 type TriggerHookType string
 
 const (
-	Run        TriggerHookType = "RUN"
-	Test       TriggerHookType = "TEST"
-	OnEnable   TriggerHookType = "ON_ENABLED"
-	OnDisabled TriggerHookType = "ON_DISABLED"
-	Renew      TriggerHookType = "RENEW"
+	TriggerTypeRun        TriggerHookType = "RUN"
+	TriggerTypeTest       TriggerHookType = "TEST"
+	TriggerTypeOnEnable   TriggerHookType = "ON_ENABLED"
+	TriggerTypeOnDisabled TriggerHookType = "ON_DISABLED"
+	TriggerTypeRenew      TriggerHookType = "RENEW"
 )
 
 func (TriggerHookType) SQLTypeName() string {
@@ -228,7 +228,7 @@ func (_j *TriggerHookType) UnmarshalYAML(unmarshal func(interface{}) error) erro
 func TriggerHookTypeFromString(raw string) (TriggerHookType, bool) {
 	v, ok := _TriggerHookTypeStringToValueMap[raw]
 	if !ok {
-		return Run, false
+		return TriggerTypeRun, false
 	}
 	return v, true
 }
@@ -248,17 +248,17 @@ func TriggerHookTypeFromStringIgnoreCase(raw string) (TriggerHookType, bool) {
 
 var (
 	_TriggerHookTypeStringToValueMap = map[string]TriggerHookType{
-		"RUN":         Run,
-		"TEST":        Test,
-		"ON_ENABLED":  OnEnable,
-		"ON_DISABLED": OnDisabled,
-		"RENEW":       Renew,
+		"RUN":         TriggerTypeRun,
+		"TEST":        TriggerTypeTest,
+		"ON_ENABLED":  TriggerTypeOnEnable,
+		"ON_DISABLED": TriggerTypeOnDisabled,
+		"RENEW":       TriggerTypeRenew,
 	}
 	_TriggerHookTypeLowerStringToValueMap = map[string]TriggerHookType{
-		"RUN":         Run,
-		"TEST":        Test,
-		"ON_ENABLED":  OnEnable,
-		"ON_DISABLED": OnDisabled,
-		"RENEW":       Renew,
+		"RUN":         TriggerTypeRun,
+		"TEST":        TriggerTypeTest,
+		"ON_ENABLED":  TriggerTypeOnEnable,
+		"ON_DISABLED": TriggerTypeOnDisabled,
+		"RENEW":       TriggerTypeRenew,
 	}
 )

@@ -14,22 +14,20 @@
 
 package core
 
-type StepState struct {
-	ConnectorName string `json:"connectorName"`
-	Version       string `json:"version"`
+import (
+	"time"
 
-	Input  map[string]interface{} `json:"input"`
-	Output interface{}            `json:"output"`
-	Logs   SystemActivityLogs     `json:"logs"`
-	Status JobStatus              `json:"status"`
-	Index  int                    `json:"index"`
-}
+	"github.com/google/uuid"
+)
 
-type StepsState struct {
-	Steps          map[string]*StepState `json:"steps"`
-	CurrentStepID  string                `json:"currentStepId"`
-	PreviousStepID *string               `json:"previousStepId"`
-}
+type (
+	StepsState       struct{}
+	StepsRunSnapshot struct {
+		// Steps          map[string]*StepState `json:"steps"`
+		CurrentStepID  string  `json:"currentStepId"`
+		PreviousStepID *string `json:"previousStepId"`
+	}
+)
 
 type GetDynamicOptionsInput struct {
 	ConnectorName     string                 `json:"connectorName"`
@@ -42,3 +40,46 @@ type GetDynamicOptionsInput struct {
 	WorkflowVersionID *string                `json:"workflowVersionId,omitempty"`
 	Input             map[string]interface{} `json:"input,omitempty"`
 }
+
+type StepRunData struct {
+	// ID of the ent.
+	ID uuid.UUID `json:"id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	// TeamID holds the value of the "team_id" field.
+	TeamID uuid.UUID `json:"team_id,omitempty"`
+	// Status holds the value of the "status" field.
+	Status StepRunStatus `json:"status,omitempty"`
+	// JobID holds the value of the "job_id" field.
+	JobID int `json:"job_id,omitempty"`
+	// Index holds the value of the "index" field.
+	Index int `json:"index,omitempty"`
+	// Order holds the value of the "order" field.
+	Order int `json:"order,omitempty"`
+	// WorkflowID holds the value of the "workflow_id" field.
+	WorkflowID uuid.UUID `json:"workflow_id,omitempty"`
+	// WorkflowVersionID holds the value of the "workflow_version_id" field.
+	WorkflowVersionID uuid.UUID `json:"workflow_version_id,omitempty"`
+	// WorkflowRunID holds the value of the "workflow_run_id" field.
+	WorkflowRunID uuid.UUID `json:"workflow_run_id,omitempty"`
+	// ConnectorID holds the value of the "connector_id" field.
+	ConnectorID uuid.UUID `json:"connector_id,omitempty"`
+	// ConnectorVersionID holds the value of the "connector_version_id" field.
+	ConnectorVersionID uuid.UUID `json:"connector_version_id,omitempty"`
+	// ConnectorName holds the value of the "connector_name" field.
+	ConnectorName string `json:"connector_name,omitempty"`
+	// ConnectorVersion holds the value of the "connector_version" field.
+	ConnectorVersion string `json:"connector_version,omitempty"`
+	// Name holds the value of the "name" field.
+	Name string `json:"name,omitempty"`
+	// Input holds the value of the "input" field.
+	Input map[string]interface{} `json:"input,omitempty"`
+	// Errors holds the value of the "errors" field.
+	Errors []map[string]interface{} `json:"errors,omitempty"`
+	// Output holds the value of the "output" field.
+	Output any `json:"output,omitempty"`
+}
+
+type StepState = StepRunData

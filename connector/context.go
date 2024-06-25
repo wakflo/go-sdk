@@ -159,19 +159,54 @@ type TriggerRunContext struct {
 // It contains information about the workflow, the current step, the connector version,
 // the workflow instance, authentication data, and the state of the workflow steps.
 type RunContext struct {
-	Step          *sdkcore.ConnectorStep       `json:"step"`
+	step          *sdkcore.ConnectorStep
 	Auth          *sdkcore.AuthContext         `json:"auth"`
-	State         *sdkcore.StepsState          `json:"state"`
-	Workflow      *sdkcore.WorkflowRunMetadata `json:"workflow"`
-	Input         sdkcore.JSONObject           `json:"input"`
-	ResolvedInput any                          `json:"resolvedInput"`
-	LastRun       *time.Time                   `json:"lastRun"`
+	Metadata      *sdkcore.WorkflowRunMetadata `json:"metadata"`
+	Input         map[string]any               `json:"input"`
 	Files         sdkcore.FileManager
 	ctx           context.Context
 	ExecutionType sdkcore.ExecutionType `json:"executionType"`
-	TriggerType   sdkcore.TriggerHookType
 	isPaused      bool
 	pausedTime    *time.Time
+	Log           *sdkcore.Log
+}
+
+func NewRunContext(
+	ctx context.Context,
+	step *sdkcore.ConnectorStep,
+	state *sdkcore.StepRunData,
+	workflow *sdkcore.WorkflowVersion,
+	auth *sdkcore.AuthContext,
+	runMode bool,
+) *RunContext {
+	var sid string
+
+	if runMode {
+		sid = state.ID.String()
+	}
+	return &RunContext{
+		ctx:           ctx,
+		step:          step,
+		Auth:          auth,
+		Input:         nil,
+		Files:         nil,
+		ExecutionType: "",
+		isPaused:      false,
+		pausedTime:    nil,
+		Metadata: &sdkcore.WorkflowRunMetadata{
+			WorkflowID:       workflow.WorkflowID,
+			WorkflowName:     workflow.Name,
+			StepName:         step.Name,
+			ConnectorName:    step.Metadata.ConnectorName,
+			ConnectorVersion: step.Metadata.ConnectorVersion,
+			LastRun:          workflow.LastRun,
+		},
+		Log: sdkcore.NewLog(
+			workflow.TeamID.String(),
+			workflow.WorkflowID.String(),
+			&sid,
+		),
+	}
 }
 
 func (rctx *RunContext) SetContext(ctx context.Context) {
@@ -182,6 +217,12 @@ func (rctx *RunContext) SetContext(ctx context.Context) {
 // It checks the value of the 'isPaused' field in the RunContext struct.
 func (rctx *RunContext) IsPaused() bool {
 	return rctx.isPaused
+}
+
+// IsPaused returns a boolean value indicating whether the execution is currently paused.
+// It checks the value of the 'isPaused' field in the RunContext struct.
+func (rctx *RunContext) GetRawInput() sdkcore.JSONObject {
+	return rctx.step.Data.Properties.Input
 }
 
 // PauseExecution pauses the execution of the RunContext.
@@ -205,7 +246,7 @@ func (rctx *RunContext) GetPauseTime() *time.Time {
 // If there is an error during the marshaling or unmarshaling process, nil is returned.
 // The function signature is as follows:
 func InputToType[T any](ctx *RunContext) *T {
-	b, err := json.Marshal(ctx.ResolvedInput)
+	b, err := json.Marshal(ctx.Input)
 	if err != nil {
 		return nil
 	}
@@ -219,12 +260,30 @@ func InputToType[T any](ctx *RunContext) *T {
 	return &rsp
 }
 
+// InputToTypeSafely returns a pointer to a value of type T by marshaling and unmarshaling the ResolvedInput field of the provided RunContext struct.
+// If there is an error during the marshaling or unmarshaling process, nil is returned.
+// The function signature is as follows:
+func InputToTypeSafely[T any](ctx *RunContext) (*T, error) {
+	b, err := json.Marshal(ctx.Input)
+	if err != nil {
+		return nil, err
+	}
+
+	var rsp T
+	err = json.Unmarshal(b, &rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return &rsp, nil
+}
+
 // DynamicInputToType converts the resolved input of type `sdkcore.DynamicOptionsContext` to the desired type T.
 // It uses JSON marshaling and unmarshalling to perform the conversion.
 // If any error occurs during marshaling or unmarshaling, it returns nil.
 // The function returns a pointer to the converted value of type T.
-func DynamicInputToType[T any](ctx *sdkcore.DynamicOptionsContext) *T {
-	b, err := json.Marshal(ctx.ResolvedInput)
+func DynamicInputToType[T any](ctx *sdkcore.DynamicFieldContext) *T {
+	b, err := json.Marshal(ctx.Input)
 	if err != nil {
 		return nil
 	}

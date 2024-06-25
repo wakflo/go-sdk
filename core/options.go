@@ -14,9 +14,8 @@
 
 package core
 
-type DynamicOptionsContext struct {
-	Auth          *AuthContext   `json:"auth,omitempty"`
-	Step          *ConnectorStep `json:"step,omitempty"`
-	Input         JSONObject     `json:"input"`
-	ResolvedInput any            `json:"resolvedInput"`
+type DynamicFieldContext struct {
+	Auth  *AuthContext `json:"auth,omitempty"`
+	Input any          `json:"input"`
+	// Step  *ConnectorStep `json:"step,omitempty"`
 }
