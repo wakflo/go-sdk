@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/wakflo/go-sdk/compare/v0.2.7...v0.3.0) (2024-06-28)
+
+
+### Features
+
+* added better error handling ([9188b96](https://github.com/wakflo/go-sdk/commit/9188b96b10c8cb01a50c1d363fd1d644f69a228b))
+* added better error handling ([127dcbf](https://github.com/wakflo/go-sdk/commit/127dcbf7d047c139f5cfb54f44e5b9d961856790))
+
 ## [0.2.7](https://github.com/wakflo/go-sdk/compare/v0.2.6...v0.2.7) (2024-06-25)
 
 
