@@ -26,11 +26,12 @@ import (
 type TriggerType string
 
 const (
-	Scheduled TriggerType = "scheduled"
-	Event     TriggerType = "event"
-	PubSub    TriggerType = "pubsub"
-	Manual    TriggerType = "manual"
-	Webhook   TriggerType = "webhook"
+	TriggerTypeScheduled TriggerType = "SCHEDULED"
+	TriggerTypeEvent     TriggerType = "EVENT"
+	TriggerTypePubSub    TriggerType = "PUBSUB"
+	TriggerTypeManual    TriggerType = "MANUAL"
+	TriggerTypeWebhook   TriggerType = "WEBHOOK"
+	TriggerTypeCron      TriggerType = "CRON"
 )
 
 func (TriggerType) SQLTypeName() string {
@@ -40,11 +41,12 @@ func (TriggerType) SQLTypeName() string {
 // Values returns a slice of all String values of the enum.
 func (TriggerType) Values() []string {
 	return []string{
-		"scheduled",
-		"event",
-		"pubsub",
-		"manual",
-		"webhook",
+		"SCHEDULED",
+		"EVENT",
+		"PUBSUB",
+		"MANUAL",
+		"WEBHOOK",
+		"CRON",
 	}
 }
 
@@ -228,7 +230,7 @@ func (_j *TriggerType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 func TriggerTypeFromString(raw string) (TriggerType, bool) {
 	v, ok := _TriggerTypeStringToValueMap[raw]
 	if !ok {
-		return Scheduled, false
+		return TriggerTypeScheduled, false
 	}
 	return v, true
 }
@@ -248,17 +250,19 @@ func TriggerTypeFromStringIgnoreCase(raw string) (TriggerType, bool) {
 
 var (
 	_TriggerTypeStringToValueMap = map[string]TriggerType{
-		"scheduled": Scheduled,
-		"event":     Event,
-		"pubsub":    PubSub,
-		"manual":    Manual,
-		"webhook":   Webhook,
+		"SCHEDULED": TriggerTypeScheduled,
+		"EVENT":     TriggerTypeEvent,
+		"PUBSUB":    TriggerTypePubSub,
+		"MANUAL":    TriggerTypeManual,
+		"WEBHOOK":   TriggerTypeWebhook,
+		"CRON":      TriggerTypeCron,
 	}
 	_TriggerTypeLowerStringToValueMap = map[string]TriggerType{
-		"scheduled": Scheduled,
-		"event":     Event,
-		"pubsub":    PubSub,
-		"manual":    Manual,
-		"webhook":   Webhook,
+		"SCHEDULED": TriggerTypeScheduled,
+		"EVENT":     TriggerTypeEvent,
+		"PUBSUB":    TriggerTypePubSub,
+		"MANUAL":    TriggerTypeManual,
+		"WEBHOOK":   TriggerTypeWebhook,
+		"CRON":      TriggerTypeCron,
 	}
 )

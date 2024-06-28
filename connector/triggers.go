@@ -25,9 +25,11 @@ import (
 // sample output, error settings, and whether authentication is required.
 type TriggerInfo struct {
 	// Key holds the value of the "key" field.
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" validate:"required"`
+	// Type holds the value of the "description" field.
+	Type sdkcore.TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT PUBSUB MANUAL WEBHOOK CRON"`
 	// Description holds the value of the "description" field.
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" validate:"required"`
 	// Input holds the value of the "input" field.
 	Input map[string]*sdkcore.AutoFormSchema `json:"input,omitempty"`
 	// Auth holds the value of the "auth" field.
@@ -35,9 +37,9 @@ type TriggerInfo struct {
 
 	SampleOutput sdkcore.JSONObject `json:"sample_output"`
 
-	Settings *sdkcore.TriggerSettings `json:"settings"`
+	Settings *sdkcore.TriggerSettings `json:"settings" validate:"required"`
 
-	ErrorSettings sdkcore.StepErrorSettings `json:"error_settings"`
+	ErrorSettings *sdkcore.StepErrorSettings `json:"error_settings" validate:"required"`
 
 	RequireAuth bool `json:"requireAuth"`
 }

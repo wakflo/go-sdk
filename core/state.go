@@ -61,13 +61,9 @@ type StepRunData struct {
 	// WorkflowID holds the value of the "workflow_id" field.
 	WorkflowID uuid.UUID `json:"workflow_id,omitempty"`
 	// WorkflowVersionID holds the value of the "workflow_version_id" field.
-	WorkflowVersionID uuid.UUID `json:"workflow_version_id,omitempty"`
+	WorkflowVersionID *uuid.UUID `json:"workflow_version_id,omitempty"`
 	// WorkflowRunID holds the value of the "workflow_run_id" field.
 	WorkflowRunID uuid.UUID `json:"workflow_run_id,omitempty"`
-	// ConnectorID holds the value of the "connector_id" field.
-	ConnectorID uuid.UUID `json:"connector_id,omitempty"`
-	// ConnectorVersionID holds the value of the "connector_version_id" field.
-	ConnectorVersionID uuid.UUID `json:"connector_version_id,omitempty"`
 	// ConnectorName holds the value of the "connector_name" field.
 	ConnectorName string `json:"connector_name,omitempty"`
 	// ConnectorVersion holds the value of the "connector_version" field.
@@ -77,7 +73,7 @@ type StepRunData struct {
 	// Input holds the value of the "input" field.
 	Input map[string]interface{} `json:"input,omitempty"`
 	// Errors holds the value of the "errors" field.
-	Errors []map[string]interface{} `json:"errors,omitempty"`
+	Errors []string `json:"errors,omitempty"`
 	// Output holds the value of the "output" field.
 	Output any `json:"output,omitempty"`
 }

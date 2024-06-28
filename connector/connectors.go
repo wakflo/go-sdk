@@ -17,11 +17,13 @@ package sdk
 import (
 	"context"
 	"errors"
+	"fmt"
+	"strings"
 
-	"github.com/robfig/cron/v3"
 	"github.com/wakflo/go-sdk/autoform"
 	sdkcore "github.com/wakflo/go-sdk/core"
 	"github.com/wakflo/go-sdk/internal/utils"
+	"github.com/wakflo/go-sdk/validator"
 )
 
 // IConnectorPlugin is an interface that defines the methods for a connector plugin implementation.
@@ -63,9 +65,10 @@ type ConnectorPlugin struct {
 // It also generates unique slugs for trigger and operation names.
 // Finally, it creates the ConnectorMetadata and returns the ConnectorPlugin.
 func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
+	v := validator.NewDefaultValidator()
 	err := ValidateConnectorInfo(args)
 	if err != nil {
-		return nil, err
+		return &ConnectorPlugin{CreateArgs: args}, err
 	}
 
 	triggers := map[string]ITrigger{}
@@ -76,33 +79,29 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 
 	for _, trigger := range args.Triggers {
 		info := trigger.GetInfo()
-		err := ValidateTriggerInfo(info)
-		if err != nil {
-			return nil, err
-		}
+		info.Name = strings.TrimSpace(info.Name)
 		key := utils.GenerateUniqueSlug(info.Name)
 
+		defCron := "*/2 * * * *"
 		s := sdkcore.TriggerSettings{
-			Type:     sdkcore.Scheduled,
-			Interval: "*/2 * * * *",
+			Cron: &defCron,
 		}
 
 		if info.Settings != nil {
-			s.Type = info.Settings.Type
-
-			if info.Settings.Interval != "" {
-				s.Interval = info.Settings.Interval
+			if info.Settings.Cron == nil {
+				info.Settings.Cron = &defCron
 			}
+		} else {
+			info.Settings = &s
 		}
 
-		if s.Type == sdkcore.Scheduled {
-			_, err = cron.ParseStandard(s.Interval)
-			if err != nil {
-				return nil, errors.New("invalid cron interval expression")
-			}
+		verr := errors.New(fmt.Sprintf("%s - [trigger:%s] ", args.Name, info.Name))
+		err = v.Validate(info)
+		if err != nil {
+			return nil, errors.Join(verr, err)
 		}
 
-		triggerMetadata[key] = &sdkcore.Trigger{
+		t := &sdkcore.Trigger{
 			Name:          key,
 			DisplayName:   info.Name,
 			Description:   info.Description,
@@ -110,18 +109,26 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			RequireAuth:   info.RequireAuth,
 			Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
-			Settings:      s,
+			Settings:      info.Settings,
+			Type:          info.Type,
 			ErrorSettings: info.ErrorSettings,
 		}
+		err = v.Validate(t)
+		if err != nil {
+			return nil, errors.Join(verr, err)
+		}
+		triggerMetadata[key] = t
 
 		triggers[key] = trigger
 	}
 
 	for _, op := range args.Operations {
 		info := op.GetInfo()
+		info.Name = strings.TrimSpace(info.Name)
 		err := ValidateOperationInfo(info)
 		if err != nil {
-			return nil, err
+			verr := errors.New(fmt.Sprintf("%s - [operation:%s] ", args.Name, info.Name))
+			return nil, errors.Join(verr, err)
 		}
 		key := utils.GenerateUniqueSlug(info.Name)
 		operationsMetadata[key] = &sdkcore.Operation{

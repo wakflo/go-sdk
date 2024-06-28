@@ -31,6 +31,7 @@ const (
 	TriggerTypeOnEnable   TriggerHookType = "ON_ENABLED"
 	TriggerTypeOnDisabled TriggerHookType = "ON_DISABLED"
 	TriggerTypeRenew      TriggerHookType = "RENEW"
+	TriggerTypeOptions    TriggerHookType = "OPTIONS"
 )
 
 func (TriggerHookType) SQLTypeName() string {
@@ -45,6 +46,7 @@ func (TriggerHookType) Values() []string {
 		"ON_ENABLED",
 		"ON_DISABLED",
 		"RENEW",
+		"OPTIONS",
 	}
 }
 
@@ -253,6 +255,7 @@ var (
 		"ON_ENABLED":  TriggerTypeOnEnable,
 		"ON_DISABLED": TriggerTypeOnDisabled,
 		"RENEW":       TriggerTypeRenew,
+		"OPTIONS":     TriggerTypeOptions,
 	}
 	_TriggerHookTypeLowerStringToValueMap = map[string]TriggerHookType{
 		"RUN":         TriggerTypeRun,
@@ -260,5 +263,6 @@ var (
 		"ON_ENABLED":  TriggerTypeOnEnable,
 		"ON_DISABLED": TriggerTypeOnDisabled,
 		"RENEW":       TriggerTypeRenew,
+		"OPTIONS":     TriggerTypeOptions,
 	}
 )

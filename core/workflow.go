@@ -86,24 +86,24 @@ type ConnectorStepMetadata struct {
 
 type ConnectorStep struct {
 	// Label of the step
-	Label string `json:"label,omitempty"`
+	Label string `json:"label,omitempty" validate:"required"`
 
 	// Icon of the step
-	Icon string `json:"icon,omitempty"`
+	Icon string `json:"icon,omitempty" validate:"required"`
 
 	// Name of the schema
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" validate:"required"`
 
 	// IsTrigger of the schema
-	IsTrigger bool `json:"isTrigger"`
+	IsTrigger bool `json:"isTrigger" validate:"required"`
 
 	// Path of the schema
-	Path []string `json:"path,omitempty"`
+	Path []string `json:"path,omitempty" validate:"required"`
 
-	NodeIndex int `json:"nodeIndex"`
+	NodeIndex int `json:"nodeIndex" validate:"required"`
 
 	// Icon of the step
-	Type StepType `json:"type,omitempty"`
+	Type StepType `json:"type,omitempty" validate:"required"`
 
 	// Data of the step
 	Data ConnectorStepData `json:"data,omitempty"`
@@ -113,7 +113,9 @@ type ConnectorStep struct {
 
 	Reference *EntityReference `json:"reference,omitempty"`
 
-	Metadata ConnectorStepMetadata `json:"metadata,omitempty"`
+	Metadata ConnectorStepMetadata `json:"metadata,omitempty" validate:"required"`
+
+	TriggerSettings *StepTriggerSettings `json:"triggerSettings,omitempty"`
 
 	// ParentID of the step
 	ParentID *string `json:"parentId,omitempty"`

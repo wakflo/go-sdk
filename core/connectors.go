@@ -118,11 +118,11 @@ type OperationsList = []*Operation
 // Trigger .
 type Trigger struct {
 	// Name holds the value of the "name" field.
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" validate:"required"`
 	// DisplayName holds the value of the "displayName" field.
-	DisplayName string `json:"displayName,omitempty"`
+	DisplayName string `json:"displayName,omitempty" validate:"required"`
 	// Description holds the value of the "description" field.
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" validate:"required"`
 	// Input holds the value of the "input" field.
 	Input *AutoFormSchema `json:"input,omitempty"`
 	// SampleOutput holds the value of the "sampleOutput" field.
@@ -130,9 +130,12 @@ type Trigger struct {
 	// Auth holds the value of the "auth" field.
 	Auth *AutoFormSchema `json:"auth,omitempty"`
 
-	Settings TriggerSettings `json:"settings,omitempty"`
+	// Type holds the value of the "type" field.
+	Type TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT PUBSUB MANUAL WEBHOOK CRON"`
 
-	ErrorSettings StepErrorSettings `json:"errorSettings,omitempty"`
+	Settings *TriggerSettings `json:"settings,omitempty"`
+
+	ErrorSettings *StepErrorSettings `json:"errorSettings,omitempty"`
 
 	RequireAuth bool `json:"requireAuth"`
 }
@@ -158,10 +161,16 @@ type WorkflowRunMetadata struct {
 }
 
 type TriggerSettings struct {
+	// Cron holds the value of the "interval" field.
+	Cron *string `json:"cron,omitempty" validate:"omitnil,cron"`
+	// Cron holds the value of the "interval" field.
+	ScheduledAt *string `json:"scheduledAt,omitempty"`
+}
+
+type StepTriggerSettings struct {
+	*TriggerSettings
 	// Type holds the value of the "type" field.
-	Type TriggerType `json:"type,omitempty"`
-	// Interval holds the value of the "interval" field.
-	Interval string `json:"interval,omitempty"`
+	Type TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT PUBSUB MANUAL WEBHOOK CRON"`
 }
 
 // ConnectorVersionMetadata is the model entity for the ConnectorVersion schema.
