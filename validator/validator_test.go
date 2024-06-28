@@ -17,7 +17,7 @@ package validator
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 type nameResource struct {
@@ -31,7 +31,7 @@ func TestValidatorInvalidName(t *testing.T) {
 		DisplayName: "&&!!",
 	})
 
-	assert.ErrorContains(t, err, "validation for 'DisplayName' failed on the 'spiderName' tag", "should throw error on invalid name")
+	require.ErrorContains(t, err, "validation for 'DisplayName' failed on the 'spiderName' tag", "should throw error on invalid name")
 }
 
 func TestValidatorValidName(t *testing.T) {
@@ -41,7 +41,7 @@ func TestValidatorValidName(t *testing.T) {
 		DisplayName: "test-name",
 	})
 
-	assert.NoError(t, err, "no error")
+	require.NoError(t, err, "no error")
 }
 
 type cronResource struct {
@@ -55,7 +55,7 @@ func TestValidatorValidCron(t *testing.T) {
 		Cron: "*/5 * * * *",
 	})
 
-	assert.NoError(t, err, "no error")
+	require.NoError(t, err, "no error")
 }
 
 func TestValidatorInvalidCron(t *testing.T) {
@@ -65,7 +65,7 @@ func TestValidatorInvalidCron(t *testing.T) {
 		Cron: "*/5 * * *",
 	})
 
-	assert.ErrorContains(t, err, "validation for 'Cron' failed on the 'cron' tag", "should throw error on invalid cron")
+	require.ErrorContains(t, err, "validation for 'Cron' failed on the 'cron' tag", "should throw error on invalid cron")
 }
 
 func TestValidatorValidDuration(t *testing.T) {
@@ -77,7 +77,7 @@ func TestValidatorValidDuration(t *testing.T) {
 		Duration: "5s",
 	})
 
-	assert.NoError(t, err, "no error")
+	require.NoError(t, err, "no error")
 }
 
 func TestValidatorInvalidDuration(t *testing.T) {
@@ -89,5 +89,5 @@ func TestValidatorInvalidDuration(t *testing.T) {
 		Duration: "5",
 	})
 
-	assert.ErrorContains(t, err, "validation for 'Duration' failed on the 'duration' tag", "should throw error on invalid duration")
+	require.ErrorContains(t, err, "validation for 'Duration' failed on the 'duration' tag", "should throw error on invalid duration")
 }
