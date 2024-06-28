@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/wakflo/go-sdk/compare/v0.2.6...v0.2.7) (2024-06-25)
+
+
+### Bug Fixes
+
+* fixed custom auth ([b93b52c](https://github.com/wakflo/go-sdk/commit/b93b52ccb05f75cc343ef662421d71f89b9f650f))
+
 ## [0.2.6](https://github.com/wakflo/go-sdk/compare/v0.2.5...v0.2.6) (2024-06-12)
 
 
