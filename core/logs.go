@@ -41,9 +41,8 @@ type SystemActivityLogs = []SystemActivityLog
 type WriteLogLineOpts struct {
 	// The step run id
 	TeamID string `json:"team_id" validate:"required,uuid"`
-
 	// The step run id
-	StepRunID *string `json:"step_run_id" validate:"uuid"`
+	StepRunID *string `json:"step_run_id" validate:"omitnil,uuid"`
 
 	// The workflow run id
 	WorkflowID string `json:"workflow_id" validate:"uuid"`
@@ -82,51 +81,62 @@ type LogLine struct {
 }
 
 type Log struct {
-	ops *WriteLogLineOpts
+	ops     *WriteLogLineOpts
+	onWrite func(WriteLogLineOpts)
 }
 
-func NewLog(teamID string, workflowID string, stepRunID *string) *Log {
-	return &Log{ops: &WriteLogLineOpts{
-		StepRunID:  stepRunID,
-		WorkflowID: workflowID,
-		TeamID:     teamID,
-		Message:    "",
-		Metadata:   nil,
-	}}
+func NewLog(
+	teamID string,
+	workflowID string,
+	stepRunID *string,
+	onWrite func(WriteLogLineOpts),
+) *Log {
+	return &Log{
+		ops: &WriteLogLineOpts{
+			StepRunID:  stepRunID,
+			WorkflowID: workflowID,
+			TeamID:     teamID,
+			Message:    "",
+			Metadata:   nil,
+		},
+		onWrite: onWrite,
+	}
 }
 
 func (b *Log) Error() *LogBuilder {
 	lvl := LogLineLevelError.String()
 	b.ops.Level = &lvl
-	return NewLogBuilder(b.ops)
+	return NewLogBuilder(b.ops, b.onWrite)
 }
 
 func (b *Log) Info() *LogBuilder {
 	lvl := LogLineLevelInfo.String()
 	b.ops.Level = &lvl
-	return NewLogBuilder(b.ops)
+	return NewLogBuilder(b.ops, b.onWrite)
 }
 
 func (b *Log) Warn() *LogBuilder {
 	lvl := LogLineLevelWarn.String()
 	b.ops.Level = &lvl
-	return NewLogBuilder(b.ops)
+	return NewLogBuilder(b.ops, b.onWrite)
 }
 
 func (b *Log) Debug() *LogBuilder {
 	lvl := LogLineLevelDebug.String()
 	b.ops.Level = &lvl
-	return NewLogBuilder(b.ops)
+	return NewLogBuilder(b.ops, b.onWrite)
 }
 
 type LogBuilder struct {
-	ops *WriteLogLineOpts
+	ops     *WriteLogLineOpts
+	onWrite func(WriteLogLineOpts)
 }
 
 func NewLogBuilder(
 	ops *WriteLogLineOpts,
+	onWrite func(WriteLogLineOpts),
 ) *LogBuilder {
-	return &LogBuilder{ops: ops}
+	return &LogBuilder{ops: ops, onWrite: onWrite}
 }
 
 func (b *LogBuilder) Meta(meta map[string]interface{}) *LogBuilder {
@@ -138,4 +148,6 @@ func (b *LogBuilder) Msg(message string) {
 	b.ops.Message = message
 	t := time.Now()
 	b.ops.CreatedAt = &t
+
+	b.onWrite(*b.ops)
 }

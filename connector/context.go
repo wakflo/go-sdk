@@ -169,6 +169,7 @@ type RunContext struct {
 	isPaused      bool
 	pausedTime    *time.Time
 	Log           *sdkcore.Log
+	state         *sdkcore.StepRunData
 }
 
 func NewRunContext(
@@ -178,15 +179,17 @@ func NewRunContext(
 	workflow *sdkcore.WorkflowVersion,
 	auth *sdkcore.AuthContext,
 	runMode bool,
+	onWrite func(sdkcore.WriteLogLineOpts),
 ) *RunContext {
 	var sid string
-
 	if runMode {
 		sid = state.ID.String()
 	}
+
 	return &RunContext{
 		ctx:           ctx,
 		step:          step,
+		state:         state,
 		Auth:          auth,
 		Input:         nil,
 		Files:         nil,
@@ -205,32 +208,38 @@ func NewRunContext(
 			workflow.TeamID.String(),
 			workflow.WorkflowID.String(),
 			&sid,
+			onWrite,
 		),
 	}
 }
 
-func (rctx *RunContext) SetContext(ctx context.Context) {
-	rctx.ctx = ctx
+func (r *RunContext) SetContext(ctx context.Context) {
+	r.ctx = ctx
+}
+
+func (r *RunContext) SetState(state *sdkcore.StepRunData) {
+	r.state = state
 }
 
 // IsPaused returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.
-func (rctx *RunContext) IsPaused() bool {
-	return rctx.isPaused
+func (r *RunContext) IsPaused() bool {
+	return r.isPaused
 }
 
-// IsPaused returns a boolean value indicating whether the execution is currently paused.
+// GetRawInput returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.
-func (rctx *RunContext) GetRawInput() sdkcore.JSONObject {
-	return rctx.step.Data.Properties.Input
+func (r *RunContext) GetRawInput() sdkcore.JSONObject {
+	return r.step.Data.Properties.Input
 }
 
 // PauseExecution pauses the execution of the RunContext.
 // It sets the isPaused field of the RunContext to true and the pausedTime field to the provided resume time from the PauseMetadata.
 // It returns a pointer to a PauseMetadataFull object and nil error.
-func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (JSON, error) {
-	rctx.isPaused = true
-	rctx.pausedTime = metadata.ResumeAt
+func (r *RunContext) PauseExecution(metadata PauseMetadata) (JSON, error) {
+	r.isPaused = true
+	r.pausedTime = metadata.ResumeAt
+
 	return &PauseMetadataFull{
 		PauseMetadata: metadata,
 	}, nil
@@ -238,8 +247,8 @@ func (rctx *RunContext) PauseExecution(metadata PauseMetadata) (JSON, error) {
 
 // GetPauseTime returns the paused time in the RunContext.
 // It retrieves the value from the pausedTime field in the RunContext struct.
-func (rctx *RunContext) GetPauseTime() *time.Time {
-	return rctx.pausedTime
+func (r *RunContext) GetPauseTime() *time.Time {
+	return r.pausedTime
 }
 
 // InputToType returns a pointer to a value of type T by marshaling and unmarshaling the ResolvedInput field of the provided RunContext struct.
