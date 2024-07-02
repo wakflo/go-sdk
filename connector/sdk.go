@@ -23,6 +23,9 @@ type CreateConnectorArgs struct {
 	Triggers    []ITrigger
 	Operations  []IOperation
 	Authors     []string
+
+	// Documentation represents the field used to store the connector's documentation in markdown.
+	Documentation string
 }
 
 func CreateConnector(args *CreateConnectorArgs) (*ConnectorPlugin, error) {

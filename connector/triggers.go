@@ -41,6 +41,9 @@ type TriggerInfo struct {
 
 	ErrorSettings *sdkcore.StepErrorSettings `json:"error_settings" validate:"required"`
 
+	// Documentation represents the field used to store the connector's documentation in markdown.
+	Documentation *string `json:"documentation,omitempty"`
+
 	RequireAuth bool `json:"requireAuth"`
 }
 

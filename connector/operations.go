@@ -22,16 +22,19 @@ import (
 
 type OperationInfo struct {
 	// Key holds the value of the "key" field.
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" validate:"required"`
 	// Description holds the value of the "description" field.
-	Description string `json:"description,omitempty"`
+	Description string `json:"description,omitempty" validate:"required"`
 	// Input holds the value of the "input" field.
 	Input map[string]*sdkcore.AutoFormSchema `json:"input,omitempty"`
 	// Auth holds the value of the "auth" field.
 	Auth          *sdkcore.AutoFormSchema   `json:"auth"`
 	SampleOutput  sdkcore.JSONObject        `json:"sample_output"`
-	ErrorSettings sdkcore.StepErrorSettings `json:"error_settings"`
+	ErrorSettings sdkcore.StepErrorSettings `json:"error_settings" validate:"required"`
 	RequireAuth   bool                      `json:"require_auth"`
+
+	// Documentation represents the field used to store the connector's documentation in markdown.
+	Documentation *string `json:"documentation,omitempty"`
 }
 
 // IOperation is an interface that represents an operation within a connector. It extends the IRunnable interface and provides a method to get information about the operation.

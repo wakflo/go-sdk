@@ -109,6 +109,8 @@ type Operation struct {
 	ErrorSettings StepErrorSettings `json:"errorSettings,omitempty"`
 
 	RequireAuth bool `json:"requireAuth"`
+	// Documentation represents the field used to store the connector's documentation in markdown.
+	Documentation *string `json:"documentation,omitempty"`
 }
 
 type Operations = map[string]*Operation
@@ -138,6 +140,9 @@ type Trigger struct {
 	ErrorSettings *StepErrorSettings `json:"errorSettings,omitempty"`
 
 	RequireAuth bool `json:"requireAuth"`
+
+	// Documentation represents the field used to store the connector's documentation in markdown.
+	Documentation *string `json:"documentation,omitempty"`
 }
 
 type (

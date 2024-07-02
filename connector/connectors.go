@@ -112,6 +112,7 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			Settings:      info.Settings,
 			Type:          info.Type,
 			ErrorSettings: info.ErrorSettings,
+			Documentation: info.Documentation,
 		}
 		err = v.Validate(t)
 		if err != nil {
@@ -140,6 +141,7 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
 			ErrorSettings: info.ErrorSettings,
+			Documentation: info.Documentation,
 		}
 
 		operations[key] = op
