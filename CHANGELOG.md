@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/wakflo/go-sdk/compare/v0.4.0...v0.4.1) (2024-07-02)
+
+
+### Bug Fixes
+
+* added better error handling ([cf2e8c5](https://github.com/wakflo/go-sdk/commit/cf2e8c5f1afa7bd4c282ffe04b8c3de338d422a2))
+
 ## [0.4.0](https://github.com/wakflo/go-sdk/compare/v0.3.0...v0.4.0) (2024-06-29)
 
 
