@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/wakflo/go-sdk/compare/v0.4.1...v0.4.2) (2024-07-05)
+
+
+### Bug Fixes
+
+* fixed bug with missing custom auth type handling ([851331f](https://github.com/wakflo/go-sdk/commit/851331fdc21f8f300783e52a6437d8737fdd123c))
+
 ## [0.4.1](https://github.com/wakflo/go-sdk/compare/v0.4.0...v0.4.1) (2024-07-02)
 
 
