@@ -15,6 +15,7 @@
 package core
 
 import (
+	"errors"
 	"time"
 
 	"github.com/grokify/goauth/authutil"
@@ -62,6 +63,22 @@ type AuthContext struct {
 	Secret      string              `json:"secret,omitempty"`
 	Key         string              `json:"key,omitempty"`
 	Extra       map[string]string   `json:"extra,omitempty"`
+}
+
+func (c *AuthContext) GetExtra() (map[string]string, error) {
+	if c.Extra == nil {
+		return nil, errors.New("extra info not found in context")
+	}
+
+	return c.Extra, nil
+}
+
+func (c *AuthContext) GetCustomAuth() (map[string]string, error) {
+	if c.Extra == nil {
+		return nil, errors.New("custom auth data not provided")
+	}
+
+	return c.Extra, nil
 }
 
 type ConnectorAuthMetadata struct {
