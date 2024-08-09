@@ -170,6 +170,7 @@ type RunContext struct {
 	pausedTime    *time.Time
 	Log           *sdkcore.Log
 	state         *sdkcore.StepRunData
+	stepsState    map[string]*sdkcore.StepRunData
 }
 
 func NewRunContext(
@@ -178,6 +179,7 @@ func NewRunContext(
 	state *sdkcore.StepRunData,
 	workflow *sdkcore.WorkflowVersion,
 	auth *sdkcore.AuthContext,
+	stepsState map[string]*sdkcore.StepRunData,
 	runMode bool,
 	onWrite func(sdkcore.WriteLogLineOpts),
 ) *RunContext {
@@ -190,6 +192,7 @@ func NewRunContext(
 		ctx:           ctx,
 		step:          step,
 		state:         state,
+		stepsState:    stepsState,
 		Auth:          auth,
 		Input:         nil,
 		Files:         nil,
@@ -219,6 +222,10 @@ func (r *RunContext) SetContext(ctx context.Context) {
 
 func (r *RunContext) SetState(state *sdkcore.StepRunData) {
 	r.state = state
+}
+
+func (r *RunContext) GetStepsState() map[string]*sdkcore.StepRunData {
+	return r.stepsState
 }
 
 // IsPaused returns a boolean value indicating whether the execution is currently paused.
