@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/wakflo/go-sdk/compare/v0.4.2...v0.4.3) (2024-08-09)
+
+
+### Bug Fixes
+
+* exposed steps state to run context ([b3dea24](https://github.com/wakflo/go-sdk/commit/b3dea248b4cb62020e52ad1a65346883852048ac))
+
 ## [0.4.2](https://github.com/wakflo/go-sdk/compare/v0.4.1...v0.4.2) (2024-07-05)
 
 
