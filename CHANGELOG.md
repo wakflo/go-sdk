@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/wakflo/go-sdk/compare/v0.4.3...v0.4.4) (2024-08-19)
+
+
+### Bug Fixes
+
+* fixed team id to project id ([cad33cc](https://github.com/wakflo/go-sdk/commit/cad33ccfe25e354616c062bd42ace54b9d595d04))
+
 ## [0.4.3](https://github.com/wakflo/go-sdk/compare/v0.4.2...v0.4.3) (2024-08-09)
 
 
