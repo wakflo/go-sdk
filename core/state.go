@@ -48,8 +48,8 @@ type StepRunData struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// TeamID holds the value of the "team_id" field.
-	TeamID uuid.UUID `json:"team_id,omitempty"`
+	// ProjectID holds the value of the "team_id" field.
+	ProjectID uuid.UUID `json:"project_id,omitempty"`
 	// Status holds the value of the "status" field.
 	Status StepRunStatus `json:"status,omitempty"`
 	// JobID holds the value of the "job_id" field.

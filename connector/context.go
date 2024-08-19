@@ -167,6 +167,7 @@ type RunContext struct {
 	ctx           context.Context
 	ExecutionType sdkcore.ExecutionType `json:"executionType"`
 	isPaused      bool
+	runMode       bool
 	pausedTime    *time.Time
 	Log           *sdkcore.Log
 	state         *sdkcore.StepRunData
@@ -207,8 +208,9 @@ func NewRunContext(
 			ConnectorVersion: step.Metadata.ConnectorVersion,
 			LastRun:          workflow.LastRun,
 		},
+		runMode: runMode,
 		Log: sdkcore.NewLog(
-			workflow.TeamID.String(),
+			workflow.ProjectID.String(),
 			workflow.WorkflowID.String(),
 			&sid,
 			onWrite,
@@ -222,6 +224,14 @@ func (r *RunContext) SetContext(ctx context.Context) {
 
 func (r *RunContext) SetState(state *sdkcore.StepRunData) {
 	r.state = state
+}
+
+func (r *RunContext) IsTestMode() bool {
+	return r.runMode == false
+}
+
+func (r *RunContext) IsRunMode() bool {
+	return !r.IsTestMode()
 }
 
 func (r *RunContext) GetStepsState() map[string]*sdkcore.StepRunData {

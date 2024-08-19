@@ -173,8 +173,8 @@ type WorkflowVersion struct {
 	Name string `json:"name,omitempty"`
 	// Steps holds the value of the "steps" field.
 	Steps map[string]ConnectorStep `json:"steps,omitempty"`
-	// TeamID holds the value of the "team_id" field.
-	TeamID uuid.UUID `json:"team_id,omitempty"`
+	// ProjectID holds the value of the "project_id" field.
+	ProjectID uuid.UUID `json:"project_id,omitempty"`
 	// Version holds the value of the "version" field.
 	Version int `json:"version,omitempty"`
 	// LastRun field stores the timestamp of the last run of a workflow version.

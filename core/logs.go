@@ -40,7 +40,7 @@ type SystemActivityLogs = []SystemActivityLog
 
 type WriteLogLineOpts struct {
 	// The step run id
-	TeamID string `json:"team_id" validate:"required,uuid"`
+	ProjectID string `json:"project_id" validate:"required,uuid"`
 	// The step run id
 	StepRunID *string `json:"step_run_id" validate:"omitnil,uuid"`
 
@@ -66,8 +66,8 @@ type LogLine struct {
 	ID uuid.UUID `json:"id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	// TeamID holds the value of the "team_id" field.
-	TeamID uuid.UUID `json:"team_id,omitempty"`
+	// ProjectID holds the value of the "team_id" field.
+	ProjectID uuid.UUID `json:"project_id,omitempty"`
 	// StepRunID holds the value of the "step_run_id" field.
 	StepRunID *string `json:"step_run_id,omitempty"`
 	// WorkflowID holds the value of the "step_run_id" field.
@@ -86,7 +86,7 @@ type Log struct {
 }
 
 func NewLog(
-	teamID string,
+	projectID string,
 	workflowID string,
 	stepRunID *string,
 	onWrite func(WriteLogLineOpts),
@@ -95,7 +95,7 @@ func NewLog(
 		ops: &WriteLogLineOpts{
 			StepRunID:  stepRunID,
 			WorkflowID: workflowID,
-			TeamID:     teamID,
+			ProjectID:  projectID,
 			Message:    "",
 			Metadata:   nil,
 		},
