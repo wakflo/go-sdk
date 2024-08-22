@@ -15,7 +15,7 @@
 package core
 
 type DynamicFieldContext struct {
+	*GetDynamicOptionsInput
 	Auth  *AuthContext `json:"auth,omitempty"`
-	Input any          `json:"input"`
-	// Step  *ConnectorStep `json:"step,omitempty"`
+	Input any          `json:"input,omitempty"`
 }
