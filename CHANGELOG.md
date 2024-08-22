@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.5](https://github.com/wakflo/go-sdk/compare/v0.4.4...v0.4.5) (2024-08-22)
+
+
+### Bug Fixes
+
+* exposed more fields to getDynamic options ([b61e6a7](https://github.com/wakflo/go-sdk/commit/b61e6a79923dd1d2283ae9039251ab399ba49d4b))
+
 ## [0.4.4](https://github.com/wakflo/go-sdk/compare/v0.4.3...v0.4.4) (2024-08-19)
 
 
