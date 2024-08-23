@@ -76,6 +76,11 @@ type StepRunData struct {
 	Errors []string `json:"errors,omitempty"`
 	// Output holds the value of the "output" field.
 	Output any `json:"output,omitempty"`
+	// StartTime represents the start time of a step run.
+	StartTime time.Time `json:"start_time,omitempty"`
+	// EndTime represents the end time of a step run.
+	// It is a pointer to a time.Time value and can be nil.
+	EndTime *time.Time `json:"end_time,omitempty"`
 }
 
 type StepState = StepRunData
