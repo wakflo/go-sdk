@@ -26,12 +26,12 @@ import (
 type TriggerHookType string
 
 const (
-	TriggerTypeRun        TriggerHookType = "RUN"
-	TriggerTypeTest       TriggerHookType = "TEST"
-	TriggerTypeOnEnable   TriggerHookType = "ON_ENABLED"
-	TriggerTypeOnDisabled TriggerHookType = "ON_DISABLED"
-	TriggerTypeRenew      TriggerHookType = "RENEW"
-	TriggerTypeOptions    TriggerHookType = "OPTIONS"
+	TriggerHookTypeRun        TriggerHookType = "RUN"
+	TriggerHookTypeTest       TriggerHookType = "TEST"
+	TriggerHookTypeOnEnable   TriggerHookType = "ON_ENABLED"
+	TriggerHookTypeOnDisabled TriggerHookType = "ON_DISABLED"
+	TriggerHookTypeRenew      TriggerHookType = "RENEW"
+	TriggerHookTypeOptions    TriggerHookType = "OPTIONS"
 )
 
 func (TriggerHookType) SQLTypeName() string {
@@ -230,7 +230,7 @@ func (_j *TriggerHookType) UnmarshalYAML(unmarshal func(interface{}) error) erro
 func TriggerHookTypeFromString(raw string) (TriggerHookType, bool) {
 	v, ok := _TriggerHookTypeStringToValueMap[raw]
 	if !ok {
-		return TriggerTypeRun, false
+		return TriggerHookTypeRun, false
 	}
 	return v, true
 }
@@ -250,19 +250,19 @@ func TriggerHookTypeFromStringIgnoreCase(raw string) (TriggerHookType, bool) {
 
 var (
 	_TriggerHookTypeStringToValueMap = map[string]TriggerHookType{
-		"RUN":         TriggerTypeRun,
-		"TEST":        TriggerTypeTest,
-		"ON_ENABLED":  TriggerTypeOnEnable,
-		"ON_DISABLED": TriggerTypeOnDisabled,
-		"RENEW":       TriggerTypeRenew,
-		"OPTIONS":     TriggerTypeOptions,
+		"RUN":         TriggerHookTypeRun,
+		"TEST":        TriggerHookTypeTest,
+		"ON_ENABLED":  TriggerHookTypeOnEnable,
+		"ON_DISABLED": TriggerHookTypeOnDisabled,
+		"RENEW":       TriggerHookTypeRenew,
+		"OPTIONS":     TriggerHookTypeOptions,
 	}
 	_TriggerHookTypeLowerStringToValueMap = map[string]TriggerHookType{
-		"RUN":         TriggerTypeRun,
-		"TEST":        TriggerTypeTest,
-		"ON_ENABLED":  TriggerTypeOnEnable,
-		"ON_DISABLED": TriggerTypeOnDisabled,
-		"RENEW":       TriggerTypeRenew,
-		"OPTIONS":     TriggerTypeOptions,
+		"RUN":         TriggerHookTypeRun,
+		"TEST":        TriggerHookTypeTest,
+		"ON_ENABLED":  TriggerHookTypeOnEnable,
+		"ON_DISABLED": TriggerHookTypeOnDisabled,
+		"RENEW":       TriggerHookTypeRenew,
+		"OPTIONS":     TriggerHookTypeOptions,
 	}
 )
