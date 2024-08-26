@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.9](https://github.com/wakflo/go-sdk/compare/v0.4.8...v0.4.9) (2024-08-26)
+
+
+### Bug Fixes
+
+* added help text support ([6937da4](https://github.com/wakflo/go-sdk/commit/6937da4b1ba7d8ffae73f8f601a5890f853db9e7))
+
 ## [0.4.8](https://github.com/wakflo/go-sdk/compare/v0.4.7...v0.4.8) (2024-08-24)
 
 
