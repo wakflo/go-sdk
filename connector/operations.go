@@ -35,6 +35,9 @@ type OperationInfo struct {
 
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation *string `json:"documentation,omitempty"`
+
+	// HelpText holds the value of the "helpText" field.
+	HelpText *string `json:"helpText,omitempty"`
 }
 
 // IOperation is an interface that represents an operation within a connector. It extends the IRunnable interface and provides a method to get information about the operation.

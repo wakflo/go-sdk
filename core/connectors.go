@@ -97,6 +97,8 @@ type Operation struct {
 	DisplayName string `json:"name,omitempty"`
 	// Description holds the value of the "description" field.
 	Description string `json:"description,omitempty"`
+	// HelpText holds the value of the "helpText" field.
+	HelpText *string `json:"helpText,omitempty"`
 	// Input holds the value of the "input" field.
 	Input *AutoFormSchema `json:"input,omitempty"`
 	// Auth holds the value of the "auth" field.
@@ -125,6 +127,8 @@ type Trigger struct {
 	DisplayName string `json:"displayName,omitempty" validate:"required"`
 	// Description holds the value of the "description" field.
 	Description string `json:"description,omitempty" validate:"required"`
+	// HelpText holds the value of the "helpText" field.
+	HelpText *string `json:"helpText,omitempty"`
 	// Input holds the value of the "input" field.
 	Input *AutoFormSchema `json:"input,omitempty"`
 	// SampleOutput holds the value of the "sampleOutput" field.

@@ -45,6 +45,9 @@ type TriggerInfo struct {
 	Documentation *string `json:"documentation,omitempty"`
 
 	RequireAuth bool `json:"requireAuth"`
+
+	// HelpText holds the value of the "helpText" field.
+	HelpText *string `json:"helpText,omitempty"`
 }
 
 type ITrigger interface {
