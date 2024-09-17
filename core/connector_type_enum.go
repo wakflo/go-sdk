@@ -30,6 +30,7 @@ const (
 	ConnectorTypeBoolean ConnectorType = "boolean"
 	ConnectorTypeNormal  ConnectorType = "normal"
 	ConnectorTypeLoop    ConnectorType = "loop"
+	ConnectorTypeAction  ConnectorType = "action"
 )
 
 func (ConnectorType) SQLTypeName() string {
@@ -43,6 +44,7 @@ func (ConnectorType) Values() []string {
 		"boolean",
 		"normal",
 		"loop",
+		"action",
 	}
 }
 
@@ -250,11 +252,13 @@ var (
 		"boolean": ConnectorTypeBoolean,
 		"normal":  ConnectorTypeNormal,
 		"loop":    ConnectorTypeLoop,
+		"action":  ConnectorTypeAction,
 	}
 	_ConnectorTypeLowerStringToValueMap = map[string]ConnectorType{
 		"branch":  ConnectorTypeBranch,
 		"boolean": ConnectorTypeBoolean,
 		"normal":  ConnectorTypeNormal,
 		"loop":    ConnectorTypeLoop,
+		"action":  ConnectorTypeAction,
 	}
 )

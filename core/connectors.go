@@ -252,3 +252,15 @@ type TestWorkflowStepInput struct {
 	StepName   string    `json:"stepName"`
 	WorkflowID uuid.UUID `json:"workflowId"`
 }
+
+func FlattenSteps(node *ConnectorStep) []*ConnectorStep {
+	nodes := []*ConnectorStep{node}
+	if node.Children == nil {
+		return nodes
+	}
+
+	for _, child := range *node.Children {
+		nodes = append(nodes, FlattenSteps(&child)...)
+	}
+	return nodes
+}

@@ -43,6 +43,14 @@ func (b *ArrayField) SetDefaultValue(defaultValue interface{}) *ArrayField {
 }
 
 func (b *ArrayField) SetItems(item *sdkcore.AutoFormSchema) *ArrayField {
+	if item.Type == sdkcore.Integer || item.Type == sdkcore.String || item.Type == sdkcore.Number {
+		if b.builder.schema.Presentation.Extras == nil {
+			b.builder.schema.Presentation.Extras = map[string]any{}
+		}
+
+		b.builder.schema.Presentation.Extras["arrayType"] = item.Type
+	}
+
 	b.builder.WithItems(item)
 	return b
 }

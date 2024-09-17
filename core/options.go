@@ -14,8 +14,17 @@
 
 package core
 
+import (
+	"context"
+)
+
 type DynamicFieldContext struct {
 	*GetDynamicOptionsInput
 	Auth  *AuthContext `json:"auth,omitempty"`
 	Input any          `json:"input,omitempty"`
+	Ctx   context.Context
+}
+
+func (c *DynamicFieldContext) GetContext() context.Context {
+	return c.Ctx
 }

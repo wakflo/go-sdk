@@ -27,7 +27,7 @@ func NewGroupArrayField() *GroupArrayField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.Array)
-	c.builder.WithFieldType(sdkcore.ArrayType)
+	c.builder.WithFieldType(sdkcore.GroupArrayType)
 
 	return c
 }

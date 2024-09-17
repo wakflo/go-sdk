@@ -33,6 +33,7 @@ const (
 	StepTypeCondition StepType = "condition"
 	StepTypeStart     StepType = "start"
 	StepTypeEnd       StepType = "end"
+	StepTypeAction    StepType = "action"
 )
 
 func (StepType) SQLTypeName() string {
@@ -49,6 +50,7 @@ func (StepType) Values() []string {
 		"condition",
 		"start",
 		"end",
+		"action",
 	}
 }
 
@@ -259,6 +261,7 @@ var (
 		"condition": StepTypeCondition,
 		"start":     StepTypeStart,
 		"end":       StepTypeEnd,
+		"action":    StepTypeAction,
 	}
 	_StepTypeLowerStringToValueMap = map[string]StepType{
 		"branch":    StepTypeBranch,
@@ -268,5 +271,6 @@ var (
 		"condition": StepTypeCondition,
 		"start":     StepTypeStart,
 		"end":       StepTypeEnd,
+		"action":    StepTypeAction,
 	}
 )

@@ -14,6 +14,10 @@
 
 package sdk
 
+import (
+	sdkcore "github.com/wakflo/go-sdk/core"
+)
+
 type CreateConnectorArgs struct {
 	Name        string
 	Description string
@@ -26,6 +30,8 @@ type CreateConnectorArgs struct {
 
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation string
+
+	Type *sdkcore.ConnectorType
 }
 
 func CreateConnector(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
