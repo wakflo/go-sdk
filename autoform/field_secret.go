@@ -95,7 +95,7 @@ func (b *AuthSecretField) setProps() *AuthSecretField {
 		"secret": NewShortTextField().
 			SetDisplayName(name).
 			SetDescription(desc).
-			SetDefaultValue(*b.builder.schema.AuthURL).
+			//SetDefaultValue(*b.builder.schema.AuthURL).
 			SetRequired(true).Build(),
 	})
 
