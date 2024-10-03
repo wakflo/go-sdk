@@ -1,6 +1,6 @@
 module github.com/wakflo/go-sdk
 
-go 1.22.2
+go 1.23.0
 
 require (
 	encore.dev v1.37.0
