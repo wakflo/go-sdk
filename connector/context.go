@@ -222,8 +222,8 @@ func (r *RunContext) SetContext(ctx context.Context) {
 	r.ctx = ctx
 }
 
-func (c *RunContext) GetContext() context.Context {
-	return c.ctx
+func (r *RunContext) GetContext() context.Context {
+	return r.ctx
 }
 
 func (r *RunContext) SetState(state *sdkcore.StepRunData) {
