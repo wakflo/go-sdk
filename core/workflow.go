@@ -80,8 +80,9 @@ type StepErrorSettings struct {
 }
 
 type ConnectorStepMetadata struct {
-	ConnectorName    string `json:"connectorName,omitempty"`
-	ConnectorVersion string `json:"connectorVersion,omitempty"`
+	ConnectorName    string       `json:"connectorName,omitempty"`
+	ConnectorVersion string       `json:"connectorVersion,omitempty"`
+	TriggerType      *TriggerType `json:"triggerType,omitempty"`
 }
 
 type ConnectorStep struct {
@@ -125,6 +126,9 @@ type ConnectorStep struct {
 
 	// ContinueOnError of the step
 	Valid bool `json:"valid,omitempty"`
+
+	// IsFolded if step is folded
+	IsFolded bool `json:"isFolded,omitempty"`
 }
 
 // SignLog sign log
