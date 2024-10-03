@@ -23,6 +23,7 @@ jobs:
         gover:
           - "1.21"
           - "1.22"
+          - "1.23"
     env:
       GOVER: ${{ matrix.gover }}
       GOLANGCILINT_VER: v1.59.0
@@ -46,7 +47,7 @@ jobs:
 #        uses: codecov/codecov-action@v4
 
       - name: Lint
-        uses: golangci/golangci-lint-action@v3.3.1
+        uses: golangci/golangci-lint-action@v6.1.1
         with:
           version: ${{ env.GOLANGCILINT_VER }}
           skip-cache: true
