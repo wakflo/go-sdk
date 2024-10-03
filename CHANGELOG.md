@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.0](https://github.com/wakflo/go-sdk/compare/v0.4.9...v0.5.0) (2024-10-03)
+
+
+### Features
+
+* exposed go context ([baa0b23](https://github.com/wakflo/go-sdk/commit/baa0b2342b03becfbafa39aa306590c28be0bdbf))
+* exposed go context ([a0b976b](https://github.com/wakflo/go-sdk/commit/a0b976b054829982a2992755bb71944effdc4999))
+* exposed go context ([8a40465](https://github.com/wakflo/go-sdk/commit/8a40465930e0bb41f0e2472a222c10be20b8d7a7))
+* exposed go context ([70c50c3](https://github.com/wakflo/go-sdk/commit/70c50c31896ba9b7a7e9bc0f4a3024e71f148951))
+* exposed go context ([43bf4de](https://github.com/wakflo/go-sdk/commit/43bf4dee0c260f672027e8a9976bcbd8aa2dcef1))
+* exposed go context ([a7b3e39](https://github.com/wakflo/go-sdk/commit/a7b3e39d3c2e0afd4c9809aca589a65f8efdff73))
+* exposed go context ([95f0a03](https://github.com/wakflo/go-sdk/commit/95f0a03667e24b5574553795c79c83dc1d4ef8da))
+* exposed go context ([3956110](https://github.com/wakflo/go-sdk/commit/39561107757c942ebe7db1b92ecb55e2ecd580b8))
+
 ## [0.4.9](https://github.com/wakflo/go-sdk/compare/v0.4.8...v0.4.9) (2024-08-26)
 
 
