@@ -26,7 +26,7 @@ jobs:
           - "1.23"
     env:
       GOVER: ${{ matrix.gover }}
-      GOLANGCILINT_VER: v1.59.0
+      GOLANGCILINT_VER: v1.55.2
 
     steps:
       - name: Checkout
