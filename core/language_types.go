@@ -30,6 +30,7 @@ const (
 	GoLang     CodeEditorLanguage = "go"
 	Typescript CodeEditorLanguage = "typescript"
 	Lua        CodeEditorLanguage = "lua"
+	PGSql      CodeEditorLanguage = "pgsql"
 )
 
 func (CodeEditorLanguage) SQLTypeName() string {
@@ -43,6 +44,7 @@ func (CodeEditorLanguage) Values() []string {
 		"go",
 		"typescript",
 		"lua",
+		"pgsql",
 	}
 }
 
@@ -250,11 +252,13 @@ var (
 		"go":         GoLang,
 		"typescript": Typescript,
 		"lua":        Lua,
+		"pgsql":      PGSql,
 	}
 	_CodeEditorLanguageLowerStringToValueMap = map[string]CodeEditorLanguage{
 		"javascript": Javascript,
 		"go":         GoLang,
 		"typescript": Typescript,
 		"lua":        Lua,
+		"pgsql":      PGSql,
 	}
 )
