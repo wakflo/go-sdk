@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/wakflo/go-sdk/compare/v0.5.0...v0.6.0) (2024-10-03)
+
+
+### Features
+
+* exposed go context ([1ee0adb](https://github.com/wakflo/go-sdk/commit/1ee0adbb593e3abed3a370a08331a20f5b778d03))
+
 ## [0.5.0](https://github.com/wakflo/go-sdk/compare/v0.4.9...v0.5.0) (2024-10-03)
 
 
