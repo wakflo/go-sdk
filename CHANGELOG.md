@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/wakflo/go-sdk/compare/v0.7.0...v0.7.1) (2024-10-10)
+
+
+### Bug Fixes
+
+* exposed go context ([071289e](https://github.com/wakflo/go-sdk/commit/071289e5e92329bd82f5b08feeac0916dd1cf00e))
+
 ## [0.7.0](https://github.com/wakflo/go-sdk/compare/v0.6.0...v0.7.0) (2024-10-10)
 
 
