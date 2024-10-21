@@ -37,13 +37,14 @@ type IConnectorPlugin interface {
 // It includes information such as the name, display name, description,
 // version, authors, category, and logo of the connector.
 type ConnectorMetadata struct {
-	Name        string
-	DisplayName string
-	Description string
-	Version     string
-	Authors     []string
-	Category    ConnectorCategory
-	Logo        string
+	Name        string         `json:"name"`
+	DisplayName string         `json:"display_name"`
+	Description string         `json:"description"`
+	Version     string         `json:"version"`
+	Authors     []string       `json:"authors"`
+	Group       ConnectorGroup `json:"group"`
+	Categories  []string       `json:"categories"`
+	Logo        string         `json:"logo"`
 }
 
 // ConnectorPlugin represents a plugin that connects to a service or application.
@@ -155,7 +156,8 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 		Description: args.Description,
 		Version:     args.Version,
 		Logo:        args.Logo,
-		Category:    args.Category,
+		Group:       args.Group,
+		Categories:  args.Categories,
 		Authors:     args.Authors,
 	}
 

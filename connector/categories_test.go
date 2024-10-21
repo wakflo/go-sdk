@@ -7,7 +7,7 @@ import (
 func TestIsValid(t *testing.T) {
 	tests := []struct {
 		name string
-		cc   ConnectorCategory
+		cc   ConnectorGroup
 		want bool
 	}{
 		{
@@ -44,7 +44,7 @@ func TestIsValid(t *testing.T) {
 func TestValidate(t *testing.T) {
 	tests := []struct {
 		name    string
-		cc      ConnectorCategory
+		cc      ConnectorGroup
 		wantErr bool
 	}{
 		{
@@ -78,7 +78,7 @@ func TestFromStringMethods(t *testing.T) {
 	tests := []struct {
 		name     string
 		cc       string
-		want     ConnectorCategory
+		want     ConnectorGroup
 		wantBool bool
 	}{
 		{

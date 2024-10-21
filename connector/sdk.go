@@ -23,7 +23,8 @@ type CreateConnectorArgs struct {
 	Description string
 	Version     string
 	Logo        string
-	Category    ConnectorCategory
+	Group       ConnectorGroup
+	Categories  []string
 	Triggers    []ITrigger
 	Operations  []IOperation
 	Authors     []string
