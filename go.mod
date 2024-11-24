@@ -11,7 +11,6 @@ require (
 	github.com/getsentry/sentry-go v0.28.1
 	github.com/go-playground/validator/v10 v10.22.0
 	github.com/google/uuid v1.6.0
-	github.com/gookit/goutil v0.6.15
 	github.com/gosimple/slug v1.14.0
 	github.com/grokify/goauth v0.21.2
 	github.com/hashicorp/go-multierror v1.1.1
