@@ -25,7 +25,12 @@ type BaseComponentField struct {
 }
 
 func NewBaseComponentField() *BaseComponentField {
-	c := &BaseComponentField{schema: &sdkcore.AutoFormSchema{}, builder: NewSchemaBuilder()}
+	c := &BaseComponentField{
+		schema: &sdkcore.AutoFormSchema{
+			UIProps: &sdkcore.AutoFormFieldProps{},
+		},
+		builder: NewSchemaBuilder(),
+	}
 	return c
 }
 
@@ -57,12 +62,12 @@ func (b *DefaultBaseComponentField) SetDisplayName(title string) *DefaultBaseCom
 
 func (b *DefaultBaseComponentField) SetRequired(required bool) *DefaultBaseComponentField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
+	b.builder.schema.UIProps.Required = required
 	return b
 }
 
 func (b *DefaultBaseComponentField) SetDisabled(disabled bool) *DefaultBaseComponentField {
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder.schema.UIProps.Disabled = disabled
 	return b
 }
 

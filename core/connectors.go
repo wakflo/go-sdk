@@ -21,13 +21,36 @@ import (
 	"github.com/wakflo/go-sdk/core/authenums"
 )
 
-// JSONObject is a type alias for map[string]interface{}.
-type JSONObject = map[string]interface{}
+// JSONObject is a type alias for map[string]any.
+type JSONObject = map[string]any
+
+type FormState struct {
+	Pristine      bool           `json:"pristine"`
+	Dirty         bool           `json:"dirty"`
+	Disabled      bool           `json:"disabled"`
+	Submitted     bool           `json:"submitted"`
+	Valid         bool           `json:"valid"`
+	Invalid       bool           `json:"invalid"`
+	Submitting    bool           `json:"submitting"`
+	Validating    int            `json:"validating"`
+	Gathering     int            `json:"gathering"`
+	Values        map[string]any `json:"values"`
+	MaskedValues  map[string]any `json:"maskedValues"`
+	Errors        map[string]any `json:"errors"`
+	Touched       map[string]any `json:"touched"`
+	Modified      map[string]any `json:"modified"`
+	Dirt          map[string]any `json:"dirt"`
+	Focused       map[string]any `json:"focused"`
+	InitialValues map[string]any `json:"initialValues"`
+	Data          map[string]any `json:"data"`
+	Memory        map[string]any `json:"memory"`
+}
 
 // ConnectorProperties is a Task operation type.
 type ConnectorProperties struct {
+	FormState      FormState   `json:"formState"`
 	Input          JSONObject  `json:"input"`
-	Output         interface{} `json:"output"`
+	Output         any         `json:"output"`
 	LastTestTime   *int        `json:"lastTestTime"`
 	LastTestStatus *TestStatus `json:"lastTestStatus"`
 }
@@ -39,11 +62,11 @@ type ConnectorAuthentication struct {
 
 // TaskOperation is a Task operation type.
 type TaskOperation struct {
-	ID          uuid.UUID              `json:"id"`
-	Name        string                 `json:"name"`
-	Description string                 `json:"description"`
-	Input       map[string]interface{} `json:"input"`
-	Output      map[string]interface{} `json:"output"`
+	ID          uuid.UUID      `json:"id"`
+	Name        string         `json:"name"`
+	Description string         `json:"description"`
+	Input       map[string]any `json:"input"`
+	Output      map[string]any `json:"output"`
 }
 
 // ConnectorPlugin is a ConnectorPlugin model.
@@ -85,8 +108,8 @@ type PluginMetadata struct {
 
 // AuthOperation is an auth operation struct.
 type AuthOperation struct {
-	Type   authenums.AuthType     `json:"type"`
-	Config map[string]interface{} `json:"config"`
+	Type   authenums.AuthType `json:"type"`
+	Config map[string]any     `json:"config"`
 }
 
 // Operation .
@@ -104,9 +127,9 @@ type Operation struct {
 	// Auth holds the value of the "auth" field.
 	Auth *AutoFormSchema `json:"auth,omitempty"`
 	// Output holds the value of the "output" field.
-	Output map[string]interface{} `json:"output,omitempty"`
+	Output map[string]any `json:"output,omitempty"`
 	// SampleOutput holds the value of the "sample_output" field.
-	SampleOutput map[string]interface{} `json:"sampleOutput,omitempty"`
+	SampleOutput map[string]any `json:"sampleOutput,omitempty"`
 
 	ErrorSettings StepErrorSettings `json:"errorSettings,omitempty"`
 
@@ -132,7 +155,7 @@ type Trigger struct {
 	// Input holds the value of the "input" field.
 	Input *AutoFormSchema `json:"input,omitempty"`
 	// SampleOutput holds the value of the "sampleOutput" field.
-	SampleOutput map[string]interface{} `json:"sampleOutput,omitempty"`
+	SampleOutput map[string]any `json:"sampleOutput,omitempty"`
 	// Auth holds the value of the "auth" field.
 	Auth *AutoFormSchema `json:"auth,omitempty"`
 

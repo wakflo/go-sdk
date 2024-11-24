@@ -24,7 +24,7 @@ type SchemaBuilder struct {
 
 func NewSchemaBuilder() *SchemaBuilder {
 	s := &SchemaBuilder{schema: &sdkcore.AutoFormSchema{}}
-	s.schema.Presentation = &sdkcore.AutoFormFieldPresentation{}
+	s.schema.UIProps = &sdkcore.AutoFormFieldProps{}
 
 	return s
 }
@@ -44,12 +44,20 @@ func (b *SchemaBuilder) WithType(schemaType sdkcore.AutoFormType) *SchemaBuilder
 }
 
 func (b *SchemaBuilder) WithFieldType(fieldType sdkcore.AutoFormFieldType) *SchemaBuilder {
-	b.schema.Presentation.InputType = fieldType
+	b.schema.UIControl = fieldType
+	b.schema.UIProps.ControlType = fieldType
 	return b
 }
 
 func (b *SchemaBuilder) WithFieldRequired(required bool) *SchemaBuilder {
-	b.schema.Presentation.Required = required
+	b.schema.UIProps.Required = required
+	b.schema.IsRequired = required
+	return b
+}
+
+func (b *SchemaBuilder) WithFieldDisabled(disabled bool) *SchemaBuilder {
+	b.schema.Disabled = disabled
+	b.schema.UIProps.Disabled = disabled
 	return b
 }
 

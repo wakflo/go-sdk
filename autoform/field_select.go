@@ -15,79 +15,82 @@
 package autoform
 
 import (
-	"time"
-
 	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
-type DateTimeField struct {
+type SelectField struct {
 	*BaseComponentField
 }
 
-func NewDateTimeField() *DateTimeField {
-	c := &DateTimeField{
+func NewSelectField() *SelectField {
+	c := &SelectField{
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.String)
-	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeDateTime)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeSelect)
 
 	return c
 }
 
-func (b *DateTimeField) Build() *sdkcore.AutoFormSchema {
+func (b *SelectField) Build() *sdkcore.AutoFormSchema {
 	b.schema = b.builder.Build()
 	return b.schema
 }
 
-func (b *DateTimeField) SetDefaultValue(defaultValue time.Time) *DateTimeField {
+func (b *SelectField) SetDefaultValue(defaultValue interface{}) *SelectField {
 	b.builder.WithDefault(defaultValue)
 	return b
 }
 
-func (b *DateTimeField) SetMinimum(len time.Time) *DateTimeField {
-	b.builder.WithMinimum(&len)
+func (b *SelectField) SetUnique(unique bool) *SelectField {
+	b.builder.WithUniqueItems(unique)
 	return b
 }
 
-func (b *DateTimeField) SetMaximum(len time.Time) *DateTimeField {
-	b.builder.WithMaximum(&len)
+func (b *SelectField) SetOptions(schemas []*sdkcore.AutoFormSchema) *SelectField {
+	b.builder.WithOneOf(schemas)
 	return b
 }
 
 // rest
-func (b *DateTimeField) SetDescription(desc string) *DateTimeField {
+func (b *SelectField) SetDescription(desc string) *SelectField {
 	b.builder.WithDescription(desc)
 	return b
 }
 
-func (b *DateTimeField) SetDisplayName(title string) *DateTimeField {
+func (b *SelectField) SetDisplayName(title string) *SelectField {
 	b.builder.WithTitle(title)
 	return b
 }
 
-func (b *DateTimeField) SetRequired(required bool) *DateTimeField {
+func (b *SelectField) SeMultiSelect(enable bool) *SelectField {
+	b.builder.schema.UIProps.Multiple = enable
+	return b
+}
+
+func (b *SelectField) SetRequired(required bool) *SelectField {
 	b.Required = required
 	b.builder = b.builder.WithFieldRequired(required)
 	return b
 }
 
-func (b *DateTimeField) SetDisabled(disabled bool) *DateTimeField {
+func (b *SelectField) SetDisabled(disabled bool) *SelectField {
 	b.builder = b.builder.WithFieldDisabled(disabled)
 	return b
 }
 
-func (b *DateTimeField) SetPlaceholder(placeholder string) *DateTimeField {
+func (b *SelectField) SetPlaceholder(placeholder string) *SelectField {
 	b.builder.schema.UIProps.Placeholder = placeholder
 	return b
 }
 
-func (b *DateTimeField) SetLabel(label string) *DateTimeField {
+func (b *SelectField) SetLabel(label string) *SelectField {
 	b.builder.WithTitle(label)
 	b.builder.schema.UIProps.Label = label
 	return b
 }
 
-func (b *DateTimeField) SetHint(hint string) *DateTimeField {
+func (b *SelectField) SetHint(hint string) *SelectField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }

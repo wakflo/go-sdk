@@ -24,25 +24,25 @@ func TestBuilder(t *testing.T) {
 			builder.schema.Title, "test title")
 	}
 
-	builder.WithType(sdkcore.AutoFormType("string"))
+	builder.WithType("string")
 
-	if builder.schema.Type != sdkcore.AutoFormType("string") {
+	if builder.schema.Type != ("string") {
 		t.Errorf("unexpected schema type: got %v, want %v",
 			builder.schema.Type, sdkcore.AutoFormType("string"))
 	}
 
-	builder.WithFieldType(sdkcore.AutoFormFieldType("number"))
+	builder.WithFieldType("number")
 
-	if builder.schema.Presentation.InputType != sdkcore.AutoFormFieldType("number") {
+	if builder.schema.UIControl != ("number") {
 		t.Errorf("unexpected schema form field type: got %v, want %v",
-			builder.schema.Presentation.InputType, sdkcore.AutoFormFieldType("number"))
+			builder.schema.UIControl, sdkcore.AutoFormFieldType("number"))
 	}
 
 	builder.WithFieldRequired(true)
 
-	if builder.schema.Presentation.Required != true {
+	if builder.schema.UIProps.Required != true {
 		t.Errorf("unexpected schema form field 'required' value: got %v, want %v",
-			builder.schema.Presentation.Required, true)
+			builder.schema.UIProps.Required, true)
 	}
 
 	// and so on for all the other methods, make sure to cover all corner cases,

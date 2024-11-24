@@ -85,6 +85,7 @@ func (b *BaseTextField) Build() *sdkcore.AutoFormSchema {
 
 func (b *BaseTextField) SetDefaultValue(defaultValue string) *BaseTextField {
 	b.builder.WithDefault(defaultValue)
+	b.builder.schema.UIProps.InitialValue = defaultValue
 	return b
 }
 
@@ -95,6 +96,24 @@ func (b *BaseTextField) SetMinLength(len int) *BaseTextField {
 
 func (b *BaseTextField) SetMaxLength(len int) *BaseTextField {
 	b.builder.WithMaxLength(&len)
+	return b
+}
+
+// ----- new
+
+func (b *BaseTextField) SetPlaceholder(placeholder string) *BaseTextField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *BaseTextField) SetLabel(label string) *BaseTextField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *BaseTextField) SetHint(hint string) *BaseTextField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }
 
@@ -111,14 +130,12 @@ func (b *BaseTextField) SetDisplayName(title string) *BaseTextField {
 
 func (b *BaseTextField) SetRequired(required bool) *BaseTextField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(required)
 	return b
 }
 
 func (b *BaseTextField) SetDisabled(disabled bool) *BaseTextField {
-	b.builder.schema.Disabled = disabled
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder = b.builder.WithFieldDisabled(disabled)
 	return b
 }
 
@@ -149,7 +166,7 @@ func NewShortTextField() *ShortTextField {
 	c := &ShortTextField{
 		BaseTextField: newBaseTextField(),
 	}
-	c.builder.WithFieldType(sdkcore.ShortTextType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeShortText)
 
 	return c
 }
@@ -165,7 +182,7 @@ func NewLongTextField() *LongTextField {
 	c := &LongTextField{
 		BaseTextField: newBaseTextField(),
 	}
-	c.builder.WithFieldType(sdkcore.LongTextType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeLongText)
 
 	return c
 }

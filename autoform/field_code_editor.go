@@ -29,10 +29,8 @@ func NewCodeEditorField(language sdkcore.CodeEditorLanguage) *CodeEditorField {
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
 	c.builder.WithType(sdkcore.String)
-	c.builder.WithFieldType(sdkcore.CodeEditorType)
-	c.builder.schema.Presentation.Extras = map[string]interface{}{
-		"language": language,
-	}
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeCodeEditor)
+	c.builder.schema.UIProps.Language = string(language)
 
 	return c
 }
@@ -40,6 +38,11 @@ func NewCodeEditorField(language sdkcore.CodeEditorLanguage) *CodeEditorField {
 func (b *CodeEditorField) Build() *sdkcore.AutoFormSchema {
 	b.schema = b.builder.Build()
 	return b.schema
+}
+
+func (b *CodeEditorField) SetLanguage(language sdkcore.CodeEditorLanguage) *CodeEditorField {
+	b.builder.schema.UIProps.Language = string(language)
+	return b
 }
 
 func (b *CodeEditorField) SetDescription(desc string) *CodeEditorField {
@@ -54,18 +57,32 @@ func (b *CodeEditorField) SetDisplayName(title string) *CodeEditorField {
 
 func (b *CodeEditorField) SetRequired(required bool) *CodeEditorField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder.WithFieldRequired(required)
 	return b
 }
 
 func (b *CodeEditorField) SetDisabled(disabled bool) *CodeEditorField {
-	b.builder.schema.Disabled = disabled
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder = b.builder.WithFieldDisabled(disabled)
 	return b
 }
 
 func (b *CodeEditorField) SetDefaultValue(defaultValue string) *CodeEditorField {
 	b.builder.WithDefault(defaultValue)
+	return b
+}
+
+func (b *CodeEditorField) SetPlaceholder(placeholder string) *CodeEditorField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *CodeEditorField) SetLabel(label string) *CodeEditorField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *CodeEditorField) SetHint(hint string) *CodeEditorField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

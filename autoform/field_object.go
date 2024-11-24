@@ -27,7 +27,7 @@ func NewObjectField() *ObjectField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.Object)
-	c.builder.WithFieldType(sdkcore.ObjectType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeObject)
 
 	return c
 }
@@ -77,14 +77,13 @@ func (b *ObjectField) SetDisplayName(title string) *ObjectField {
 
 func (b *ObjectField) SetRequired(required bool) *ObjectField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(required)
 	return b
 }
 
 func (b *ObjectField) SetDisabled(disabled bool) *ObjectField {
 	b.builder.schema.Disabled = disabled
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder = b.builder.WithFieldDisabled(disabled)
 	return b
 }
 
@@ -100,5 +99,21 @@ func (b *ObjectField) SetOneOf(schemas []*sdkcore.AutoFormSchema) *ObjectField {
 
 func (b *ObjectField) SetAllOf(schemas []*sdkcore.AutoFormSchema) *ObjectField {
 	b.builder.WithAllOf(schemas)
+	return b
+}
+
+func (b *ObjectField) SetPlaceholder(placeholder string) *ObjectField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *ObjectField) SetLabel(label string) *ObjectField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *ObjectField) SetHint(hint string) *ObjectField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

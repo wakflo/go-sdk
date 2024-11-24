@@ -31,31 +31,29 @@ import (
 type AutoFormFieldType string
 
 const (
-	ShortTextType      AutoFormFieldType = "short_text"
-	LongTextType       AutoFormFieldType = "long_text"
-	MarkdownType       AutoFormFieldType = "markdown"
-	DropdownType       AutoFormFieldType = "dropdown"
-	MultiSelectType    AutoFormFieldType = "multi_select"
-	StaticDropdownType AutoFormFieldType = "static_dropdown"
-	NumberType         AutoFormFieldType = "number"
-	CheckboxType       AutoFormFieldType = "checkbox"
-	Oauth2Type         AutoFormFieldType = "oauth"
-	SecretAuthType     AutoFormFieldType = "secret"
-	CustomAuthType     AutoFormFieldType = "custom_auth"
-	ArrayType          AutoFormFieldType = "array"
-	GroupArrayType     AutoFormFieldType = "group-array"
-	ObjectType         AutoFormFieldType = "fieldset"
-	BasicAuthType      AutoFormFieldType = "basic_auth"
-	JSONType           AutoFormFieldType = "json"
-	DateTimeType       AutoFormFieldType = "datetime"
-	FileType           AutoFormFieldType = "file"
-	FileStringType     AutoFormFieldType = "file_string"
-	BooleanType        AutoFormFieldType = "boolean"
-	DynamicType        AutoFormFieldType = "dynamic"
-	CodeEditorType     AutoFormFieldType = "code"
-	RichTextType       AutoFormFieldType = "richtext"
-	BranchType         AutoFormFieldType = "branch"
-	WrapperType        AutoFormFieldType = "wrapper"
+	AutoFormFieldTypeShortText      AutoFormFieldType = "short_text"
+	AutoFormFieldTypeLongText       AutoFormFieldType = "long_text"
+	AutoFormFieldTypeMarkdown       AutoFormFieldType = "markdown"
+	AutoFormFieldTypeSelect         AutoFormFieldType = "select"
+	AutoFormFieldTypeStaticDropdown AutoFormFieldType = "static_dropdown"
+	AutoFormFieldTypeNumber         AutoFormFieldType = "number"
+	AutoFormFieldTypeCheckbox       AutoFormFieldType = "checkbox"
+	AutoFormFieldTypeOauth2         AutoFormFieldType = "oauth"
+	AutoFormFieldTypeSecretAuth     AutoFormFieldType = "secret"
+	AutoFormFieldTypeCustomAuth     AutoFormFieldType = "custom_auth"
+	AutoFormFieldTypeArray          AutoFormFieldType = "array"
+	AutoFormFieldTypeObject         AutoFormFieldType = "fieldset"
+	AutoFormFieldTypeBasicAuth      AutoFormFieldType = "basic_auth"
+	AutoFormFieldTypeJSON           AutoFormFieldType = "json"
+	AutoFormFieldTypeDateTime       AutoFormFieldType = "datetime"
+	AutoFormFieldTypeFile           AutoFormFieldType = "file"
+	AutoFormFieldTypeFileString     AutoFormFieldType = "file_string"
+	AutoFormFieldTypeBoolean        AutoFormFieldType = "boolean"
+	AutoFormFieldTypeDynamic        AutoFormFieldType = "dynamic"
+	AutoFormFieldTypeCodeEditor     AutoFormFieldType = "code"
+	AutoFormFieldTypeRichText       AutoFormFieldType = "richtext"
+	AutoFormFieldTypeBranch         AutoFormFieldType = "branch"
+	AutoFormFieldTypeWrapper        AutoFormFieldType = "wrapper"
 )
 
 func (AutoFormFieldType) SQLTypeName() string {
@@ -68,8 +66,7 @@ func (AutoFormFieldType) Values() []string {
 		"short_text",
 		"long_text",
 		"markdown",
-		"dropdown",
-		"multi_select",
+		"select",
 		"static_dropdown",
 		"number",
 		"checkbox",
@@ -77,7 +74,6 @@ func (AutoFormFieldType) Values() []string {
 		"secret",
 		"custom_auth",
 		"array",
-		"group-array",
 		"fieldset",
 		"basic_auth",
 		"json",
@@ -273,7 +269,7 @@ func (_j *AutoFormFieldType) UnmarshalYAML(unmarshal func(interface{}) error) er
 func FieldTypeFromString(raw string) (AutoFormFieldType, bool) {
 	v, ok := _FieldTypeStringToValueMap[raw]
 	if !ok {
-		return ShortTextType, false
+		return AutoFormFieldTypeShortText, false
 	}
 	return v, true
 }
@@ -293,57 +289,53 @@ func FieldTypeFromStringIgnoreCase(raw string) (AutoFormFieldType, bool) {
 
 var (
 	_FieldTypeStringToValueMap = map[string]AutoFormFieldType{
-		"short_text":      ShortTextType,
-		"long_text":       LongTextType,
-		"markdown":        MarkdownType,
-		"dropdown":        DropdownType,
-		"multi-select":    MultiSelectType,
-		"static-dropdown": StaticDropdownType,
-		"number":          NumberType,
-		"checkbox":        CheckboxType,
-		"oauth":           Oauth2Type,
-		"secret":          SecretAuthType,
-		"custom_auth":     CustomAuthType,
-		"array":           ArrayType,
-		"group-array":     GroupArrayType,
-		"fieldset":        ObjectType,
-		"basic_auth":      BasicAuthType,
-		"json":            JSONType,
-		"datetime":        DateTimeType,
-		"file":            FileType,
-		"file_string":     FileStringType,
-		"boolean":         BooleanType,
-		"dynamic":         DynamicType,
-		"code":            CodeEditorType,
-		"richtext":        RichTextType,
-		"branch":          BranchType,
-		"wrapper":         WrapperType,
+		"short_text":     AutoFormFieldTypeShortText,
+		"long_text":      AutoFormFieldTypeLongText,
+		"markdown":       AutoFormFieldTypeMarkdown,
+		"select":         AutoFormFieldTypeSelect,
+		"staticDropdown": AutoFormFieldTypeStaticDropdown,
+		"number":         AutoFormFieldTypeNumber,
+		"checkbox":       AutoFormFieldTypeCheckbox,
+		"oauth":          AutoFormFieldTypeOauth2,
+		"secret":         AutoFormFieldTypeSecretAuth,
+		"custom_auth":    AutoFormFieldTypeCustomAuth,
+		"array":          AutoFormFieldTypeArray,
+		"fieldset":       AutoFormFieldTypeObject,
+		"basic_auth":     AutoFormFieldTypeBasicAuth,
+		"json":           AutoFormFieldTypeJSON,
+		"datetime":       AutoFormFieldTypeDateTime,
+		"file":           AutoFormFieldTypeFile,
+		"file_string":    AutoFormFieldTypeFileString,
+		"boolean":        AutoFormFieldTypeBoolean,
+		"dynamic":        AutoFormFieldTypeDynamic,
+		"code":           AutoFormFieldTypeCodeEditor,
+		"richtext":       AutoFormFieldTypeRichText,
+		"branch":         AutoFormFieldTypeBranch,
+		"wrapper":        AutoFormFieldTypeWrapper,
 	}
 	_FieldTypeLowerStringToValueMap = map[string]AutoFormFieldType{
-		"short_text":      ShortTextType,
-		"long_text":       LongTextType,
-		"markdown":        MarkdownType,
-		"multi_select":    MultiSelectType,
-		"dropdown":        DropdownType,
-		"static_dropdown": StaticDropdownType,
-		"number":          NumberType,
-		"checkbox":        CheckboxType,
-		"oauth":           Oauth2Type,
-		"secret":          SecretAuthType,
-		"custom_auth":     CustomAuthType,
-		"array":           ArrayType,
-		"group-array":     GroupArrayType,
-		"fieldset":        ObjectType,
-		"basic_auth":      BasicAuthType,
-		"json":            JSONType,
-		"datetime":        DateTimeType,
-		"file":            FileType,
-		"file_string":     FileStringType,
-		"boolean":         BooleanType,
-		"dynamic":         DynamicType,
-		"code":            CodeEditorType,
-		"richtext":        RichTextType,
-		"branch":          BranchType,
-		"wrapper":         WrapperType,
+		"short_text":     AutoFormFieldTypeShortText,
+		"long_text":      AutoFormFieldTypeLongText,
+		"markdown":       AutoFormFieldTypeMarkdown,
+		"select":         AutoFormFieldTypeSelect,
+		"staticDropdown": AutoFormFieldTypeStaticDropdown,
+		"number":         AutoFormFieldTypeNumber,
+		"checkbox":       AutoFormFieldTypeCheckbox,
+		"oauth":          AutoFormFieldTypeOauth2,
+		"secret":         AutoFormFieldTypeSecretAuth,
+		"custom_auth":    AutoFormFieldTypeCustomAuth,
+		"array":          AutoFormFieldTypeArray,
+		"fieldset":       AutoFormFieldTypeObject,
+		"basic_auth":     AutoFormFieldTypeBasicAuth,
+		"json":           AutoFormFieldTypeJSON,
+		"datetime":       AutoFormFieldTypeDateTime,
+		"file":           AutoFormFieldTypeFile,
+		"file_string":    AutoFormFieldTypeFileString,
+		"boolean":        AutoFormFieldTypeBoolean,
+		"dynamic":        AutoFormFieldTypeDynamic,
+		"code":           AutoFormFieldTypeCodeEditor,
+		"richtext":       AutoFormFieldTypeRichText,
+		"branch":         AutoFormFieldTypeBranch,
+		"wrapper":        AutoFormFieldTypeWrapper,
 	}
 )

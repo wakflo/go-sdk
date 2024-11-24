@@ -18,6 +18,13 @@ import (
 	"context"
 )
 
+type DynamicFieldPaging struct {
+	*GetDynamicOptionsInput
+	Auth  *AuthContext `json:"auth,omitempty"`
+	Input any          `json:"input,omitempty"`
+	Ctx   context.Context
+}
+
 type DynamicFieldContext struct {
 	*GetDynamicOptionsInput
 	Auth  *AuthContext `json:"auth,omitempty"`
@@ -25,6 +32,46 @@ type DynamicFieldContext struct {
 	Ctx   context.Context
 }
 
+func NewDynamicFieldContext(ctx DynamicFieldContext) *DynamicFieldContext {
+	if ctx.Filter == nil {
+		ctx.Filter = &DynamicOptionsFilterParams{
+			Offset:     0,
+			Limit:      0,
+			FilterTerm: "",
+		}
+	}
+
+	if ctx.Filter.Offset < 0 {
+		ctx.Filter.Offset = 0
+	}
+
+	if ctx.Filter.Limit <= 0 {
+		ctx.Filter.Limit = 20
+	}
+
+	return &ctx
+}
+
 func (c *DynamicFieldContext) GetContext() context.Context {
 	return c.Ctx
 }
+
+func (c *DynamicFieldContext) Respond(data any, totalItems int) (*DynamicOptionsResponse, error) {
+	// if c
+
+	return &DynamicOptionsResponse{
+		Metadata: OffsetPaginationMeta{
+			Offset:     c.Filter.Offset,
+			Limit:      c.Filter.Limit,
+			TotalItems: totalItems,
+			HasMore:    (c.Filter.Offset + c.Filter.Limit) < totalItems,
+		},
+		Items: data,
+	}, nil
+}
+
+func (c *DynamicFieldContext) RespondJSON(data any, totalItems int) (JSON, error) {
+	return c.Respond(data, totalItems)
+}
+
+type JSON = any

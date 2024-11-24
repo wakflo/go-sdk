@@ -27,7 +27,7 @@ func NewNumberField() *NumberField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.Number)
-	c.builder.WithFieldType(sdkcore.NumberType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeNumber)
 
 	return c
 }
@@ -65,14 +65,12 @@ func (b *NumberField) SetDisplayName(title string) *NumberField {
 
 func (b *NumberField) SetRequired(required bool) *NumberField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(true)
 	return b
 }
 
 func (b *NumberField) SetDisabled(disabled bool) *NumberField {
-	b.builder.schema.Disabled = disabled
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder = b.builder.WithFieldDisabled(true)
 	return b
 }
 
@@ -88,5 +86,21 @@ func (b *NumberField) SetOneOf(schemas []*sdkcore.AutoFormSchema) *NumberField {
 
 func (b *NumberField) SetAllOf(schemas []*sdkcore.AutoFormSchema) *NumberField {
 	b.builder.WithAllOf(schemas)
+	return b
+}
+
+func (b *NumberField) SetPlaceholder(placeholder string) *NumberField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *NumberField) SetLabel(label string) *NumberField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *NumberField) SetHint(hint string) *NumberField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

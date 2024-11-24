@@ -27,7 +27,7 @@ func NewBranchField() *BranchField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.Array)
-	c.builder.WithFieldType(sdkcore.BranchType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeBranch)
 
 	return c
 }
@@ -65,13 +65,13 @@ func (b *BranchField) SetDisplayName(title string) *BranchField {
 
 func (b *BranchField) SetRequired(required bool) *BranchField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
+	b.builder.schema.UIProps.Required = required
 	b.builder.schema.IsRequired = required
 	return b
 }
 
 func (b *BranchField) SetDisabled(disabled bool) *BranchField {
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder.schema.UIProps.Disabled = disabled
 	b.builder.schema.Disabled = disabled
 	return b
 }
@@ -88,5 +88,21 @@ func (b *BranchField) SetOneOf(schemas []*sdkcore.AutoFormSchema) *BranchField {
 
 func (b *BranchField) SetAllOf(schemas []*sdkcore.AutoFormSchema) *BranchField {
 	b.builder.WithAllOf(schemas)
+	return b
+}
+
+func (b *BranchField) SetPlaceholder(placeholder string) *BranchField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *BranchField) SetLabel(label string) *BranchField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *BranchField) SetHint(hint string) *BranchField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

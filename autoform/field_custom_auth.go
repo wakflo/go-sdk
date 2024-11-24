@@ -15,14 +15,9 @@ func NewCustomAuthField() *CustomAuthField {
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
 	c.builder.WithType(sdkcore.Object)
-	c.builder.WithFieldType(sdkcore.CustomAuthType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeCustomAuth)
 	c.builder.WithDescription("Custom Connection")
 	c.builder.WithTitle("Custom Connection")
-
-	required := false
-	c.Required = required
-	c.builder.schema.Presentation.Required = required
-	c.builder.schema.IsRequired = required
 
 	return c
 }
@@ -39,8 +34,7 @@ func (b *CustomAuthField) SetDescription(desc string) *CustomAuthField {
 
 func (b *CustomAuthField) SetRequired(required bool) *CustomAuthField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldDisabled(!required)
 	return b
 }
 
@@ -58,5 +52,21 @@ func (b *CustomAuthField) SetFields(fields map[string]*sdkcore.AutoFormSchema) *
 	b.builder.WithProperties(fields)
 	b.builder.WithRequired(required)
 	b.builder.WithOrder(order)
+	return b
+}
+
+func (b *CustomAuthField) SetPlaceholder(placeholder string) *CustomAuthField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *CustomAuthField) SetLabel(label string) *CustomAuthField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *CustomAuthField) SetHint(hint string) *CustomAuthField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

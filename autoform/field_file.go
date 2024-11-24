@@ -29,7 +29,7 @@ func NewFileField() *FileField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.String)
-	c.builder.WithFieldType(sdkcore.FileStringType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeFile)
 
 	return c
 }
@@ -56,14 +56,28 @@ func (b *FileField) SetDisplayName(title string) *FileField {
 
 func (b *FileField) SetRequired(required bool) *FileField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(required)
 	return b
 }
 
 func (b *FileField) SetDisabled(disabled bool) *FileField {
-	b.builder.schema.Disabled = disabled
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder = b.builder.WithFieldDisabled(disabled)
+	return b
+}
+
+func (b *FileField) SetPlaceholder(placeholder string) *FileField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *FileField) SetLabel(label string) *FileField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *FileField) SetHint(hint string) *FileField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }
 

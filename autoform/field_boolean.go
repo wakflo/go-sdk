@@ -27,7 +27,7 @@ func NewBooleanField() *BooleanField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.Boolean)
-	c.builder.WithFieldType(sdkcore.BooleanType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeBoolean)
 
 	return c
 }
@@ -54,13 +54,29 @@ func (b *BooleanField) SetDisplayName(title string) *BooleanField {
 
 func (b *BooleanField) SetRequired(required bool) *BooleanField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
+	b.builder.schema.UIProps.Required = required
 	b.builder.schema.IsRequired = required
 	return b
 }
 
 func (b *BooleanField) SetDisabled(disabled bool) *BooleanField {
 	b.builder.schema.Disabled = disabled
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder.schema.UIProps.Disabled = disabled
+	return b
+}
+
+func (b *BooleanField) SetPlaceholder(placeholder string) *BooleanField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *BooleanField) SetLabel(label string) *BooleanField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *BooleanField) SetHint(hint string) *BooleanField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

@@ -76,24 +76,24 @@ type AutoFormSchema struct {
 	AdditionalItems      *AutoFormSchema            `json:"additionalItems,omitempty"`
 	Required             []string                   `json:"required,omitempty"`
 	IsRequired           bool                       `json:"isRequired,omitempty"`
-	Default              interface{}                `json:"default,omitempty"`
+	Default              any                        `json:"default,omitempty"`
 	Format               string                     `json:"format,omitempty"`
 	Definitions          map[string]*AutoFormSchema `json:"definitions,omitempty"`
 	Description          string                     `json:"description,omitempty"`
-	AdditionalProperties interface{}                `json:"additionalProperties,omitempty"`
+	AdditionalProperties any                        `json:"additionalProperties,omitempty"`
 	MinProperties        *int                       `json:"minProperties,omitempty"`
 	MaxProperties        *int                       `json:"maxProperties,omitempty"`
 	PatternProperties    map[string]*AutoFormSchema `json:"patternProperties,omitempty"`
-	Dependencies         map[string]interface{}     `json:"dependencies,omitempty"`
-	Enum                 []interface{}              `json:"enum,omitempty"`
+	Dependencies         map[string]any             `json:"dependencies,omitempty"`
+	Enum                 []any                      `json:"enum,omitempty"`
 	AllOf                []*AutoFormSchema          `json:"allOf,omitempty"`
 	AnyOf                []*AutoFormSchema          `json:"anyOf,omitempty"`
 	OneOf                []*AutoFormSchema          `json:"oneOf,omitempty"`
 	Not                  *AutoFormSchema            `json:"not,omitempty"`
-	Minimum              interface{}                `json:"minimum,omitempty"`
-	Maximum              interface{}                `json:"maximum,omitempty"`
-	ExclusiveMinimum     interface{}                `json:"exclusiveMinimum,omitempty"`
-	ExclusiveMaximum     interface{}                `json:"exclusiveMaximum,omitempty"`
+	Minimum              any                        `json:"minimum,omitempty"`
+	Maximum              any                        `json:"maximum,omitempty"`
+	ExclusiveMinimum     any                        `json:"exclusiveMinimum,omitempty"`
+	ExclusiveMaximum     any                        `json:"exclusiveMaximum,omitempty"`
 	MinLength            *int                       `json:"minLength,omitempty"`
 	MaxLength            *int                       `json:"maxLength,omitempty"`
 	Pattern              string                     `json:"pattern,omitempty"`
@@ -103,26 +103,19 @@ type AutoFormSchema struct {
 	Contains             *AutoFormSchema            `json:"contains,omitempty"`
 	MinContains          *int                       `json:"minContains,omitempty"`
 	MaxContains          *int                       `json:"maxContains,omitempty"`
-	Const                interface{}                `json:"const,omitempty"`
+	Const                any                        `json:"const,omitempty"`
 	Disabled             bool                       `json:"disabled"`
-
-	Presentation *AutoFormFieldPresentation      `json:"x-jsf-presentation,omitempty"`
-	Validations  []string                        `json:"x-jsf-logic-validations,omitempty"`
-	Logic        *AutoFormFieldLogic             `json:"x-jsf-logic,omitempty"`
-	ErrorMessage *AutoFormFieldPresentationError `json:"x-jsf-errorMessage,omitempty"`
-	Order        []string                        `json:"x-jsf-order,omitempty"`
+	Order                []string                   `json:"order,omitempty"`
 
 	If   *AutoFormSchema `json:"if,omitempty"`
 	Else *AutoFormSchema `json:"else,omitempty"`
 	Then *AutoFormSchema `json:"then,omitempty"`
 
-	Scope    []string `json:"scope,omitempty"`
-	TokenURL *string  `json:"tokenUrl,omitempty"`
-	AuthURL  *string  `json:"authUrl,omitempty"`
-
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
-	Secret   *string `json:"secret,omitempty"`
+	UIControl AutoFormFieldType `json:"ui:control,omitempty"`
+	// UIData            *AutoFormDataProps  `json:"ui:data,omitempty"`
+	UIProps           *AutoFormFieldProps `json:"ui:props,omitempty"`
+	UIComponentRemove *AutoFormSchema     `json:"ui:component:remove,omitempty"`
+	UIBefore          []AutoFormSchema    `json:"ui:before,omitempty"`
 
 	DependsOn []string `json:"dependsOn,omitempty"`
 	IsDynamic bool     `json:"isDynamic,omitempty"`
@@ -145,20 +138,37 @@ type AutoFormFieldPresentationError struct {
 	Maximum  *string `json:"maximum,omitempty"`
 }
 
-type AutoFormFieldPresentation struct {
-	InputType   AutoFormFieldType             `json:"inputType,omitempty"`
-	Required    bool                          `json:"required"`
-	Disabled    bool                          `json:"disabled"`
-	Options     []*AutoFormFieldSelectOptions `json:"options,omitempty"`
-	MaskSecret  *int                          `json:"maskSecret,omitempty"`
-	Statement   *AutoFormFieldPresentation    `json:"statement,omitempty"`
-	Severity    *string                       `json:"severity,omitempty"`
-	Placeholder *string                       `json:"placeholder,omitempty"`
-	ReadOnly    bool                          `json:"readOnly"`
-	MinDate     *time.Time                    `json:"minDate,omitempty"`
-	MaxDate     *time.Time                    `json:"maxDate,omitempty"`
+type AutoFormFieldProps struct {
+	Type        string            `json:"type,omitempty"`
+	ControlType AutoFormFieldType `json:"controlType,omitempty"`
+	Required    bool              `json:"required"`
+	Language    string            `json:"language,omitempty"`
+	Hint        string            `json:"hint,omitempty"`
+	Label       string            `json:"label,omitempty"`
+	Disabled    bool              `json:"disabled"`
+	Placeholder string            `json:"placeholder,omitempty"`
+	ReadOnly    bool              `json:"readOnly"`
+	Multiple    bool              `json:"multiple"`
+	MinDate     *time.Time        `json:"minDate,omitempty"`
+	MaxDate     *time.Time        `json:"maxDate,omitempty"`
+	Min         *int              `json:"min,omitempty"`
+	Max         *int              `json:"max,omitempty"`
 
-	Extras map[string]interface{} `json:"extras,omitempty"`
+	Auth *AuthSchemaProps `json:"auth,omitempty"`
+
+	// special fields //
+
+	// Notify is used to notify other fields after changes
+	Notify []string `json:"notify,omitempty"`
+
+	// Example Usage in JS
+	// relevant: ({ formApi, scope }) => {
+	//    return formApi.getValue(`${scope}.married`) == 'yes';
+	// }
+	// The value should be a stringified JS function
+	Relevant     *string `json:"relevant,omitempty"`
+	InitialValue any     `json:"initialValue,omitempty"`
+	KeepState    bool    `json:"keepState,omitempty"`
 }
 
 type AutoFormFieldLogic struct {
@@ -183,4 +193,19 @@ type AutoFormFieldSelectOptions struct {
 	Metadata any    `json:"metadata,omitempty"`
 }
 
-type DynamicOptionsFn = func(ctx *DynamicFieldContext) (interface{}, error)
+type DynamicOptionsFn = func(ctx *DynamicFieldContext) (*DynamicOptionsResponse, error)
+
+type AutoFormDataProps struct {
+	Auth *AuthSchemaProps `json:"auth,omitempty"`
+}
+
+type AuthSchemaProps struct {
+	Scope    []string `json:"scope,omitempty"`
+	TokenURL *string  `json:"tokenUrl,omitempty"`
+	AuthURL  *string  `json:"authUrl,omitempty"`
+
+	Username       *string  `json:"username,omitempty"`
+	Password       *string  `json:"password,omitempty"`
+	Secret         *string  `json:"secret,omitempty"`
+	ExcludedParams []string `json:"excludedParams,omitempty"`
+}

@@ -20,13 +20,9 @@ import (
 
 type AuthSecretField struct {
 	*BaseComponentField
-	props    map[string]sdkcore.AutoFormSchema
-	keyField *sdkcore.AutoFormSchema
-
-	secretFieldOverride *struct {
-		desc        *string
-		displayName *string
-	}
+	props       map[string]sdkcore.AutoFormSchema
+	keyField    *sdkcore.AutoFormSchema
+	secretField *BaseTextField
 }
 
 func NewAuthSecretField() *AuthSecretField {
@@ -35,16 +31,12 @@ func NewAuthSecretField() *AuthSecretField {
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
 	c.builder.WithType(sdkcore.String)
-	c.builder.WithFieldType(sdkcore.SecretAuthType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeSecretAuth)
 	c.builder.WithDescription("Secret Connection")
 	c.builder.WithTitle("Secret Connection")
+	c.builder = c.builder.WithFieldRequired(true)
 
-	required := false
-	c.Required = required
-	c.builder.schema.Presentation.Required = required
-	c.builder.schema.IsRequired = required
-
-	return c
+	return c.initProps()
 }
 
 func (b *AuthSecretField) Build() *sdkcore.AutoFormSchema {
@@ -62,14 +54,6 @@ func (b *AuthSecretField) WithKey(field *sdkcore.AutoFormSchema) *AuthSecretFiel
 	return b
 }
 
-func (b *AuthSecretField) OverrideSecretField(displayName *string, description *string) *AuthSecretField {
-	b.secretFieldOverride = &struct {
-		desc        *string
-		displayName *string
-	}{desc: description, displayName: displayName}
-	return b
-}
-
 func (b *AuthSecretField) setProps() *AuthSecretField {
 	var order []string
 	o := map[string]*sdkcore.AutoFormSchema{}
@@ -79,32 +63,44 @@ func (b *AuthSecretField) setProps() *AuthSecretField {
 		order = append(order, "key")
 	}
 
-	name := "Secret"
-	desc := "Auth secret key"
-
-	if b.secretFieldOverride != nil {
-		if b.secretFieldOverride.desc != nil {
-			desc = *b.secretFieldOverride.desc
-		}
-		if b.secretFieldOverride.displayName != nil {
-			name = *b.secretFieldOverride.displayName
-		}
-	}
-
 	b.builder.WithProperties(map[string]*sdkcore.AutoFormSchema{
-		"secret": NewShortTextField().
-			SetDisplayName(name).
-			SetDescription(desc).
-			//SetDefaultValue(*b.builder.schema.AuthURL).
-			SetRequired(true).Build(),
+		"secret": b.secretField.Build(),
 	})
 
 	order = append(order, "secret")
 	b.builder.WithOrder(order)
+
+	return b
+}
+
+func (b *AuthSecretField) initProps() *AuthSecretField {
+	name := "Secret"
+	desc := "Auth secret key"
+
+	b.secretField = NewShortTextField().
+		SetDisplayName(name).
+		SetLabel(name).
+		SetDescription(desc).
+		SetPlaceholder(desc).
+		SetRequired(true)
 	return b
 }
 
 func (b *AuthSecretField) SetDisplayName(title string) *AuthSecretField {
-	b.builder.WithTitle(title)
+	return b.SetLabel(title)
+}
+
+func (b *AuthSecretField) SetPlaceholder(placeholder string) *AuthSecretField {
+	b.secretField.SetPlaceholder(placeholder)
+	return b
+}
+
+func (b *AuthSecretField) SetLabel(label string) *AuthSecretField {
+	b.secretField.SetLabel(label)
+	return b
+}
+
+func (b *AuthSecretField) SetHint(hint string) *AuthSecretField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

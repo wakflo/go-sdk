@@ -15,7 +15,8 @@
 package autoform
 
 import (
-	"github.com/gookit/goutil/arrutil"
+	"strings"
+
 	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
@@ -31,18 +32,16 @@ func NewOAuthField(authURL string, tokenURL *string, scopes []string) *OAuthFiel
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
 	c.builder.WithType(sdkcore.Object)
-	c.builder.WithFieldType(sdkcore.Oauth2Type)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeOauth2)
 	c.builder.WithDescription("Oauth2 Connection")
 	c.builder.WithTitle("Oauth2 Connection")
 
-	required := false
-	c.Required = required
-	c.builder.schema.Presentation.Required = required
-	c.builder.schema.IsRequired = required
-
-	c.builder.schema.AuthURL = &authURL
-	c.builder.schema.TokenURL = tokenURL
-	c.builder.schema.Scope = scopes
+	c.builder = c.builder.WithFieldRequired(true)
+	c.builder.schema.UIProps.Auth = &sdkcore.AuthSchemaProps{
+		AuthURL:  &authURL,
+		TokenURL: tokenURL,
+		Scope:    scopes,
+	}
 
 	return c
 }
@@ -59,8 +58,7 @@ func (b *OAuthField) SetDescription(desc string) *OAuthField {
 
 func (b *OAuthField) SetRequired(required bool) *OAuthField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(true)
 	return b
 }
 
@@ -69,24 +67,48 @@ func (b *OAuthField) SetExtraFields(fields map[string]*sdkcore.AutoFormSchema) *
 	return b
 }
 
+func (b *OAuthField) SetPlaceholder(placeholder string) *OAuthField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *OAuthField) SetLabel(label string) *OAuthField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *OAuthField) SetHint(hint string) *OAuthField {
+	b.builder.schema.UIProps.Hint = hint
+	return b
+}
+
 func (b *OAuthField) setProps() *OAuthField {
+	scope := strings.Join(b.builder.schema.UIProps.Auth.Scope, ",")
 	tr := map[string]*sdkcore.AutoFormSchema{
-		"appUrl": NewShortTextField().
-			SetDisplayName("app url").
-			SetDescription("oauth app url").
-			SetDefaultValue(*b.builder.schema.AuthURL).
+		"authUrl": NewShortTextField().
+			SetDisplayName("Auth URL").
+			SetDescription("oauth auth url").
+			SetDefaultValue(*b.builder.schema.UIProps.Auth.AuthURL).
 			SetRequired(true).Build(),
 		"tokenUrl": NewShortTextField().
-			SetDisplayName("token url").
+			SetDisplayName("Token URL").
 			SetDescription("oauth token url").
-			SetDefaultValue(*b.builder.schema.TokenURL).
+			SetDefaultValue(*b.builder.schema.UIProps.Auth.TokenURL).
 			SetRequired(false).Build(),
-
-		"scope": NewShortTextField().
-			SetDisplayName("scope").
-			SetDefaultValue(arrutil.JoinSlice(",", b.builder.schema.Scope)).
+		"scopes": NewShortTextField().
+			SetDisplayName("Scopes").
+			SetDefaultValue(scope).
 			SetDescription("oauth scope url").
 			SetRequired(false).Build(),
+		"clientId": NewShortTextField().
+			SetDisplayName("Client ID").
+			SetDescription("oauth client id").
+			SetRequired(true).Build(),
+		"clientSecret": NewShortTextField().
+			SetDisplayName("Client Secret").
+			SetDescription("Oauth client secret").
+			SetRequired(true).Build(),
 	}
 
 	f := tr
@@ -95,11 +117,26 @@ func (b *OAuthField) setProps() *OAuthField {
 	}
 
 	b.builder.WithProperties(f)
+	b.builder.WithOrder([]string{
+		"appUrl",
+		"tokenUrl",
+		"scope",
+		"clientId",
+		"clientSecret",
+	})
 	return b
 }
 
 func (b *OAuthField) SetDisplayName(title string) *OAuthField {
 	b.builder.WithTitle(title)
+	return b
+}
+
+func (b *OAuthField) SetExcludedQueryParams(params []string) *OAuthField {
+	if b.builder.schema.UIProps.Auth == nil {
+		b.builder.schema.UIProps.Auth = &sdkcore.AuthSchemaProps{}
+	}
+	b.builder.schema.UIProps.Auth.ExcludedParams = params
 	return b
 }
 

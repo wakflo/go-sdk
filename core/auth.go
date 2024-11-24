@@ -61,6 +61,7 @@ type AuthContext struct {
 	Username    string              `json:"username,omitempty"`
 	Password    string              `json:"password,omitempty"`
 	Secret      string              `json:"secret,omitempty"`
+	Scopes      []string            `json:"scopes,omitempty"`
 	Key         string              `json:"key,omitempty"`
 	Extra       map[string]string   `json:"extra,omitempty"`
 }
@@ -90,6 +91,7 @@ type ConnectorAuthMetadata struct {
 	Password     *string           `json:"password,omitempty"`
 	Secret       *string           `json:"secret,omitempty"`
 	RedirectURL  *string           `json:"redirectUrl,omitempty"`
+	Scopes       []string          `json:"scope,omitempty"`
 	Key          *string           `json:"key,omitempty"`
 	Extra        map[string]string `json:"extra,omitempty"`
 }

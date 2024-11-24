@@ -26,7 +26,23 @@ func NewMarkdownField() *MarkdownField {
 	c := &MarkdownField{
 		BaseTextField: newBaseTextField(),
 	}
-	c.builder.WithFieldType(sdkcore.MarkdownType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeMarkdown)
 
 	return c
+}
+
+func (b *MarkdownField) SetPlaceholder(placeholder string) *MarkdownField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *MarkdownField) SetLabel(label string) *MarkdownField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *MarkdownField) SetHint(hint string) *MarkdownField {
+	b.builder.schema.UIProps.Hint = hint
+	return b
 }

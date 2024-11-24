@@ -28,7 +28,7 @@ func NewDynamicField(schemaType sdkcore.AutoFormType) *DynamicField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(schemaType)
-	c.builder.WithFieldType(sdkcore.DynamicType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeDynamic)
 	c.builder.schema.IsDynamic = true
 
 	return c
@@ -67,14 +67,12 @@ func (b *DynamicField) SetDisplayName(title string) *DynamicField {
 
 func (b *DynamicField) SetRequired(required bool) *DynamicField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(required)
 	return b
 }
 
 func (b *DynamicField) SetDisabled(disabled bool) *DynamicField {
-	b.builder.schema.Disabled = disabled
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder = b.builder.WithFieldDisabled(disabled)
 	return b
 }
 
@@ -101,5 +99,26 @@ func (b *DynamicField) SetDynamicOptions(fn *sdkcore.DynamicOptionsFn) *DynamicF
 
 func (b *DynamicField) SetDependsOn(deps []string) *DynamicField {
 	b.builder.schema.DependsOn = deps
+	return b
+}
+
+func (b *DynamicField) SetPlaceholder(placeholder string) *DynamicField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *DynamicField) SetLabel(label string) *DynamicField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *DynamicField) SetHint(hint string) *DynamicField {
+	b.builder.schema.UIProps.Hint = hint
+	return b
+}
+
+func (b *DynamicField) SeMultiSelect(enable bool) *DynamicField {
+	b.builder.schema.UIProps.Multiple = enable
 	return b
 }

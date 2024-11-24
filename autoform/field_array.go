@@ -27,7 +27,7 @@ func NewArrayField() *ArrayField {
 		BaseComponentField: NewBaseComponentField(),
 	}
 	c.builder.WithType(sdkcore.Array)
-	c.builder.WithFieldType(sdkcore.ArrayType)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeArray)
 
 	return c
 }
@@ -43,15 +43,26 @@ func (b *ArrayField) SetDefaultValue(defaultValue interface{}) *ArrayField {
 }
 
 func (b *ArrayField) SetItems(item *sdkcore.AutoFormSchema) *ArrayField {
-	if item.Type == sdkcore.Integer || item.Type == sdkcore.String || item.Type == sdkcore.Number {
-		if b.builder.schema.Presentation.Extras == nil {
-			b.builder.schema.Presentation.Extras = map[string]any{}
-		}
-
-		b.builder.schema.Presentation.Extras["arrayType"] = item.Type
+	if item == nil {
+		return b
 	}
 
-	b.builder.WithItems(item)
+	if item.Type == sdkcore.Object || item.Type == sdkcore.Array {
+		b.builder.WithItems(item)
+		return b
+	}
+
+	b.builder.WithItems(
+		NewObjectField().
+			SetLabel(item.Title).
+			SetDescription(item.Description).
+			SetPlaceholder(item.UIProps.Placeholder).
+			SetProperties(map[string]*sdkcore.AutoFormSchema{
+				"value": item,
+			}).
+			Build(),
+	)
+
 	return b
 }
 
@@ -73,13 +84,12 @@ func (b *ArrayField) SetDisplayName(title string) *ArrayField {
 
 func (b *ArrayField) SetRequired(required bool) *ArrayField {
 	b.Required = required
-	b.builder.schema.Presentation.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(required)
 	return b
 }
 
 func (b *ArrayField) SetDisabled(disabled bool) *ArrayField {
-	b.builder.schema.Presentation.Disabled = disabled
+	b.builder.schema.UIProps.Disabled = disabled
 	b.builder.schema.Disabled = disabled
 	return b
 }
@@ -96,5 +106,21 @@ func (b *ArrayField) SetOneOf(schemas []*sdkcore.AutoFormSchema) *ArrayField {
 
 func (b *ArrayField) SetAllOf(schemas []*sdkcore.AutoFormSchema) *ArrayField {
 	b.builder.WithAllOf(schemas)
+	return b
+}
+
+func (b *ArrayField) SetPlaceholder(placeholder string) *ArrayField {
+	b.builder.schema.UIProps.Placeholder = placeholder
+	return b
+}
+
+func (b *ArrayField) SetLabel(label string) *ArrayField {
+	b.builder.WithTitle(label)
+	b.builder.schema.UIProps.Label = label
+	return b
+}
+
+func (b *ArrayField) SetHint(hint string) *ArrayField {
+	b.builder.schema.UIProps.Hint = hint
 	return b
 }

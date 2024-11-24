@@ -29,16 +29,36 @@ type (
 	}
 )
 
+type Cursor string
+
+type OffsetPaginationMeta struct {
+	Offset     int  `json:"offset"`
+	Limit      int  `json:"limit"`
+	TotalItems int  `json:"totalItems"`
+	HasMore    bool `json:"hasMore"`
+}
+
+type DynamicOptionsResponse struct {
+	Metadata OffsetPaginationMeta `json:"metadata"`
+	Items    any                  `json:"items"`
+}
+
+type DynamicOptionsFilterParams struct {
+	Offset     int    `json:"offset"` // The offset of the first item to return (default: 0)
+	Limit      int    `json:"limit"`  // The maximum number of items to return (default: 10)
+	FilterTerm string `json:"filterTerm"`
+}
+
 type GetDynamicOptionsInput struct {
-	ConnectorName     string                 `json:"connectorName"`
-	ConnectorVersion  string                 `json:"connectorVersion"`
-	FieldName         string                 `json:"fieldName"`
-	OperationName     string                 `json:"operationName"`
-	StepName          string                 `json:"stepName"`
-	Filter            *string                `json:"filter,omitempty"`
-	WorkflowID        string                 `json:"workflowId"`
-	WorkflowVersionID *string                `json:"workflowVersionId,omitempty"`
-	Input             map[string]interface{} `json:"input,omitempty"`
+	ConnectorName     string                      `json:"connectorName"`
+	ConnectorVersion  string                      `json:"connectorVersion"`
+	FieldName         string                      `json:"fieldName"`
+	OperationName     string                      `json:"operationName"`
+	StepName          string                      `json:"stepName"`
+	WorkflowID        string                      `json:"workflowId"`
+	WorkflowVersionID *string                     `json:"workflowVersionId,omitempty"`
+	Input             map[string]interface{}      `json:"input,omitempty"`
+	Filter            *DynamicOptionsFilterParams `json:"filter,omitempty"`
 }
 
 type StepRunData struct {
