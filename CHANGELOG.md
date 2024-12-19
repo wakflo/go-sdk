@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/wakflo/go-sdk/compare/v0.8.0...v0.9.0) (2024-12-19)
+
+
+### Features
+
+* updated autoform schema to v2 ([d5ea894](https://github.com/wakflo/go-sdk/commit/d5ea894c90bb9f608b18293b640de0500db39263))
+
 ## [0.8.0](https://github.com/wakflo/go-sdk/compare/v0.7.2...v0.8.0) (2024-11-24)
 
 
