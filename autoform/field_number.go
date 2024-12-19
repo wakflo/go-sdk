@@ -104,3 +104,8 @@ func (b *NumberField) SetHint(hint string) *NumberField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *NumberField) SetHidden(hidden bool) *NumberField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

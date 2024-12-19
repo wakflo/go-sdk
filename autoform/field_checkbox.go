@@ -80,3 +80,8 @@ func (b *CheckboxField) SetHint(hint string) *CheckboxField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *CheckboxField) SetHidden(hidden bool) *CheckboxField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

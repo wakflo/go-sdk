@@ -111,6 +111,7 @@ func TestNewAuthBasicField(t *testing.T) {
 			t.Fatal("new auth field not created correctly")
 			return
 		}
+
 		if basicAuth.builder.schema.UIProps.Required != true {
 			t.Fatal("field required not set correctly")
 		}

@@ -154,6 +154,11 @@ func (b *BaseTextField) SetAllOf(schemas []*sdkcore.AutoFormSchema) *BaseTextFie
 	return b
 }
 
+func (b *BaseTextField) SetHidden(hidden bool) *BaseTextField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}
+
 // ShortTextField is a type that represents a short text field. It inherits from BaseTextField.
 type ShortTextField struct {
 	*BaseTextField
@@ -177,7 +182,9 @@ type LongTextField struct {
 	*BaseTextField
 }
 
-// NewLongTextField creates a new instance of LongTextField. It initializes the BaseTextField using the newBaseTextField function and sets the AutoFormFieldType to LongTextType using the builder
+// NewLongTextField creates a new instance of LongTextField.
+// It initializes the BaseTextField using the newBaseTextField function
+// and sets the AutoFormFieldType to LongTextType using the builder
 func NewLongTextField() *LongTextField {
 	c := &LongTextField{
 		BaseTextField: newBaseTextField(),

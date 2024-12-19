@@ -80,3 +80,8 @@ func (b *BooleanField) SetHint(hint string) *BooleanField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *BooleanField) SetHidden(hidden bool) *BooleanField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

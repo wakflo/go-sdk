@@ -26,24 +26,6 @@ type WorkflowSettings struct {
 	// OutputSchema jsonschema4.JsonSchema4 `json:"output_schema"`
 }
 
-// StepEdge is the graph edge reference of the steps
-type StepEdge struct {
-	// ID of the edge
-	ID string `json:"id,omitempty"`
-
-	// Source id of source step
-	Source string `json:"source,omitempty"`
-
-	// Target id of target step
-	Target string `json:"target,omitempty"`
-
-	// Type of step edge
-	Type string `json:"type,omitempty"`
-
-	// Style of step edge
-	Style *map[string]interface{} `json:"style,omitempty"`
-}
-
 type EntityReference struct {
 	// Field such is the unique field name of the entity
 	Field string `json:"field,omitempty"`
@@ -176,7 +158,11 @@ type WorkflowVersion struct {
 	// Name holds the value of the "workflow_id" field.
 	Name string `json:"name,omitempty"`
 	// Steps holds the value of the "steps" field.
-	Steps map[string]ConnectorStep `json:"steps,omitempty"`
+	Steps []StepNodeWithChildren `json:"steps,omitempty"`
+	// Steps holds the value of the "steps" field.
+	StepNodes []StepNode `json:"step_nodes,omitempty"`
+	// Steps holds the value of the "steps" field.
+	StepEdges []StepEdge `json:"step_edes,omitempty"`
 	// ProjectID holds the value of the "project_id" field.
 	ProjectID uuid.UUID `json:"project_id,omitempty"`
 	// Version holds the value of the "version" field.

@@ -132,6 +132,11 @@ func (b *OAuthField) SetDisplayName(title string) *OAuthField {
 	return b
 }
 
+func (b *OAuthField) SetHidden(hidden bool) *OAuthField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}
+
 func (b *OAuthField) SetExcludedQueryParams(params []string) *OAuthField {
 	if b.builder.schema.UIProps.Auth == nil {
 		b.builder.schema.UIProps.Auth = &sdkcore.AuthSchemaProps{}

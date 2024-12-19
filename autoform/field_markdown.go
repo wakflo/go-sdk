@@ -46,3 +46,8 @@ func (b *MarkdownField) SetHint(hint string) *MarkdownField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *MarkdownField) SetHidden(hidden bool) *MarkdownField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

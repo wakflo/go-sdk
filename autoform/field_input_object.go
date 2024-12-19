@@ -102,3 +102,8 @@ func (b *InputMapField) SetHint(hint string) *InputMapField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *InputMapField) SetHidden(hidden bool) *InputMapField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

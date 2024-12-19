@@ -94,3 +94,8 @@ func (b *SelectField) SetHint(hint string) *SelectField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *SelectField) SetHidden(hidden bool) *SelectField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

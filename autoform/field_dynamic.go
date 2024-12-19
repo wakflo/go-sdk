@@ -122,3 +122,8 @@ func (b *DynamicField) SeMultiSelect(enable bool) *DynamicField {
 	b.builder.schema.UIProps.Multiple = enable
 	return b
 }
+
+func (b *DynamicField) SetHidden(hidden bool) *DynamicField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

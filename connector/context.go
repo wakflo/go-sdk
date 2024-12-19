@@ -159,7 +159,7 @@ type TriggerRunContext struct {
 // It contains information about the workflow, the current step, the connector version,
 // the workflow instance, authentication data, and the state of the workflow steps.
 type RunContext struct {
-	step          *sdkcore.ConnectorStep
+	step          *sdkcore.StepNodeWithChildren
 	Auth          *sdkcore.AuthContext         `json:"auth"`
 	Metadata      *sdkcore.WorkflowRunMetadata `json:"metadata"`
 	Input         map[string]any               `json:"input"`
@@ -176,7 +176,7 @@ type RunContext struct {
 
 func NewRunContext(
 	ctx context.Context,
-	step *sdkcore.ConnectorStep,
+	step *sdkcore.StepNodeWithChildren,
 	state *sdkcore.StepRunData,
 	workflow *sdkcore.WorkflowVersion,
 	auth *sdkcore.AuthContext,
@@ -203,9 +203,9 @@ func NewRunContext(
 		Metadata: &sdkcore.WorkflowRunMetadata{
 			WorkflowID:       workflow.WorkflowID,
 			WorkflowName:     workflow.Name,
-			StepName:         step.Name,
-			ConnectorName:    step.Metadata.ConnectorName,
-			ConnectorVersion: step.Metadata.ConnectorVersion,
+			StepName:         step.ID,
+			ConnectorName:    step.Data.Connector.Name,
+			ConnectorVersion: step.Data.Connector.Version,
 			LastRun:          workflow.LastRun,
 		},
 		runMode: runMode,
@@ -251,7 +251,7 @@ func (r *RunContext) IsPaused() bool {
 // GetRawInput returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.
 func (r *RunContext) GetRawInput() sdkcore.JSONObject {
-	return r.step.Data.Properties.Input
+	return r.step.Data.Form.Input
 }
 
 // PauseExecution pauses the execution of the RunContext.

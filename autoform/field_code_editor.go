@@ -86,3 +86,8 @@ func (b *CodeEditorField) SetHint(hint string) *CodeEditorField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *CodeEditorField) SetHidden(hidden bool) *CodeEditorField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

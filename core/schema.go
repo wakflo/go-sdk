@@ -139,6 +139,8 @@ type AutoFormFieldPresentationError struct {
 }
 
 type AutoFormFieldProps struct {
+	ID          string            `json:"id,omitempty"`
+	Name        string            `json:"name,omitempty"`
 	Type        string            `json:"type,omitempty"`
 	ControlType AutoFormFieldType `json:"controlType,omitempty"`
 	Required    bool              `json:"required"`
@@ -146,6 +148,7 @@ type AutoFormFieldProps struct {
 	Hint        string            `json:"hint,omitempty"`
 	Label       string            `json:"label,omitempty"`
 	Disabled    bool              `json:"disabled"`
+	Hidden      bool              `json:"hidden"`
 	Placeholder string            `json:"placeholder,omitempty"`
 	ReadOnly    bool              `json:"readOnly"`
 	Multiple    bool              `json:"multiple"`

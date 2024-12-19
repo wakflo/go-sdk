@@ -63,11 +63,13 @@ func (b *SchemaBuilder) WithFieldDisabled(disabled bool) *SchemaBuilder {
 
 func (b *SchemaBuilder) WithDescription(description string) *SchemaBuilder {
 	b.schema.Description = description
+	b.schema.UIProps.Placeholder = description
 	return b
 }
 
 func (b *SchemaBuilder) WithDefault(defaultValue interface{}) *SchemaBuilder {
 	b.schema.Default = defaultValue
+	b.schema.UIProps.InitialValue = defaultValue
 	return b
 }
 

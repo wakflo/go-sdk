@@ -104,3 +104,8 @@ func (b *AuthSecretField) SetHint(hint string) *AuthSecretField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *AuthSecretField) SetHidden(hidden bool) *AuthSecretField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

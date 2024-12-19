@@ -114,6 +114,11 @@ func (b *ArrayField) SetPlaceholder(placeholder string) *ArrayField {
 	return b
 }
 
+func (b *ArrayField) SetHidden(hidden bool) *ArrayField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}
+
 func (b *ArrayField) SetLabel(label string) *ArrayField {
 	b.builder.WithTitle(label)
 	b.builder.schema.UIProps.Label = label

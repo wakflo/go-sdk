@@ -33,8 +33,35 @@ func NewBranchField() *BranchField {
 }
 
 func (b *BranchField) Build() *sdkcore.AutoFormSchema {
-	b.schema = b.builder.Build()
+	b.schema = b.setProps().builder.Build()
 	return b.schema
+}
+
+func (b *BranchField) setProps() *BranchField {
+	p := NewObjectField().SetProperties(map[string]*sdkcore.AutoFormSchema{
+		"value": NewShortTextField().
+			SetDisplayName("Value").
+			SetDescription("Branch case value").
+			SetRequired(true).
+			Build(),
+		"label": NewShortTextField().
+			SetDisplayName("Label").
+			SetDescription("Branch label case").
+			SetRequired(true).
+			Build(),
+		"id": NewShortTextField().
+			SetDisplayName("ID").
+			SetDescription("ID label case").
+			SetRequired(false).
+			SetHidden(true).
+			Build(),
+	}).Build()
+	b.builder.WithItems(p)
+	b.builder.WithOrder([]string{
+		"value",
+		"label",
+	})
+	return b
 }
 
 func (b *BranchField) SetDefaultValue(defaultValue interface{}) *BranchField {
@@ -43,7 +70,26 @@ func (b *BranchField) SetDefaultValue(defaultValue interface{}) *BranchField {
 }
 
 func (b *BranchField) SetItems(item *sdkcore.AutoFormSchema) *BranchField {
-	b.builder.WithItems(item)
+	if item == nil {
+		return b
+	}
+
+	if item.Type == sdkcore.Object || item.Type == sdkcore.Array {
+		b.builder.WithItems(item)
+		return b
+	}
+
+	b.builder.WithItems(
+		NewObjectField().
+			SetLabel(item.Title).
+			SetDescription(item.Description).
+			SetPlaceholder(item.UIProps.Placeholder).
+			SetProperties(map[string]*sdkcore.AutoFormSchema{
+				"value": item,
+			}).
+			Build(),
+	)
+
 	return b
 }
 
@@ -65,8 +111,7 @@ func (b *BranchField) SetDisplayName(title string) *BranchField {
 
 func (b *BranchField) SetRequired(required bool) *BranchField {
 	b.Required = required
-	b.builder.schema.UIProps.Required = required
-	b.builder.schema.IsRequired = required
+	b.builder = b.builder.WithFieldRequired(required)
 	return b
 }
 
@@ -104,5 +149,10 @@ func (b *BranchField) SetLabel(label string) *BranchField {
 
 func (b *BranchField) SetHint(hint string) *BranchField {
 	b.builder.schema.UIProps.Hint = hint
+	return b
+}
+
+func (b *BranchField) SetHidden(hidden bool) *BranchField {
+	b.builder.schema.UIProps.Hidden = hidden
 	return b
 }

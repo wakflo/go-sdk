@@ -115,3 +115,8 @@ func (b *AuthBasicField) SetPasswordHint(hint string) *AuthBasicField {
 	b.passwordField.SetHint(hint)
 	return b
 }
+
+func (b *AuthBasicField) SetHidden(hidden bool) *AuthBasicField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

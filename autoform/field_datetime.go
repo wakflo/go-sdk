@@ -91,3 +91,8 @@ func (b *DateTimeField) SetHint(hint string) *DateTimeField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *DateTimeField) SetHidden(hidden bool) *DateTimeField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

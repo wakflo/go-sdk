@@ -117,3 +117,8 @@ func (b *ObjectField) SetHint(hint string) *ObjectField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
+
+func (b *ObjectField) SetHidden(hidden bool) *ObjectField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}

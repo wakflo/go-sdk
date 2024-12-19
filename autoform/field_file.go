@@ -81,6 +81,11 @@ func (b *FileField) SetHint(hint string) *FileField {
 	return b
 }
 
+func (b *FileField) SetHidden(hidden bool) *FileField {
+	b.builder.schema.UIProps.Hidden = hidden
+	return b
+}
+
 type File struct {
 	// FileExtension: Output only. The final component of
 	// `fullFileExtension`. This is only available for files with binary
