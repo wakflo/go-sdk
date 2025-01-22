@@ -23,10 +23,10 @@ import (
 type LogLevel string
 
 const (
-	Debug   LogLevel = "debug"
-	Error   LogLevel = "error"
-	Warning LogLevel = "warning"
-	Info    LogLevel = "info"
+	LogLevelDebug   LogLevel = "debug"
+	LogLevelError   LogLevel = "error"
+	LogLevelWarning LogLevel = "warning"
+	LogLevelInfo    LogLevel = "info"
 )
 
 type SystemActivityLog struct {
@@ -44,8 +44,8 @@ type WriteLogLineOpts struct {
 	// The step run id
 	StepRunID *string `json:"step_run_id" validate:"omitnil,uuid"`
 
-	// The workflow run id
-	WorkflowID string `json:"workflow_id" validate:"uuid"`
+	// The flow run id
+	FlowID string `json:"flow_id" validate:"uuid"`
 
 	// (optional) The time when the log line was created.
 	CreatedAt *time.Time
@@ -70,8 +70,8 @@ type LogLine struct {
 	ProjectID uuid.UUID `json:"project_id,omitempty"`
 	// StepRunID holds the value of the "step_run_id" field.
 	StepRunID *string `json:"step_run_id,omitempty"`
-	// WorkflowID holds the value of the "step_run_id" field.
-	WorkflowID *string `json:"workflow_id,omitempty"`
+	// FlowID holds the value of the "step_run_id" field.
+	FlowID *string `json:"flow_id,omitempty"`
 	// Message holds the value of the "message" field.
 	Message string `json:"message,omitempty"`
 	// Level holds the value of the "level" field.
@@ -87,17 +87,17 @@ type Log struct {
 
 func NewLog(
 	projectID string,
-	workflowID string,
+	flowID string,
 	stepRunID *string,
 	onWrite func(WriteLogLineOpts),
 ) *Log {
 	return &Log{
 		ops: &WriteLogLineOpts{
-			StepRunID:  stepRunID,
-			WorkflowID: workflowID,
-			ProjectID:  projectID,
-			Message:    "",
-			Metadata:   nil,
+			StepRunID: stepRunID,
+			FlowID:    flowID,
+			ProjectID: projectID,
+			Message:   "",
+			Metadata:  nil,
 		},
 		onWrite: onWrite,
 	}

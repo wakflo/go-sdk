@@ -18,76 +18,76 @@ import (
 	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
-type CodeEditorField struct {
+type CodeField struct {
 	*BaseComponentField
 	props map[string]sdkcore.AutoFormSchema
 }
 
-func NewCodeEditorField(language sdkcore.CodeEditorLanguage) *CodeEditorField {
-	c := &CodeEditorField{
+func NewCodeEditorField() *CodeField {
+	c := &CodeField{
 		BaseComponentField: NewBaseComponentField(),
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
 	c.builder.WithType(sdkcore.String)
-	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeCodeEditor)
-	c.builder.schema.UIProps.Language = string(language)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeCode)
+	c.builder.schema.UIProps.Language = sdkcore.CodeLanguageJavascript
 
 	return c
 }
 
-func (b *CodeEditorField) Build() *sdkcore.AutoFormSchema {
+func (b *CodeField) Build() *sdkcore.AutoFormSchema {
 	b.schema = b.builder.Build()
 	return b.schema
 }
 
-func (b *CodeEditorField) SetLanguage(language sdkcore.CodeEditorLanguage) *CodeEditorField {
-	b.builder.schema.UIProps.Language = string(language)
+func (b *CodeField) SetLanguage(language sdkcore.CodeLanguage) *CodeField {
+	b.builder.schema.UIProps.Language = language
 	return b
 }
 
-func (b *CodeEditorField) SetDescription(desc string) *CodeEditorField {
+func (b *CodeField) SetDescription(desc string) *CodeField {
 	b.builder.WithDescription(desc)
 	return b
 }
 
-func (b *CodeEditorField) SetDisplayName(title string) *CodeEditorField {
+func (b *CodeField) SetDisplayName(title string) *CodeField {
 	b.builder.WithTitle(title)
 	return b
 }
 
-func (b *CodeEditorField) SetRequired(required bool) *CodeEditorField {
+func (b *CodeField) SetRequired(required bool) *CodeField {
 	b.Required = required
 	b.builder.WithFieldRequired(required)
 	return b
 }
 
-func (b *CodeEditorField) SetDisabled(disabled bool) *CodeEditorField {
+func (b *CodeField) SetDisabled(disabled bool) *CodeField {
 	b.builder = b.builder.WithFieldDisabled(disabled)
 	return b
 }
 
-func (b *CodeEditorField) SetDefaultValue(defaultValue string) *CodeEditorField {
+func (b *CodeField) SetDefaultValue(defaultValue string) *CodeField {
 	b.builder.WithDefault(defaultValue)
 	return b
 }
 
-func (b *CodeEditorField) SetPlaceholder(placeholder string) *CodeEditorField {
+func (b *CodeField) SetPlaceholder(placeholder string) *CodeField {
 	b.builder.schema.UIProps.Placeholder = placeholder
 	return b
 }
 
-func (b *CodeEditorField) SetLabel(label string) *CodeEditorField {
+func (b *CodeField) SetLabel(label string) *CodeField {
 	b.builder.WithTitle(label)
 	b.builder.schema.UIProps.Label = label
 	return b
 }
 
-func (b *CodeEditorField) SetHint(hint string) *CodeEditorField {
+func (b *CodeField) SetHint(hint string) *CodeField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
 
-func (b *CodeEditorField) SetHidden(hidden bool) *CodeEditorField {
+func (b *CodeField) SetHidden(hidden bool) *CodeField {
 	b.builder.schema.UIProps.Hidden = hidden
 	return b
 }

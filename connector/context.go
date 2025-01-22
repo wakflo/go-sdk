@@ -75,10 +75,10 @@ type IRunnable interface {
 // The RunContext structure has a method PauseExecution that accepts PauseMetadata and pauses the execution based on the metadata provided:
 //
 //	type RunContext struct {
-//	   Step          *sdkcore.ConnectorStep       `json:"step"`
+//	   Step          *sdkcore.FlowStep       `json:"step"`
 //	   Auth          *sdkcore.AuthContext         `json:"auth"`
 //	   State         *sdkcore.StepsState          `json:"state"`
-//	   Workflow      *sdkcore.WorkflowRunMetadata `json:"workflow"`
+//	   Flow      *sdkcore.FlowRunMetadata `json:"flow"`
 //	   Input         sdkcore.JSONObject           `json:"input"`
 //	   ResolvedInput any                          `json:"resolvedInput"`
 //	   LastRun       *time.Time                   `json:"lastRun"`
@@ -149,43 +149,43 @@ type PauseMetadataFull struct {
 
 // TriggerRunContext is a struct that represents the context for triggering a run.
 type TriggerRunContext struct {
-	Metadata *sdkcore.WorkflowRunMetadata `json:"metadata"`
-	Auth     *sdkcore.AuthContext         `json:"auth"`
+	Metadata *sdkcore.FlowRunMetadata `json:"metadata"`
+	Auth     *sdkcore.AuthContext     `json:"auth"`
 	Trigger  *sdkcore.Trigger
 }
 
-// RunContext represents the context in which a workflow step is executed.
+// RunContext represents the context in which a flow step is executed.
 //
-// It contains information about the workflow, the current step, the connector version,
-// the workflow instance, authentication data, and the state of the workflow steps.
+// It contains information about the flow, the current step, the connector version,
+// the flow instance, authentication data, and the state of the flow steps.
 type RunContext struct {
-	step          *sdkcore.StepNodeWithChildren
-	Auth          *sdkcore.AuthContext         `json:"auth"`
-	Metadata      *sdkcore.WorkflowRunMetadata `json:"metadata"`
-	Input         map[string]any               `json:"input"`
+	step          *sdkcore.FlowStep
+	Auth          *sdkcore.AuthContext     `json:"auth"`
+	Metadata      *sdkcore.FlowRunMetadata `json:"metadata"`
+	input         any                      `json:"input"`
+	RawInput      map[string]any           `json:"input"`
 	Files         sdkcore.FileManager
 	ctx           context.Context
 	ExecutionType sdkcore.ExecutionType `json:"executionType"`
 	isPaused      bool
-	runMode       bool
 	pausedTime    *time.Time
 	Log           *sdkcore.Log
 	state         *sdkcore.StepRunData
 	stepsState    map[string]*sdkcore.StepRunData
 }
 
-func NewRunContext(
+func NewRunContext[InputType any](
 	ctx context.Context,
-	step *sdkcore.StepNodeWithChildren,
+	step *sdkcore.FlowStep,
 	state *sdkcore.StepRunData,
-	workflow *sdkcore.WorkflowVersion,
+	meta *sdkcore.FlowMetadata,
 	auth *sdkcore.AuthContext,
+	input InputType,
 	stepsState map[string]*sdkcore.StepRunData,
-	runMode bool,
 	onWrite func(sdkcore.WriteLogLineOpts),
 ) *RunContext {
 	var sid string
-	if runMode {
+	if meta.Status == sdkcore.FlowVersionStateLocked {
 		sid = state.ID.String()
 	}
 
@@ -195,23 +195,22 @@ func NewRunContext(
 		state:         state,
 		stepsState:    stepsState,
 		Auth:          auth,
-		Input:         nil,
 		Files:         nil,
+		input:         input,
 		ExecutionType: "",
 		isPaused:      false,
 		pausedTime:    nil,
-		Metadata: &sdkcore.WorkflowRunMetadata{
-			WorkflowID:       workflow.WorkflowID,
-			WorkflowName:     workflow.Name,
-			StepName:         step.ID,
-			ConnectorName:    step.Data.Connector.Name,
-			ConnectorVersion: step.Data.Connector.Version,
-			LastRun:          workflow.LastRun,
+		Metadata: &sdkcore.FlowRunMetadata{
+			FlowID:           meta.FlowID,
+			FlowName:         meta.Name,
+			StepName:         step.Name,
+			ConnectorName:    step.Settings.Connector.Name,
+			ConnectorVersion: step.Settings.Connector.Version,
+			LastRun:          meta.LastRun,
 		},
-		runMode: runMode,
 		Log: sdkcore.NewLog(
-			workflow.ProjectID.String(),
-			workflow.WorkflowID.String(),
+			meta.ProjectID.String(),
+			meta.FlowID.String(),
 			&sid,
 			onWrite,
 		),
@@ -230,14 +229,6 @@ func (r *RunContext) SetState(state *sdkcore.StepRunData) {
 	r.state = state
 }
 
-func (r *RunContext) IsTestMode() bool {
-	return r.runMode == false
-}
-
-func (r *RunContext) IsRunMode() bool {
-	return !r.IsTestMode()
-}
-
 func (r *RunContext) GetStepsState() map[string]*sdkcore.StepRunData {
 	return r.stepsState
 }
@@ -251,7 +242,13 @@ func (r *RunContext) IsPaused() bool {
 // GetRawInput returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.
 func (r *RunContext) GetRawInput() sdkcore.JSONObject {
-	return r.step.Data.Form.Input
+	return r.step.Form.Input
+}
+
+// GetInput returns a boolean value indicating whether the execution is currently paused.
+// It checks the value of the 'isPaused' field in the RunContext struct.
+func (r *RunContext) Input() any {
+	return r.input
 }
 
 // PauseExecution pauses the execution of the RunContext.
@@ -276,7 +273,7 @@ func (r *RunContext) GetPauseTime() *time.Time {
 // If there is an error during the marshaling or unmarshaling process, nil is returned.
 // The function signature is as follows:
 func InputToType[T any](ctx *RunContext) *T {
-	b, err := json.Marshal(ctx.Input)
+	b, err := json.Marshal(ctx.Input())
 	if err != nil {
 		return nil
 	}
@@ -294,7 +291,7 @@ func InputToType[T any](ctx *RunContext) *T {
 // If there is an error during the marshaling or unmarshaling process, nil is returned.
 // The function signature is as follows:
 func InputToTypeSafely[T any](ctx *RunContext) (*T, error) {
-	b, err := json.Marshal(ctx.Input)
+	b, err := json.Marshal(ctx.Input())
 	if err != nil {
 		return nil, err
 	}

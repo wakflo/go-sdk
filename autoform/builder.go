@@ -69,7 +69,7 @@ func (b *SchemaBuilder) WithDescription(description string) *SchemaBuilder {
 
 func (b *SchemaBuilder) WithDefault(defaultValue interface{}) *SchemaBuilder {
 	b.schema.Default = defaultValue
-	b.schema.UIProps.InitialValue = defaultValue
+	b.schema.UIProps.DefaultValue = defaultValue
 	return b
 }
 

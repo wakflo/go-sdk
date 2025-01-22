@@ -15,6 +15,7 @@
 package core
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/google/uuid"
@@ -23,6 +24,46 @@ import (
 
 // JSONObject is a type alias for map[string]any.
 type JSONObject = map[string]any
+
+// ToJSONMap converts an interface of type `any` to a map[string]any.
+// Returns the map and a boolean indicating success.
+func ToJSONMap(input any) (JSONObject, bool) {
+	if input == nil {
+		return nil, false
+	}
+
+	bytes, err := json.Marshal(input)
+	if err != nil {
+		return nil, false
+	}
+
+	var result map[string]any
+	if err := json.Unmarshal(bytes, &result); err != nil {
+		return nil, false
+	}
+
+	return result, true
+}
+
+// ToJSON converts an interface of type `any` to a map[string]any.
+// Returns the map and a boolean indicating success.
+func ToJSON(input any) (JSON, bool) {
+	if input == nil {
+		return nil, false
+	}
+
+	bytes, err := json.Marshal(input)
+	if err != nil {
+		return nil, false
+	}
+
+	var result any
+	if err := json.Unmarshal(bytes, &result); err != nil {
+		return nil, false
+	}
+
+	return result, true
+}
 
 type FormState struct {
 	Pristine      bool           `json:"pristine"`
@@ -133,6 +174,8 @@ type Operation struct {
 
 	ErrorSettings StepErrorSettings `json:"errorSettings,omitempty"`
 
+	Settings OperationSettings `json:"settings,omitempty"`
+
 	RequireAuth bool `json:"requireAuth"`
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation *string `json:"documentation,omitempty"`
@@ -159,8 +202,11 @@ type Trigger struct {
 	// Auth holds the value of the "auth" field.
 	Auth *AutoFormSchema `json:"auth,omitempty"`
 
-	// Type holds the value of the "type" field.
-	Type TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT PUBSUB MANUAL WEBHOOK CRON"`
+	// Strategy holds the value of the "description" field.
+	Strategy TriggerStrategy `json:"strategy,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
+
+	// Type holds the value of the "description" field.
+	Type TriggerType `json:"type,omitempty" validate:"required,oneof=STEP_TRIGGER EMPTY"`
 
 	Settings *TriggerSettings `json:"settings,omitempty"`
 
@@ -177,18 +223,18 @@ type (
 	TriggersList = []*Trigger
 )
 
-type WorkflowRunMetadata struct {
-	// ID holds the value of the "id" field.
-	WorkflowID uuid.UUID `json:"workflowId,omitempty"`
+type FlowRunMetadata struct {
+	// FlowID holds the value of the "id" field.
+	FlowID uuid.UUID `json:"flowId,omitempty"`
 	// Name holds the value of the "name" field.
-	WorkflowName string `json:"workflowName,omitempty"`
+	FlowName string `json:"flowName,omitempty"`
 	// StepName holds the value of the "name" field.
 	StepName string `json:"stepName,omitempty"`
 	// ConnectorName holds the value of the "connectorName" field.
 	ConnectorName string `json:"connectorName,omitempty"`
 	// ConnectorVersion holds the value of the "connectorVersion" field.
 	ConnectorVersion string `json:"connectorVersion,omitempty"`
-	// LastRun represents the timestamp of the last run of a workflow.
+	// LastRun represents the timestamp of the last run of a flow.
 	LastRun *time.Time `json:"lastRun"`
 }
 
@@ -196,13 +242,19 @@ type TriggerSettings struct {
 	// Cron holds the value of the "interval" field.
 	Cron *string `json:"cron,omitempty" validate:"omitnil,cron"`
 	// Cron holds the value of the "interval" field.
-	ScheduledAt *string `json:"scheduledAt,omitempty"`
+	ScheduledAt *string `json:"scheduledAt"`
+}
+
+type OperationSettings struct {
+	Branch *BranchSettings `json:"branch,omitempty"`
 }
 
 type StepTriggerSettings struct {
 	*TriggerSettings
 	// Type holds the value of the "type" field.
-	Type TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT PUBSUB MANUAL WEBHOOK CRON"`
+	Strategy TriggerStrategy `json:"strategy,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
+	// Type holds the value of the "type" field.
+	Type TriggerType `json:"type,omitempty" validate:"required,oneof=STEP_TRIGGER EMPTY"`
 }
 
 // ConnectorVersionMetadata is the model entity for the ConnectorVersion schema.
@@ -271,19 +323,19 @@ type ConnectorVersionMetadata struct {
 	Approved bool `json:"approved"`
 }
 
-type TestWorkflowStepInput struct {
-	StepName   string    `json:"stepName"`
-	WorkflowID uuid.UUID `json:"workflowId"`
+type TestFlowStepInput struct {
+	StepName string    `json:"stepName"`
+	FlowID   uuid.UUID `json:"flowId"`
 }
 
-func FlattenSteps(node *ConnectorStep) []*ConnectorStep {
-	nodes := []*ConnectorStep{node}
+func FlattenSteps(node *FlowStep) []*FlowStep {
+	nodes := []*FlowStep{node}
 	if node.Children == nil {
 		return nodes
 	}
 
-	for _, child := range *node.Children {
-		nodes = append(nodes, FlattenSteps(&child)...)
+	for _, child := range node.Children {
+		nodes = append(nodes, FlattenSteps(child)...)
 	}
 	return nodes
 }

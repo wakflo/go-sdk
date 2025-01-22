@@ -50,15 +50,15 @@ type DynamicOptionsFilterParams struct {
 }
 
 type GetDynamicOptionsInput struct {
-	ConnectorName     string                      `json:"connectorName"`
-	ConnectorVersion  string                      `json:"connectorVersion"`
-	FieldName         string                      `json:"fieldName"`
-	OperationName     string                      `json:"operationName"`
-	StepName          string                      `json:"stepName"`
-	WorkflowID        string                      `json:"workflowId"`
-	WorkflowVersionID *string                     `json:"workflowVersionId,omitempty"`
-	Input             map[string]interface{}      `json:"input,omitempty"`
-	Filter            *DynamicOptionsFilterParams `json:"filter,omitempty"`
+	ConnectorName    string                      `json:"connectorName"`
+	ConnectorVersion string                      `json:"connectorVersion"`
+	FieldName        string                      `json:"fieldName"`
+	OperationName    string                      `json:"operationName"`
+	StepName         string                      `json:"stepName"`
+	FlowID           string                      `json:"flowId"`
+	FlowVersionID    string                      `json:"flowVersionId,omitempty"`
+	Input            map[string]interface{}      `json:"input,omitempty"`
+	Filter           *DynamicOptionsFilterParams `json:"filter,omitempty"`
 }
 
 type StepRunData struct {
@@ -72,18 +72,14 @@ type StepRunData struct {
 	ProjectID uuid.UUID `json:"project_id,omitempty"`
 	// Status holds the value of the "status" field.
 	Status StepRunStatus `json:"status,omitempty"`
-	// JobID holds the value of the "job_id" field.
-	JobID int `json:"job_id,omitempty"`
-	// Index holds the value of the "index" field.
-	Index int `json:"index,omitempty"`
 	// Order holds the value of the "order" field.
 	Order int `json:"order,omitempty"`
-	// WorkflowID holds the value of the "workflow_id" field.
-	WorkflowID uuid.UUID `json:"workflow_id,omitempty"`
-	// WorkflowVersionID holds the value of the "workflow_version_id" field.
-	WorkflowVersionID *uuid.UUID `json:"workflow_version_id,omitempty"`
-	// WorkflowRunID holds the value of the "workflow_run_id" field.
-	WorkflowRunID uuid.UUID `json:"workflow_run_id,omitempty"`
+	// FlowID holds the value of the "flow_id" field.
+	FlowID uuid.UUID `json:"flow_id,omitempty"`
+	// FlowVersionID holds the value of the "flow_version_id" field.
+	FlowVersionID uuid.UUID `json:"flow_version_id,omitempty"`
+	// RunID holds the value of the "run_id" field.
+	RunID uuid.UUID `json:"run_id,omitempty"`
 	// ConnectorName holds the value of the "connector_name" field.
 	ConnectorName string `json:"connector_name,omitempty"`
 	// ConnectorVersion holds the value of the "connector_version" field.
@@ -100,7 +96,37 @@ type StepRunData struct {
 	StartTime *time.Time `json:"start_time,omitempty"`
 	// EndTime represents the end time of a step run.
 	// It is a pointer to a time.Time value and can be nil.
+	Duration *int64 `json:"duration,omitempty"`
+	// EndTime represents the end time of a step run.
+	// It is a pointer to a time.Time value and can be nil.
 	EndTime *time.Time `json:"end_time,omitempty"`
+}
+
+type StepExecutionParams struct {
+	// Status holds the value of the "status" field.
+	Status StepRunStatus `json:"status,omitempty"`
+	// Order holds the value of the "order" field.
+	Order int `json:"order,omitempty"`
+	// Input holds the value of the "input" field.
+	Input map[string]interface{} `json:"input,omitempty"`
+	// Errors holds the value of the "errors" field.
+	Errors []string `json:"errors,omitempty"`
+	// Output holds the value of the "output" field.
+	Output any `json:"output,omitempty"`
+	// StartTime represents the start time of a step run.
+	StartTime *time.Time `json:"start_time,omitempty"`
+	// EndTime represents the end time of a step run.
+	// It is a pointer to a time.Time value and can be nil.
+	EndTime *time.Time `json:"end_time,omitempty"`
+}
+
+type StepExecutionUpdateParams struct {
+	// Status holds the value of the "status" field.
+	Status *StepRunStatus `json:"status,omitempty"`
+	// Errors holds the value of the "errors" field.
+	Errors []string `json:"errors,omitempty"`
+	// Output holds the value of the "output" field.
+	Output any `json:"output,omitempty"`
 }
 
 type StepState = StepRunData

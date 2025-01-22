@@ -144,7 +144,8 @@ type AutoFormFieldProps struct {
 	Type        string            `json:"type,omitempty"`
 	ControlType AutoFormFieldType `json:"controlType,omitempty"`
 	Required    bool              `json:"required"`
-	Language    string            `json:"language,omitempty"`
+	Language    CodeLanguage      `json:"language,omitempty"`
+	Framework   CodeFramework     `json:"framework,omitempty"`
 	Hint        string            `json:"hint,omitempty"`
 	Label       string            `json:"label,omitempty"`
 	Disabled    bool              `json:"disabled"`
@@ -171,6 +172,7 @@ type AutoFormFieldProps struct {
 	// The value should be a stringified JS function
 	Relevant     *string `json:"relevant,omitempty"`
 	InitialValue any     `json:"initialValue,omitempty"`
+	DefaultValue any     `json:"defaultValue,omitempty"`
 	KeepState    bool    `json:"keepState,omitempty"`
 }
 

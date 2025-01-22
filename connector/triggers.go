@@ -26,8 +26,10 @@ import (
 type TriggerInfo struct {
 	// Key holds the value of the "key" field.
 	Name string `json:"name,omitempty" validate:"required"`
+	// Strategy holds the value of the "description" field.
+	Strategy sdkcore.TriggerStrategy `json:"strategy,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
 	// Type holds the value of the "description" field.
-	Type sdkcore.TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT PUBSUB MANUAL WEBHOOK CRON"`
+	Type sdkcore.TriggerType `json:"type,omitempty" validate:"required,oneof=STEP_TRIGGER EMPTY"`
 	// Description holds the value of the "description" field.
 	Description string `json:"description,omitempty" validate:"required"`
 	// Input holds the value of the "input" field.

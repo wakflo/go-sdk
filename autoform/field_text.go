@@ -85,7 +85,7 @@ func (b *BaseTextField) Build() *sdkcore.AutoFormSchema {
 
 func (b *BaseTextField) SetDefaultValue(defaultValue string) *BaseTextField {
 	b.builder.WithDefault(defaultValue)
-	b.builder.schema.UIProps.InitialValue = defaultValue
+	b.builder.schema.UIProps.DefaultValue = defaultValue
 	return b
 }
 

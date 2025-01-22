@@ -96,6 +96,8 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			info.Settings = &s
 		}
 
+		info.Type = sdkcore.TriggerTypeStepTrigger
+
 		verr := errors.New(fmt.Sprintf("%s - [trigger:%s] ", args.Name, info.Name))
 		err = v.Validate(info)
 		if err != nil {
@@ -111,6 +113,7 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
 			Settings:      info.Settings,
+			Strategy:      info.Strategy,
 			Type:          info.Type,
 			ErrorSettings: info.ErrorSettings,
 			Documentation: info.Documentation,
@@ -145,6 +148,7 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			ErrorSettings: info.ErrorSettings,
 			Documentation: info.Documentation,
 			HelpText:      info.HelpText,
+			Settings:      info.Settings,
 		}
 
 		operations[key] = op

@@ -14,10 +14,9 @@
 
 package core
 
-type WorkflowTemplate struct {
-	Steps map[string]ConnectorStep
-	State []int
-	Edges map[string]StepEdge
+type FlowTemplate struct {
+	Trigger FlowStep
+	State   []int
 }
 
-type WorkflowTemplateType = WorkflowTemplate
+type FlowTemplateType = FlowTemplate

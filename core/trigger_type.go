@@ -26,12 +26,8 @@ import (
 type TriggerType string
 
 const (
-	TriggerTypeScheduled TriggerType = "SCHEDULED"
-	TriggerTypeEvent     TriggerType = "EVENT"
-	TriggerTypePubSub    TriggerType = "PUBSUB"
-	TriggerTypeManual    TriggerType = "MANUAL"
-	TriggerTypeWebhook   TriggerType = "WEBHOOK"
-	TriggerTypeCron      TriggerType = "CRON"
+	TriggerTypeEmpty       TriggerType = "EMPTY"
+	TriggerTypeStepTrigger TriggerType = "STEP_TRIGGER"
 )
 
 func (TriggerType) SQLTypeName() string {
@@ -41,12 +37,8 @@ func (TriggerType) SQLTypeName() string {
 // Values returns a slice of all String values of the enum.
 func (TriggerType) Values() []string {
 	return []string{
-		"SCHEDULED",
-		"EVENT",
-		"PUBSUB",
-		"MANUAL",
-		"WEBHOOK",
-		"CRON",
+		"EMPTY",
+		"STEP_TRIGGER",
 	}
 }
 
@@ -230,7 +222,7 @@ func (_j *TriggerType) UnmarshalYAML(unmarshal func(interface{}) error) error {
 func TriggerTypeFromString(raw string) (TriggerType, bool) {
 	v, ok := _TriggerTypeStringToValueMap[raw]
 	if !ok {
-		return TriggerTypeScheduled, false
+		return TriggerTypeEmpty, false
 	}
 	return v, true
 }
@@ -250,19 +242,11 @@ func TriggerTypeFromStringIgnoreCase(raw string) (TriggerType, bool) {
 
 var (
 	_TriggerTypeStringToValueMap = map[string]TriggerType{
-		"SCHEDULED": TriggerTypeScheduled,
-		"EVENT":     TriggerTypeEvent,
-		"PUBSUB":    TriggerTypePubSub,
-		"MANUAL":    TriggerTypeManual,
-		"WEBHOOK":   TriggerTypeWebhook,
-		"CRON":      TriggerTypeCron,
+		"EMPTY":        TriggerTypeEmpty,
+		"STEP_TRIGGER": TriggerTypeStepTrigger,
 	}
 	_TriggerTypeLowerStringToValueMap = map[string]TriggerType{
-		"SCHEDULED": TriggerTypeScheduled,
-		"EVENT":     TriggerTypeEvent,
-		"PUBSUB":    TriggerTypePubSub,
-		"MANUAL":    TriggerTypeManual,
-		"WEBHOOK":   TriggerTypeWebhook,
-		"CRON":      TriggerTypeCron,
+		"EMPTY":        TriggerTypeEmpty,
+		"STEP_TRIGGER": TriggerTypeStepTrigger,
 	}
 )

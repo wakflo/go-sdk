@@ -28,13 +28,12 @@ type StepRunStatus string
 
 // Enum values for StepRunStatus.
 const (
-	StepRunStatusPending           StepRunStatus = "PENDING"
-	StepRunStatusPendingAssignment StepRunStatus = "PENDING_ASSIGNMENT"
-	StepRunStatusAssigned          StepRunStatus = "ASSIGNED"
-	StepRunStatusRunning           StepRunStatus = "RUNNING"
-	StepRunStatusSucceeded         StepRunStatus = "SUCCEEDED"
-	StepRunStatusFailed            StepRunStatus = "FAILED"
-	StepRunStatusCancelled         StepRunStatus = "CANCELLED"
+	StepRunStatusPending   StepRunStatus = "PENDING"
+	StepRunStatusPaused    StepRunStatus = "PAUSED"
+	StepRunStatusRunning   StepRunStatus = "RUNNING"
+	StepRunStatusSucceeded StepRunStatus = "SUCCEEDED"
+	StepRunStatusFailed    StepRunStatus = "FAILED"
+	StepRunStatusCancelled StepRunStatus = "CANCELLED"
 )
 
 func (StepRunStatus) SQLTypeName() string {
@@ -45,8 +44,7 @@ func (StepRunStatus) SQLTypeName() string {
 func (StepRunStatus) Values() []string {
 	return []string{
 		"PENDING",
-		"PENDING_ASSIGNMENT",
-		"ASSIGNED",
+		"PAUSED",
 		"RUNNING",
 		"SUCCEEDED",
 		"FAILED",
@@ -254,21 +252,19 @@ func StepRunStatusFromStringIgnoreCase(raw string) (StepRunStatus, bool) {
 
 var (
 	_StepRunStatusStringToValueMap = map[string]StepRunStatus{
-		"PENDING":            StepRunStatusPending,
-		"PENDING_ASSIGNMENT": StepRunStatusPendingAssignment,
-		"ASSIGNED":           StepRunStatusAssigned,
-		"RUNNING":            StepRunStatusRunning,
-		"SUCCEEDED":          StepRunStatusSucceeded,
-		"FAILED":             StepRunStatusFailed,
-		"CANCELLED":          StepRunStatusCancelled,
+		"PENDING":   StepRunStatusPending,
+		"PAUSED":    StepRunStatusPaused,
+		"RUNNING":   StepRunStatusRunning,
+		"SUCCEEDED": StepRunStatusSucceeded,
+		"FAILED":    StepRunStatusFailed,
+		"CANCELLED": StepRunStatusCancelled,
 	}
 	_StepRunStatusLowerStringToValueMap = map[string]StepRunStatus{
-		"PENDING":            StepRunStatusPending,
-		"PENDING_ASSIGNMENT": StepRunStatusPendingAssignment,
-		"ASSIGNED":           StepRunStatusAssigned,
-		"RUNNING":            StepRunStatusRunning,
-		"SUCCEEDED":          StepRunStatusSucceeded,
-		"FAILED":             StepRunStatusFailed,
-		"CANCELLED":          StepRunStatusCancelled,
+		"PENDING":   StepRunStatusPending,
+		"PAUSED":    StepRunStatusPaused,
+		"RUNNING":   StepRunStatusRunning,
+		"SUCCEEDED": StepRunStatusSucceeded,
+		"FAILED":    StepRunStatusFailed,
+		"CANCELLED": StepRunStatusCancelled,
 	}
 )

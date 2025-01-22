@@ -50,10 +50,11 @@ const (
 	AutoFormFieldTypeFileString     AutoFormFieldType = "file_string"
 	AutoFormFieldTypeBoolean        AutoFormFieldType = "boolean"
 	AutoFormFieldTypeDynamic        AutoFormFieldType = "dynamic"
-	AutoFormFieldTypeCodeEditor     AutoFormFieldType = "code"
+	AutoFormFieldTypeCode           AutoFormFieldType = "code"
 	AutoFormFieldTypeRichText       AutoFormFieldType = "richtext"
 	AutoFormFieldTypeBranch         AutoFormFieldType = "branch"
 	AutoFormFieldTypeWrapper        AutoFormFieldType = "wrapper"
+	AutoFormFieldTypeCodeFramework  AutoFormFieldType = "framework"
 )
 
 func (AutoFormFieldType) SQLTypeName() string {
@@ -86,6 +87,7 @@ func (AutoFormFieldType) Values() []string {
 		"richtext",
 		"branch",
 		"wrapper",
+		"framework",
 	}
 }
 
@@ -308,10 +310,11 @@ var (
 		"file_string":    AutoFormFieldTypeFileString,
 		"boolean":        AutoFormFieldTypeBoolean,
 		"dynamic":        AutoFormFieldTypeDynamic,
-		"code":           AutoFormFieldTypeCodeEditor,
+		"code":           AutoFormFieldTypeCode,
 		"richtext":       AutoFormFieldTypeRichText,
 		"branch":         AutoFormFieldTypeBranch,
 		"wrapper":        AutoFormFieldTypeWrapper,
+		"framework":      AutoFormFieldTypeCodeFramework,
 	}
 	_FieldTypeLowerStringToValueMap = map[string]AutoFormFieldType{
 		"short_text":     AutoFormFieldTypeShortText,
@@ -333,9 +336,10 @@ var (
 		"file_string":    AutoFormFieldTypeFileString,
 		"boolean":        AutoFormFieldTypeBoolean,
 		"dynamic":        AutoFormFieldTypeDynamic,
-		"code":           AutoFormFieldTypeCodeEditor,
+		"code":           AutoFormFieldTypeCode,
 		"richtext":       AutoFormFieldTypeRichText,
 		"branch":         AutoFormFieldTypeBranch,
 		"wrapper":        AutoFormFieldTypeWrapper,
+		"framework":      AutoFormFieldTypeCodeFramework,
 	}
 )

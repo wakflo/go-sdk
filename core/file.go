@@ -20,7 +20,7 @@ import (
 
 type FileManager interface {
 	Put(name string, data io.Reader) (*string, error)
-	PutWorkflow(metadata *WorkflowRunMetadata, name string, data io.Reader) (*string, error)
-	ReadWorkflow(metadata *WorkflowRunMetadata, name string) ([]byte, error)
+	PutFlow(metadata *FlowRunMetadata, name string, data io.Reader) (*string, error)
+	ReadFlow(metadata *FlowRunMetadata, name string) ([]byte, error)
 	Read(name string) ([]byte, error)
 }
