@@ -202,11 +202,8 @@ type Trigger struct {
 	// Auth holds the value of the "auth" field.
 	Auth *AutoFormSchema `json:"auth,omitempty"`
 
-	// Strategy holds the value of the "description" field.
-	Strategy TriggerStrategy `json:"strategy,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
-
 	// Type holds the value of the "description" field.
-	Type TriggerType `json:"type,omitempty" validate:"required,oneof=STEP_TRIGGER EMPTY"`
+	Type TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
 
 	Settings *TriggerSettings `json:"settings,omitempty"`
 
@@ -238,23 +235,8 @@ type FlowRunMetadata struct {
 	LastRun *time.Time `json:"lastRun"`
 }
 
-type TriggerSettings struct {
-	// Cron holds the value of the "interval" field.
-	Cron *string `json:"cron,omitempty" validate:"omitnil,cron"`
-	// Cron holds the value of the "interval" field.
-	ScheduledAt *string `json:"scheduledAt"`
-}
-
 type OperationSettings struct {
 	Branch *BranchSettings `json:"branch,omitempty"`
-}
-
-type StepTriggerSettings struct {
-	*TriggerSettings
-	// Type holds the value of the "type" field.
-	Strategy TriggerStrategy `json:"strategy,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
-	// Type holds the value of the "type" field.
-	Type TriggerType `json:"type,omitempty" validate:"required,oneof=STEP_TRIGGER EMPTY"`
 }
 
 // ConnectorVersionMetadata is the model entity for the ConnectorVersion schema.

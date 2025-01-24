@@ -66,7 +66,6 @@ type ConnectorStepMetadata struct {
 	ConnectorName    string       `json:"connectorName,omitempty"`
 	ConnectorVersion string       `json:"connectorVersion,omitempty"`
 	TriggerType      *TriggerType `json:"triggerType,omitempty"`
-	TriggerStrategy  *TriggerType `json:"triggerStrategy,omitempty"`
 }
 
 type FlowStep struct {

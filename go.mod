@@ -14,7 +14,7 @@ require (
 	github.com/gosimple/slug v1.15.0
 	github.com/grokify/goauth v0.23.2
 	github.com/hashicorp/go-multierror v1.1.1
-	github.com/samber/lo v1.47.0
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20250106191152-7588d65b2ba8
 	golang.org/x/oauth2 v0.25.0

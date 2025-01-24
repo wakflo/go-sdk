@@ -43,8 +43,8 @@ type StepNodeConnector struct {
 }
 
 type StepNodeSettings struct {
-	Branch    *BranchSettings      `json:"branch,omitempty"`
-	Connector StepNodeConnector    `json:"connector"`
-	Trigger   *StepTriggerSettings `json:"trigger,omitempty"`
-	Error     StepErrorSettings    `json:"error,omitempty"`
+	Branch    *BranchSettings   `json:"branch,omitempty"`
+	Connector StepNodeConnector `json:"connector"`
+	Trigger   *TriggerSettings  `json:"trigger,omitempty"`
+	Error     StepErrorSettings `json:"error,omitempty"`
 }

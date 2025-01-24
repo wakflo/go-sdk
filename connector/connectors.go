@@ -83,20 +83,16 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 		info.Name = strings.TrimSpace(info.Name)
 		key := utils.GenerateUniqueSlug(info.Name)
 
-		defCron := "*/2 * * * *"
-		s := sdkcore.TriggerSettings{
-			Cron: &defCron,
-		}
+		//defCron := "*/2 * * * *"
+		s := sdkcore.TriggerSettings{}
 
 		if info.Settings != nil {
-			if info.Settings.Cron == nil {
-				info.Settings.Cron = &defCron
-			}
+			//if info.Settings.Cron == nil {
+			//	info.Settings.Cron = &defCron
+			//}
 		} else {
 			info.Settings = &s
 		}
-
-		info.Type = sdkcore.TriggerTypeStepTrigger
 
 		verr := errors.New(fmt.Sprintf("%s - [trigger:%s] ", args.Name, info.Name))
 		err = v.Validate(info)
@@ -113,7 +109,6 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
 			Settings:      info.Settings,
-			Strategy:      info.Strategy,
 			Type:          info.Type,
 			ErrorSettings: info.ErrorSettings,
 			Documentation: info.Documentation,

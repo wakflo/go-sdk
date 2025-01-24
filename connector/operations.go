@@ -15,8 +15,6 @@
 package sdk
 
 import (
-	"context"
-
 	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
@@ -51,21 +49,4 @@ type OperationInfo struct {
 type IOperation interface {
 	IRunnable
 	GetInfo() *OperationInfo
-}
-
-// CreateIOperationArgs represents the arguments for creating an IOperation.
-// It contains the following fields:
-// - Name: the name of the IOperation
-// - Description: the description of the IOperation
-// - Input
-type CreateIOperationArgs struct {
-	Name        string
-	Description string
-	Input       *map[string]interface{}
-	Output      *map[string]interface{}
-
-	Run                *func(ctx context.Context) (JSON, error)
-	Auth               *func(ctx context.Context) (JSON, error)
-	Test               *func(ctx context.Context) (JSON, error)
-	GenerateSampleData *func(ctx context.Context) (JSON, error)
 }
