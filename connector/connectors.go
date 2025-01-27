@@ -84,7 +84,9 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 		key := utils.GenerateUniqueSlug(info.Name)
 
 		//defCron := "*/2 * * * *"
-		s := sdkcore.TriggerSettings{}
+		s := sdkcore.TriggerSettings{
+			Type: info.Type,
+		}
 
 		if info.Settings != nil {
 			//if info.Settings.Cron == nil {
