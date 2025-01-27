@@ -130,3 +130,9 @@ type StepExecutionUpdateParams struct {
 }
 
 type StepState = StepRunData
+
+type StateError struct {
+	Reason  StateErrorReason `json:"reason"`
+	Message string           `json:"message"`
+	Details JSON             `json:"details,omitempty"`
+}

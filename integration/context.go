@@ -29,13 +29,7 @@ import (
 	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
-type ExecutionMode string
-
-const (
-	ExecutionModeLive  ExecutionMode = "LIVE"
-	ExecutionModeTest  ExecutionMode = "TEST"
-	ExecutionModeDebug ExecutionMode = "DEBUG"
-)
+type ExecutionMode = sdkcore.ExecutionMode
 
 type BaseContext struct {
 	ctx           context.Context
@@ -85,7 +79,7 @@ func NewBaseContext(
 		Auth:          auth,
 		Files:         nil,
 		input:         input,
-		ExecutionMode: ExecutionModeLive,
+		ExecutionMode: sdkcore.ExecutionModeLive,
 		metadata: &ExecuteMetadata{
 			FlowVersionID: meta.FlowVersionID,
 			FlowID:        meta.FlowID,
