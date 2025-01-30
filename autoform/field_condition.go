@@ -18,65 +18,65 @@ import (
 	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
-type BranchField struct {
+type ConditionField struct {
 	*BaseComponentField
 	props map[string]sdkcore.AutoFormSchema
 }
 
-func NewBranchField() *BranchField {
-	c := &BranchField{
+func NewConditionField() *ConditionField {
+	c := &ConditionField{
 		BaseComponentField: NewBaseComponentField(),
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
 	c.builder.WithType(sdkcore.Array)
-	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeBranch)
+	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeCondition)
 
 	return c
 }
 
-func (b *BranchField) Build() *sdkcore.AutoFormSchema {
+func (b *ConditionField) Build() *sdkcore.AutoFormSchema {
 	b.schema = b.builder.Build()
 	return b.schema
 }
 
-func (b *BranchField) SetDescription(desc string) *BranchField {
+func (b *ConditionField) SetDescription(desc string) *ConditionField {
 	b.builder.WithDescription(desc)
 	return b
 }
 
-func (b *BranchField) SetDisplayName(title string) *BranchField {
+func (b *ConditionField) SetDisplayName(title string) *ConditionField {
 	b.builder.WithTitle(title)
 	return b
 }
 
-func (b *BranchField) SetRequired(required bool) *BranchField {
+func (b *ConditionField) SetRequired(required bool) *ConditionField {
 	b.Required = required
 	b.builder.WithFieldRequired(required)
 	return b
 }
 
-func (b *BranchField) SetDisabled(disabled bool) *BranchField {
+func (b *ConditionField) SetDisabled(disabled bool) *ConditionField {
 	b.builder = b.builder.WithFieldDisabled(disabled)
 	return b
 }
 
-func (b *BranchField) SetPlaceholder(placeholder string) *BranchField {
+func (b *ConditionField) SetPlaceholder(placeholder string) *ConditionField {
 	b.builder.schema.UIProps.Placeholder = placeholder
 	return b
 }
 
-func (b *BranchField) SetLabel(label string) *BranchField {
+func (b *ConditionField) SetLabel(label string) *ConditionField {
 	b.builder.WithTitle(label)
 	b.builder.schema.UIProps.Label = label
 	return b
 }
 
-func (b *BranchField) SetHint(hint string) *BranchField {
+func (b *ConditionField) SetHint(hint string) *ConditionField {
 	b.builder.schema.UIProps.Hint = hint
 	return b
 }
 
-func (b *BranchField) SetHidden(hidden bool) *BranchField {
+func (b *ConditionField) SetHidden(hidden bool) *ConditionField {
 	b.builder.schema.UIProps.Hidden = hidden
 	return b
 }

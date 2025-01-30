@@ -92,4 +92,7 @@ type Action interface {
 
 	// Perform executes the action with the given input schema and returns a result or an error.
 	Perform(ctx PerformContext) (core.JSON, error)
+
+	// GetType returns the trigger type (e.g., BRANCH, BOOLEAN, FLOW, STEP).
+	GetType() core.ActionType
 }

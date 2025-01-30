@@ -32,7 +32,7 @@ type CreateConnectorArgs struct {
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation string
 
-	Type *sdkcore.ConnectorType
+	Type *sdkcore.ActionType
 }
 
 func CreateConnector(args *CreateConnectorArgs) (*ConnectorPlugin, error) {

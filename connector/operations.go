@@ -38,6 +38,8 @@ type OperationInfo struct {
 	HelpText *string `json:"helpText,omitempty"`
 
 	Settings sdkcore.OperationSettings `json:"settings" validate:"required"`
+
+	Type sdkcore.ActionType `json:"type" validate:"required,oneof=ACTION"`
 }
 
 // IOperation is an interface that represents an operation within a connector. It extends the IRunnable interface and provides a method to get information about the operation.

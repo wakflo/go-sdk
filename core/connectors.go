@@ -157,6 +157,7 @@ type AuthOperation struct {
 type Operation struct {
 	// Key holds the value of the "key" field.
 	Name string `json:"key,omitempty"`
+	Icon string `json:"icon,omitempty"`
 	// Name holds the value of the "name" field.
 	DisplayName string `json:"name,omitempty"`
 	// Description holds the value of the "description" field.
@@ -179,6 +180,8 @@ type Operation struct {
 	RequireAuth bool `json:"requireAuth"`
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation *string `json:"documentation,omitempty"`
+
+	Type ActionType `json:"type" validate:"required,oneof=ACTION"`
 }
 
 type Operations = map[string]*Operation
@@ -189,6 +192,7 @@ type OperationsList = []*Operation
 type Trigger struct {
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty" validate:"required"`
+	Icon string `json:"icon,omitempty"`
 	// DisplayName holds the value of the "displayName" field.
 	DisplayName string `json:"displayName,omitempty" validate:"required"`
 	// Description holds the value of the "description" field.
@@ -262,8 +266,6 @@ type ConnectorVersionMetadata struct {
 	// Version holds the value of the "version" field.
 	Version string `json:"version,omitempty"`
 	// Namespace holds the value of the "namespace" field.
-	Namespace *string `json:"namespace,omitempty"`
-	// Namespace holds the value of the "namespace" field.
 	RegistryName string `json:"registry_name,omitempty"`
 	// Documentation holds the value of the "documentation" field.
 	Documentation *string `json:"documentation,omitempty"`
@@ -271,36 +273,18 @@ type ConnectorVersionMetadata struct {
 	ReleaseNotes *string `json:"release_notes,omitempty"`
 	// ConnectorID holds the value of the "connector_id" field.
 	ConnectorID uuid.UUID `json:"connector_id,omitempty"`
-	// MajorVersion holds the value of the "major_version" field.
-	MajorVersion int `json:"major_version,omitempty"`
-	// MinorVersion holds the value of the "minor_version" field.
-	MinorVersion int `json:"minor_version,omitempty"`
-	// PatchVersion holds the value of the "patch_version" field.
-	PatchVersion int `json:"patch_version,omitempty"`
 	// BuildMetadata holds the value of the "build_metadata" field.
 	BuildMetadata *string `json:"build_metadata,omitempty"`
 	// FileURL holds the value of the "file_url" field.
 	FileURL *string `json:"file_url,omitempty"`
 	// FileHash holds the value of the "file_hash" field.
 	FileHash *string `json:"file_hash,omitempty"`
-	// Type holds the value of the "type" field.
-	Type ConnectorType `json:"type,omitempty"`
-	// Platform holds the value of the "platform" field.
-	Platform ConnectorPlatform `json:"platform,omitempty"`
 	// Metadata holds the value of the "metadata" field.
 	Metadata PluginMetadata `json:"metadata,omitempty"`
-	// MinimumSupportedVersion holds the value of the "minimum_supported_version" field.
-	MinimumSupportedVersion string `json:"minimum_supported_version,omitempty"`
-	// MaximumSupportedVersion holds the value of the "maximum_supported_version" field.
-	MaximumSupportedVersion string `json:"maximum_supported_version,omitempty"`
 	// Operations holds the value of the "operations" field.
 	Operations map[string]*Operation `json:"operations,omitempty"`
 	// Triggers holds the value of the "triggers" field.
 	Triggers map[string]*Trigger `json:"triggers,omitempty"`
-	// HasTrigger holds the value of the "has_trigger" field.
-	HasTrigger bool `json:"has_trigger,omitempty"`
-	// Published holds the value of the "published" field.
-	Published bool `json:"published"`
 	// Approved holds the value of the "approved" field.
 	Approved bool `json:"approved"`
 }

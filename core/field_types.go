@@ -55,6 +55,7 @@ const (
 	AutoFormFieldTypeBranch         AutoFormFieldType = "branch"
 	AutoFormFieldTypeWrapper        AutoFormFieldType = "wrapper"
 	AutoFormFieldTypeCodeFramework  AutoFormFieldType = "framework"
+	AutoFormFieldTypeCondition      AutoFormFieldType = "condition"
 )
 
 func (AutoFormFieldType) SQLTypeName() string {
@@ -88,6 +89,7 @@ func (AutoFormFieldType) Values() []string {
 		"branch",
 		"wrapper",
 		"framework",
+		"condition",
 	}
 }
 
@@ -315,6 +317,7 @@ var (
 		"branch":         AutoFormFieldTypeBranch,
 		"wrapper":        AutoFormFieldTypeWrapper,
 		"framework":      AutoFormFieldTypeCodeFramework,
+		"condition":      AutoFormFieldTypeCondition,
 	}
 	_FieldTypeLowerStringToValueMap = map[string]AutoFormFieldType{
 		"short_text":     AutoFormFieldTypeShortText,
@@ -341,5 +344,6 @@ var (
 		"branch":         AutoFormFieldTypeBranch,
 		"wrapper":        AutoFormFieldTypeWrapper,
 		"framework":      AutoFormFieldTypeCodeFramework,
+		"condition":      AutoFormFieldTypeCondition,
 	}
 )

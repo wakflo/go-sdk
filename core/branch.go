@@ -28,6 +28,7 @@ type BranchSettings struct {
 }
 
 type FlowBranch struct {
+	ID         string            `json:"id"`
 	Name       string            `json:"name"`
 	Type       BranchType        `json:"type"`
 	Conditions []BranchCondition `json:"conditions"`
