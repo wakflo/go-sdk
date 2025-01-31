@@ -57,7 +57,7 @@ type ConnectorPlugin struct {
 	Triggers           map[string]ITrigger
 	Operations         map[string]IOperation
 	TriggerMetadata    map[string]*sdkcore.Trigger
-	OperationsMetadata map[string]*sdkcore.Operation
+	OperationsMetadata map[string]*sdkcore.Action
 	HasTrigger         bool
 }
 
@@ -75,7 +75,7 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 	triggers := map[string]ITrigger{}
 	operations := map[string]IOperation{}
 	triggerMetadata := map[string]*sdkcore.Trigger{}
-	operationsMetadata := map[string]*sdkcore.Operation{}
+	operationsMetadata := map[string]*sdkcore.Action{}
 	hasTrigger := len(args.Triggers) > 0
 
 	for _, trigger := range args.Triggers {
@@ -103,16 +103,15 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 		}
 
 		t := &sdkcore.Trigger{
-			Name:          key,
-			DisplayName:   info.Name,
-			Description:   info.Description,
-			Input:         autoform.NewInputMapField().SetProperties(info.Input).Build(),
-			RequireAuth:   info.RequireAuth,
-			Auth:          info.Auth,
+			Name:        key,
+			DisplayName: info.Name,
+			Description: info.Description,
+			Input:       autoform.NewInputMapField().SetProperties(info.Input).Build(),
+			//RequireAuth:   info.RequireAuth,
+			//Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
 			Settings:      info.Settings,
 			Type:          info.Type,
-			ErrorSettings: info.ErrorSettings,
 			Documentation: info.Documentation,
 			HelpText:      info.HelpText,
 		}
@@ -134,15 +133,14 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			return nil, errors.Join(verr, err)
 		}
 		key := utils.GenerateUniqueSlug(info.Name)
-		operationsMetadata[key] = &sdkcore.Operation{
-			Name:          key,
-			DisplayName:   info.Name,
-			Description:   info.Description,
-			Input:         autoform.NewInputMapField().SetProperties(info.Input).Build(),
-			RequireAuth:   info.RequireAuth,
-			Auth:          info.Auth,
+		operationsMetadata[key] = &sdkcore.Action{
+			Name:        key,
+			DisplayName: info.Name,
+			Description: info.Description,
+			Input:       autoform.NewInputMapField().SetProperties(info.Input).Build(),
+			//RequireAuth:   info.RequireAuth,
+			//Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
-			ErrorSettings: info.ErrorSettings,
 			Documentation: info.Documentation,
 			HelpText:      info.HelpText,
 			Settings:      info.Settings,

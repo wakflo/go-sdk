@@ -5,11 +5,7 @@ import (
 	"github.com/wakflo/go-sdk/core"
 )
 
-type Auth struct {
-	Schema   core.AutoFormSchema `json:"schema"`
-	Required bool                `json:"required"`
-	Inherit  bool                `json:"inherit"`
-}
+type Auth = core.OperationAuth
 
 // Integration defines an interface for managing a set of triggers and actions for a specific system or service.
 type Integration interface {

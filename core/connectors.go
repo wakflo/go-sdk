@@ -153,8 +153,14 @@ type AuthOperation struct {
 	Config map[string]any     `json:"config"`
 }
 
-// Operation .
-type Operation struct {
+type OperationAuth struct {
+	Schema   AutoFormSchema `json:"schema"`
+	Required bool           `json:"required"`
+	Inherit  bool           `json:"inherit"`
+}
+
+// Action .
+type Action struct {
 	// Key holds the value of the "key" field.
 	Name string `json:"key,omitempty"`
 	Icon string `json:"icon,omitempty"`
@@ -167,26 +173,23 @@ type Operation struct {
 	// Input holds the value of the "input" field.
 	Input *AutoFormSchema `json:"input,omitempty"`
 	// Auth holds the value of the "auth" field.
-	Auth *AutoFormSchema `json:"auth,omitempty"`
+	Auth *OperationAuth `json:"auth,omitempty"`
 	// Output holds the value of the "output" field.
 	Output map[string]any `json:"output,omitempty"`
 	// SampleOutput holds the value of the "sample_output" field.
 	SampleOutput map[string]any `json:"sampleOutput,omitempty"`
 
-	ErrorSettings StepErrorSettings `json:"errorSettings,omitempty"`
-
 	Settings OperationSettings `json:"settings,omitempty"`
 
-	RequireAuth bool `json:"requireAuth"`
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation *string `json:"documentation,omitempty"`
 
 	Type ActionType `json:"type" validate:"required,oneof=ACTION"`
 }
 
-type Operations = map[string]*Operation
+type ActionsMap = map[string]*Action
 
-type OperationsList = []*Operation
+type ActionsList = []*Action
 
 // Trigger .
 type Trigger struct {
@@ -204,16 +207,12 @@ type Trigger struct {
 	// SampleOutput holds the value of the "sampleOutput" field.
 	SampleOutput map[string]any `json:"sampleOutput,omitempty"`
 	// Auth holds the value of the "auth" field.
-	Auth *AutoFormSchema `json:"auth,omitempty"`
+	Auth *OperationAuth `json:"auth,omitempty"`
 
 	// Type holds the value of the "description" field.
 	Type TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
 
 	Settings *TriggerSettings `json:"settings,omitempty"`
-
-	ErrorSettings *StepErrorSettings `json:"errorSettings,omitempty"`
-
-	RequireAuth bool `json:"requireAuth"`
 
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation *string `json:"documentation,omitempty"`
@@ -282,7 +281,7 @@ type ConnectorVersionMetadata struct {
 	// Metadata holds the value of the "metadata" field.
 	Metadata PluginMetadata `json:"metadata,omitempty"`
 	// Operations holds the value of the "operations" field.
-	Operations map[string]*Operation `json:"operations,omitempty"`
+	Operations map[string]*Action `json:"operations,omitempty"`
 	// Triggers holds the value of the "triggers" field.
 	Triggers map[string]*Trigger `json:"triggers,omitempty"`
 	// Approved holds the value of the "approved" field.

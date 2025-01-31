@@ -96,30 +96,20 @@ func (dt *DataType) UnmarshalGQL(v interface{}) error {
 	}
 }
 
-// ConditionOrLogical is an interface implemented by Condition and LogicalGroup
-type ConditionOrLogical interface {
-	IsConditionOrLogical() // Marker interface method
-}
-
-// Condition Struct
-type Condition struct {
-	ID            string          `json:"id"`
-	Field         string          `json:"field"`
-	Operator      LogicalOperator `json:"operator"`
-	Value         any             `json:"value"`
-	Type          DataType        `json:"type"`
-	CaseSensitive bool            `json:"caseSensitive"`
+// LogicalCondition Struct
+type LogicalCondition struct {
+	ID            string             `json:"id"`
+	Field         string             `json:"field,omitempty"`
+	Operator      LogicalOperator    `json:"operator"`
+	Value         any                `json:"value,omitempty"`
+	Type          DataType           `json:"type,omitempty"`
+	CaseSensitive bool               `json:"caseSensitive,omitempty"`
+	Conditions    []LogicalCondition `json:"conditions"`
 }
 
 // LogicalGroup Struct
 type LogicalGroup struct {
-	ID         string               `json:"id"`
-	Operator   Operator             `json:"operator"`
-	Conditions []ConditionOrLogical `json:"conditions"`
+	ID         string             `json:"id"`
+	Operator   Operator           `json:"operator"`
+	Conditions []LogicalCondition `json:"conditions"`
 }
-
-// IsConditionOrLogical Implement IsConditionOrLogical for Condition
-func (c Condition) IsConditionOrLogical() {}
-
-// IsConditionOrLogical Implement IsConditionOrLogical for LogicalGroup
-func (lg LogicalGroup) IsConditionOrLogical() {}

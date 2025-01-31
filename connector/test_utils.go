@@ -43,11 +43,11 @@ func (s *SpiderTestRuntime) Triggers() []*sdkcore.Trigger {
 	return maps.Values(s.instance.TriggerMetadata)
 }
 
-func (s *SpiderTestRuntime) Operations() []*sdkcore.Operation {
+func (s *SpiderTestRuntime) Operations() []*sdkcore.Action {
 	return maps.Values(s.instance.OperationsMetadata)
 }
 
-func (s *SpiderTestRuntime) OperationConfig(name string) *sdkcore.Operation {
+func (s *SpiderTestRuntime) OperationConfig(name string) *sdkcore.Action {
 	return s.instance.OperationsMetadata[name]
 }
 
