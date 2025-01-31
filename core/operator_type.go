@@ -12,26 +12,26 @@ import (
 type LogicalOperator string
 
 const (
-	LogicalOperatorEqual        LogicalOperator = "==="
-	LogicalOperatorNotEqual     LogicalOperator = "!=="
-	LogicalOperatorGreaterThan  LogicalOperator = ">"
-	LogicalOperatorLessThan     LogicalOperator = "<"
-	LogicalOperatorGreaterEqual LogicalOperator = ">="
-	LogicalOperatorLessEqual    LogicalOperator = "<="
-	LogicalOperatorAnd          LogicalOperator = "&&"
-	LogicalOperatorOr           LogicalOperator = "||"
-	LogicalOperatorNot          LogicalOperator = "!"
+	LogicalOperatorEqual        LogicalOperator = "EQ"
+	LogicalOperatorNotEqual     LogicalOperator = "NEQ"
+	LogicalOperatorGreaterThan  LogicalOperator = "GT"
+	LogicalOperatorLessThan     LogicalOperator = "LT"
+	LogicalOperatorGreaterEqual LogicalOperator = "GTE"
+	LogicalOperatorLessEqual    LogicalOperator = "LTE"
+	LogicalOperatorAnd          LogicalOperator = "AND"
+	LogicalOperatorOr           LogicalOperator = "OR"
+	LogicalOperatorNot          LogicalOperator = "NOT"
 
-	LogicalOperatorDateBefore       LogicalOperator = "date_before"
-	LogicalOperatorDateAfter        LogicalOperator = "date_after"
-	LogicalOperatorDateEquals       LogicalOperator = "date_equals"
-	LogicalOperatorBooleanIsTrue    LogicalOperator = "is_true"
-	LogicalOperatorBooleanIsFalse   LogicalOperator = "is_false"
-	LogicalOperatorStringStartsWith LogicalOperator = "starts_with"
-	LogicalOperatorStringEndsWith   LogicalOperator = "ends_with"
-	LogicalOperatorStringContains   LogicalOperator = "contains"
-	LogicalOperatorArrayContains    LogicalOperator = "array_contains"
-	LogicalOperatorArrayNotContains LogicalOperator = "array_not_contains"
+	LogicalOperatorDateBefore       LogicalOperator = "DATE_BEFORE"
+	LogicalOperatorDateAfter        LogicalOperator = "DATE_AFTER"
+	LogicalOperatorDateEquals       LogicalOperator = "DATE_EQUALS"
+	LogicalOperatorBooleanIsTrue    LogicalOperator = "IS_TRUE"
+	LogicalOperatorBooleanIsFalse   LogicalOperator = "IS_FALSE"
+	LogicalOperatorStringStartsWith LogicalOperator = "STARTS_WITH"
+	LogicalOperatorStringEndsWith   LogicalOperator = "ENDS_WITH"
+	LogicalOperatorStringContains   LogicalOperator = "CONTAINS"
+	LogicalOperatorArrayContains    LogicalOperator = "ARRAY_CONTAINS"
+	LogicalOperatorArrayNotContains LogicalOperator = "ARRAY_NOT_CONTAINS"
 )
 
 func (LogicalOperator) SQLTypeName() string {
@@ -41,25 +41,25 @@ func (LogicalOperator) SQLTypeName() string {
 // Values returns a slice of all String values of the enum.
 func (LogicalOperator) Values() []string {
 	return []string{
-		"===",
-		"!==",
-		">",
-		"<",
-		">=",
-		"<=",
-		"&&",
-		"||",
-		"!",
-		"date_before",
-		"date_after",
-		"date_equals",
-		"is_true",
-		"is_false",
-		"starts_with",
-		"ends_with",
-		"contains",
-		"array_contains",
-		"array_not_contains",
+		"EQ",
+		"NEQ",
+		"GT",
+		"LT",
+		"GTE",
+		"LTE",
+		"AND",
+		"OR",
+		"NOT",
+		"DATE_BEFORE",
+		"DATE_AFTER",
+		"DATE_EQUALS",
+		"IS_TRUE",
+		"IS_FALSE",
+		"STARTS_WITH",
+		"ENDS_WITH",
+		"CONTAINS",
+		"ARRAY_CONTAINS",
+		"ARRAY_NOT_CONTAINS",
 	}
 }
 
@@ -263,45 +263,45 @@ func LogicalOperatorFromStringIgnoreCase(raw string) (LogicalOperator, bool) {
 
 var (
 	_LogicalOperatorStringToValueMap = map[string]LogicalOperator{
-		"===":                LogicalOperatorEqual,
-		"!==":                LogicalOperatorNotEqual,
-		">":                  LogicalOperatorGreaterThan,
-		"<":                  LogicalOperatorLessThan,
-		">=":                 LogicalOperatorGreaterEqual,
-		"<=":                 LogicalOperatorLessEqual,
-		"&&":                 LogicalOperatorAnd,
-		"||":                 LogicalOperatorOr,
-		"!":                  LogicalOperatorNot,
-		"date_before":        LogicalOperatorDateBefore,
-		"date_after":         LogicalOperatorDateAfter,
-		"date_equals":        LogicalOperatorDateEquals,
-		"is_true":            LogicalOperatorBooleanIsTrue,
-		"is_false":           LogicalOperatorBooleanIsFalse,
-		"starts_with":        LogicalOperatorStringStartsWith,
-		"ends_with":          LogicalOperatorStringEndsWith,
-		"contains":           LogicalOperatorStringContains,
-		"array_contains":     LogicalOperatorArrayContains,
-		"array_not_contains": LogicalOperatorArrayNotContains,
+		"EQ":                 LogicalOperatorEqual,
+		"NEQ":                LogicalOperatorNotEqual,
+		"GT":                 LogicalOperatorGreaterThan,
+		"LT":                 LogicalOperatorLessThan,
+		"GTE":                LogicalOperatorGreaterEqual,
+		"LTE":                LogicalOperatorLessEqual,
+		"AND":                LogicalOperatorAnd,
+		"OR":                 LogicalOperatorOr,
+		"NOT":                LogicalOperatorNot,
+		"DATE_BEFORE":        LogicalOperatorDateBefore,
+		"DATE_AFTER":         LogicalOperatorDateAfter,
+		"DATE_EQUALS":        LogicalOperatorDateEquals,
+		"IS_TRUE":            LogicalOperatorBooleanIsTrue,
+		"IS_FALSE":           LogicalOperatorBooleanIsFalse,
+		"STARTS_WITH":        LogicalOperatorStringStartsWith,
+		"ENDS_WITH":          LogicalOperatorStringEndsWith,
+		"CONTAINS":           LogicalOperatorStringContains,
+		"ARRAY_CONTAINS":     LogicalOperatorArrayContains,
+		"ARRAY_NOT_CONTAINS": LogicalOperatorArrayNotContains,
 	}
 	_LogicalOperatorLowerStringToValueMap = map[string]LogicalOperator{
-		"===":                LogicalOperatorEqual,
-		"!==":                LogicalOperatorNotEqual,
-		">":                  LogicalOperatorGreaterThan,
-		"<":                  LogicalOperatorLessThan,
-		">=":                 LogicalOperatorGreaterEqual,
-		"<=":                 LogicalOperatorLessEqual,
-		"&&":                 LogicalOperatorAnd,
-		"||":                 LogicalOperatorOr,
-		"!":                  LogicalOperatorNot,
-		"date_before":        LogicalOperatorDateBefore,
-		"date_after":         LogicalOperatorDateAfter,
-		"date_equals":        LogicalOperatorDateEquals,
-		"is_true":            LogicalOperatorBooleanIsTrue,
-		"is_false":           LogicalOperatorBooleanIsFalse,
-		"starts_with":        LogicalOperatorStringStartsWith,
-		"ends_with":          LogicalOperatorStringEndsWith,
-		"contains":           LogicalOperatorStringContains,
-		"array_contains":     LogicalOperatorArrayContains,
-		"array_not_contains": LogicalOperatorArrayNotContains,
+		"EQ":                 LogicalOperatorEqual,
+		"NEQ":                LogicalOperatorNotEqual,
+		"GT":                 LogicalOperatorGreaterThan,
+		"LT":                 LogicalOperatorLessThan,
+		"GTE":                LogicalOperatorGreaterEqual,
+		"LTE":                LogicalOperatorLessEqual,
+		"AND":                LogicalOperatorAnd,
+		"OR":                 LogicalOperatorOr,
+		"NOT":                LogicalOperatorNot,
+		"DATE_BEFORE":        LogicalOperatorDateBefore,
+		"DATE_AFTER":         LogicalOperatorDateAfter,
+		"DATE_EQUALS":        LogicalOperatorDateEquals,
+		"IS_TRUE":            LogicalOperatorBooleanIsTrue,
+		"IS_FALSE":           LogicalOperatorBooleanIsFalse,
+		"STARTS_WITH":        LogicalOperatorStringStartsWith,
+		"ENDS_WITH":          LogicalOperatorStringEndsWith,
+		"CONTAINS":           LogicalOperatorStringContains,
+		"ARRAY_CONTAINS":     LogicalOperatorArrayContains,
+		"ARRAY_NOT_CONTAINS": LogicalOperatorArrayNotContains,
 	}
 )

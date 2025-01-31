@@ -14,13 +14,6 @@
 
 package core
 
-type BranchCondition struct {
-	Operator      LogicalOperator `json:"operator"`
-	LeftValue     any             `json:"leftValue"`
-	RightValue    any             `json:"rightValue"`
-	CaseSensitive bool            `json:"caseSensitive"`
-}
-
 type BranchSettings struct {
 	MaxBranches     int                 `json:"maxBranches"`
 	ExecutionType   BranchExecutionType `json:"executionType"`
@@ -28,8 +21,8 @@ type BranchSettings struct {
 }
 
 type FlowBranch struct {
-	ID         string            `json:"id"`
-	Name       string            `json:"name"`
-	Type       BranchType        `json:"type"`
-	Conditions []BranchCondition `json:"conditions"`
+	ID         string        `json:"id"`
+	Name       string        `json:"name"`
+	Type       BranchType    `json:"type"`
+	Conditions *LogicalGroup `json:"conditions"`
 }
