@@ -89,7 +89,7 @@ type StepRunData struct {
 	// Input holds the value of the "input" field.
 	Input map[string]interface{} `json:"input,omitempty"`
 	// Errors holds the value of the "errors" field.
-	Errors []string `json:"errors,omitempty"`
+	Errors []StateError `json:"errors,omitempty"`
 	// Output holds the value of the "output" field.
 	Output any `json:"output,omitempty"`
 	// StartTime represents the start time of a step run.
@@ -100,6 +100,8 @@ type StepRunData struct {
 	// EndTime represents the end time of a step run.
 	// It is a pointer to a time.Time value and can be nil.
 	EndTime *time.Time `json:"end_time,omitempty"`
+	// Type represents the type of the flow step, defined by the FlowStepType enumeration, such as STEP, LOOP, or ROUTER.
+	Type FlowStepType `json:"type,omitempty"`
 }
 
 type StepExecutionParams struct {

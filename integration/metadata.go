@@ -9,7 +9,8 @@ import (
 type ExecuteMetadata struct {
 	FlowVersionID uuid.UUID `json:"flowVersionId,omitempty"`
 	// FlowID holds the value of the "flow_id" field.
-	FlowID uuid.UUID `json:"flowId"`
+	FlowID uuid.UUID  `json:"flowId"`
+	RunID  *uuid.UUID `json:"runId,omitempty"`
 	// Name holds the value of the "name" field.
 	StepName string `json:"stepName,omitempty"`
 	// LastRun field stores the timestamp of the last run of a flow version.

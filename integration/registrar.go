@@ -99,8 +99,6 @@ func ReadFloFile() (*IntegrationSchemaModel, error) {
 		return nil, fmt.Errorf("failed to resolve full path: %w", err)
 	}
 
-	fmt.Println(fullPath)
-
 	// Read the file
 	data, err := os.ReadFile(fullPath)
 	if err != nil {

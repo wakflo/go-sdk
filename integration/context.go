@@ -99,6 +99,8 @@ func NewBaseContext(
 
 type LifecycleContext struct {
 	BaseContext
+	Ack  func(output sdkcore.JSON) error
+	Nack func(err error) error
 }
 
 type ExecuteContext struct {

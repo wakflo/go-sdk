@@ -28,6 +28,7 @@ type FlowRunStatus string
 
 // Enum values for FlowRunStatus.
 const (
+	FlowRunStatusReady         FlowRunStatus = "READY"
 	FlowRunStatusQueued        FlowRunStatus = "QUEUED"
 	FlowRunStatusRunning       FlowRunStatus = "RUNNING"
 	FlowRunStatusSucceeded     FlowRunStatus = "SUCCEEDED"
@@ -46,6 +47,7 @@ func (FlowRunStatus) SQLTypeName() string {
 // Values returns a slice of all String values of the enum.
 func (FlowRunStatus) Values() []string {
 	return []string{
+		"READY",
 		"QUEUED",
 		"RUNNING",
 		"SUCCEEDED",
@@ -238,7 +240,7 @@ func (_j *FlowRunStatus) UnmarshalYAML(unmarshal func(interface{}) error) error 
 func FlowRunStatusFromString(raw string) (FlowRunStatus, bool) {
 	v, ok := _FlowRunStatusStringToValueMap[raw]
 	if !ok {
-		return FlowRunStatusQueued, false
+		return FlowRunStatusReady, false
 	}
 	return v, true
 }
@@ -258,6 +260,7 @@ func FlowRunStatusFromStringIgnoreCase(raw string) (FlowRunStatus, bool) {
 
 var (
 	_FlowRunStatusStringToValueMap = map[string]FlowRunStatus{
+		"READY":          FlowRunStatusReady,
 		"QUEUED":         FlowRunStatusQueued,
 		"RUNNING":        FlowRunStatusRunning,
 		"SUCCEEDED":      FlowRunStatusSucceeded,
@@ -269,6 +272,7 @@ var (
 		"TERMINATED":     FlowRunStatusTerminated,
 	}
 	_FlowRunStatusLowerStringToValueMap = map[string]FlowRunStatus{
+		"READY":          FlowRunStatusReady,
 		"QUEUED":         FlowRunStatusQueued,
 		"RUNNING":        FlowRunStatusRunning,
 		"SUCCEEDED":      FlowRunStatusSucceeded,

@@ -38,8 +38,9 @@ func (ExecutionMode) SQLTypeName() string {
 // Values returns a slice of all String values of the enum.
 func (ExecutionMode) Values() []string {
 	return []string{
-		"DEFAULT",
-		"CONDITION",
+		"LIVE",
+		"TEST",
+		"DEBUG",
 	}
 }
 
