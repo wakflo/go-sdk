@@ -170,30 +170,30 @@ type RunContext struct {
 	isPaused      bool
 	pausedTime    *time.Time
 	Log           *sdkcore.Log
-	state         *sdkcore.StepRunData
-	stepsState    map[string]*sdkcore.StepRunData
+	//state         *sdkcore.StepRunData
+	//stepsState    map[string]*sdkcore.StepRunData
 }
 
 func NewRunContext[InputType any](
 	ctx context.Context,
 	step *sdkcore.FlowStep,
-	state *sdkcore.StepRunData,
+	//state *sdkcore.StepRunData,
 	meta *sdkcore.FlowMetadata,
 	auth *sdkcore.AuthContext,
 	input InputType,
-	stepsState map[string]*sdkcore.StepRunData,
+	//stepsState map[string]*sdkcore.StepRunData,
 	onWrite func(sdkcore.WriteLogLineOpts),
 ) *RunContext {
 	var sid string
 	if meta.Status == sdkcore.FlowVersionStateLocked {
-		sid = state.ID.String()
+		//sid = state.ID.String()
 	}
 
 	return &RunContext{
-		ctx:           ctx,
-		step:          step,
-		state:         state,
-		stepsState:    stepsState,
+		ctx:  ctx,
+		step: step,
+		//state:         state,
+		//stepsState:    stepsState,
 		Auth:          auth,
 		Files:         nil,
 		input:         input,
@@ -225,13 +225,13 @@ func (r *RunContext) GetContext() context.Context {
 	return r.ctx
 }
 
-func (r *RunContext) SetState(state *sdkcore.StepRunData) {
-	r.state = state
-}
+//func (r *RunContext) SetState(state *sdkcore.StepRunData) {
+//	r.state = state
+//}
 
-func (r *RunContext) GetStepsState() map[string]*sdkcore.StepRunData {
-	return r.stepsState
-}
+//func (r *RunContext) GetStepsState() map[string]*sdkcore.StepRunData {
+//	return r.stepsState
+//}
 
 // IsPaused returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.

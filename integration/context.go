@@ -62,36 +62,24 @@ func (r *BaseContext) Input() any {
 
 func NewBaseContext(
 	ctx context.Context,
-	step *sdkcore.FlowStep,
-	state *sdkcore.StepRunData,
-	meta *sdkcore.FlowMetadata,
+	stateId string,
+	files sdkcore.FileManager,
+	meta *ExecuteMetadata,
 	auth *sdkcore.AuthContext,
 	input any,
 	onWrite func(sdkcore.WriteLogLineOpts),
 ) *BaseContext {
-	var sid string
-	if meta.Status == sdkcore.FlowVersionStateLocked {
-		sid = state.ID.String()
-	}
-
 	return &BaseContext{
 		ctx:           ctx,
 		Auth:          auth,
-		Files:         nil,
+		Files:         files,
 		input:         input,
 		ExecutionMode: sdkcore.ExecutionModeLive,
-		metadata: &ExecuteMetadata{
-			FlowVersionID: meta.FlowVersionID,
-			FlowID:        meta.FlowID,
-			StepName:      step.Name,
-			LastRun:       meta.LastRun,
-			FlowStatus:    meta.Status,
-			ProjectID:     meta.ProjectID,
-		},
+		metadata:      meta,
 		Log: sdkcore.NewLog(
 			meta.ProjectID.String(),
 			meta.FlowID.String(),
-			&sid,
+			&stateId,
 			onWrite,
 		),
 	}
@@ -113,9 +101,9 @@ type PerformContext struct {
 
 func NewExecuteContext(
 	ctx context.Context,
-	step *sdkcore.FlowStep,
-	state *sdkcore.StepRunData,
-	meta *sdkcore.FlowMetadata,
+	stateId string,
+	files sdkcore.FileManager,
+	meta *ExecuteMetadata,
 	auth *sdkcore.AuthContext,
 	input any,
 	onWrite func(sdkcore.WriteLogLineOpts),
@@ -123,8 +111,8 @@ func NewExecuteContext(
 	return &ExecuteContext{
 		BaseContext: *NewBaseContext(
 			ctx,
-			step,
-			state,
+			stateId,
+			files,
 			meta,
 			auth,
 			input,
