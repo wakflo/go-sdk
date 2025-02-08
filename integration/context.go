@@ -34,24 +34,24 @@ type ExecutionMode = sdkcore.ExecutionMode
 type BaseContext struct {
 	ctx           context.Context
 	Auth          *sdkcore.AuthContext `json:"auth"`
-	RawInput      map[string]any       `json:"input"`
+	rawInput      map[string]any
 	input         any
 	metadata      *ExecuteMetadata
-	Log           *sdkcore.Log
+	log           sdkcore.Logger
 	Files         sdkcore.FileManager
-	ExecutionMode ExecutionMode
+	ExecutionMode ExecutionMode `json:"execution_mode"`
 }
 
 // Metadata returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.
 func (r *BaseContext) Metadata() ExecuteMetadata {
-	return r.Metadata()
+	return *r.metadata
 }
 
 // GetRawInput returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.
 func (r *BaseContext) GetRawInput() sdkcore.JSONObject {
-	return r.RawInput
+	return r.rawInput
 }
 
 // Input returns a boolean value indicating whether the execution is currently paused.
@@ -59,29 +59,32 @@ func (r *BaseContext) GetRawInput() sdkcore.JSONObject {
 func (r *BaseContext) Input() any {
 	return r.input
 }
+func (r *BaseContext) RawInput() map[string]any {
+	return r.rawInput
+}
+
+func (r *BaseContext) Log() sdkcore.Logger {
+	return r.log
+}
 
 func NewBaseContext(
 	ctx context.Context,
-	stateId string,
 	files sdkcore.FileManager,
 	meta *ExecuteMetadata,
 	auth *sdkcore.AuthContext,
-	input any,
-	onWrite func(sdkcore.WriteLogLineOpts),
+	resolvedInput sdkcore.JSON,
+	input map[string]any,
+	log sdkcore.Logger,
 ) *BaseContext {
 	return &BaseContext{
 		ctx:           ctx,
 		Auth:          auth,
 		Files:         files,
-		input:         input,
+		input:         resolvedInput,
 		ExecutionMode: sdkcore.ExecutionModeLive,
 		metadata:      meta,
-		Log: sdkcore.NewLog(
-			meta.ProjectID.String(),
-			meta.FlowID.String(),
-			&stateId,
-			onWrite,
-		),
+		log:           log,
+		rawInput:      input,
 	}
 }
 
@@ -101,22 +104,22 @@ type PerformContext struct {
 
 func NewExecuteContext(
 	ctx context.Context,
-	stateId string,
 	files sdkcore.FileManager,
 	meta *ExecuteMetadata,
 	auth *sdkcore.AuthContext,
-	input any,
-	onWrite func(sdkcore.WriteLogLineOpts),
+	resolvedInput sdkcore.JSON,
+	input map[string]any,
+	log sdkcore.Logger,
 ) *ExecuteContext {
 	return &ExecuteContext{
 		BaseContext: *NewBaseContext(
 			ctx,
-			stateId,
 			files,
 			meta,
 			auth,
+			resolvedInput,
 			input,
-			onWrite,
+			log,
 		),
 	}
 }
@@ -163,6 +166,24 @@ func InputToType[T any](ctx BaseContext) *T {
 // The function signature is as follows:
 func InputToTypeSafely[T any](ctx BaseContext) (*T, error) {
 	b, err := json.Marshal(ctx.Input())
+	if err != nil {
+		return nil, err
+	}
+
+	var rsp T
+	err = json.Unmarshal(b, &rsp)
+	if err != nil {
+		return nil, err
+	}
+
+	return &rsp, nil
+}
+
+// InputPropsToType returns a pointer to a value of type T by marshaling and unmarshaling the ResolvedInput field of the provided RunContext struct.
+// If there is an error during the marshaling or unmarshaling process, nil is returned.
+// The function signature is as follows:
+func InputPropsToType[T any](input sdkcore.JSON) (*T, error) {
+	b, err := json.Marshal(input)
 	if err != nil {
 		return nil, err
 	}

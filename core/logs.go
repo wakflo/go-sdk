@@ -20,15 +20,6 @@ import (
 	"github.com/google/uuid"
 )
 
-type LogLevel string
-
-const (
-	LogLevelDebug   LogLevel = "debug"
-	LogLevelError   LogLevel = "error"
-	LogLevelWarning LogLevel = "warning"
-	LogLevelInfo    LogLevel = "info"
-)
-
 type SystemActivityLog struct {
 	Level     LogLevel  `json:"level"`
 	Scope     string    `json:"scope"`

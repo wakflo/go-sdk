@@ -37,7 +37,7 @@ type OperationInfo struct {
 	// HelpText holds the value of the "helpText" field.
 	HelpText *string `json:"helpText,omitempty"`
 
-	Settings sdkcore.OperationSettings `json:"settings" validate:"required"`
+	Settings sdkcore.ActionSettings `json:"settings" validate:"required"`
 
 	Type sdkcore.ActionType `json:"type" validate:"required,oneof=ACTION"`
 }

@@ -53,7 +53,7 @@ type BaseOperation interface {
 
 	// SampleData retrieves example or mock data related to the operation, often used for testing or integration scenarios.
 	// Returns a pointer to the JSON data and an error if the retrieval fails.
-	SampleData() (core.JSON, error)
+	SampleData() core.JSON
 
 	// Properties returns a map of property names to their corresponding AutoFormSchema definitions.
 	Properties() map[string]*core.AutoFormSchema
@@ -91,4 +91,7 @@ type Action interface {
 
 	// GetType returns the trigger type (e.g., BRANCH, BOOLEAN, FLOW, STEP).
 	GetType() core.ActionType
+
+	// Settings provides operation-specific configuration details necessary for executing the action.
+	Settings() core.ActionSettings
 }

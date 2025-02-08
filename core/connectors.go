@@ -177,9 +177,9 @@ type Action struct {
 	// Output holds the value of the "output" field.
 	Output map[string]any `json:"output,omitempty"`
 	// SampleOutput holds the value of the "sample_output" field.
-	SampleOutput map[string]any `json:"sampleOutput,omitempty"`
+	SampleOutput JSON `json:"sampleOutput,omitempty"`
 
-	Settings OperationSettings `json:"settings,omitempty"`
+	Settings ActionSettings `json:"settings,omitempty"`
 
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation *string `json:"documentation,omitempty"`
@@ -238,7 +238,7 @@ type FlowRunMetadata struct {
 	LastRun *time.Time `json:"lastRun"`
 }
 
-type OperationSettings struct {
+type ActionSettings struct {
 	Branch *BranchSettings `json:"branch,omitempty"`
 }
 

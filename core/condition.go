@@ -99,7 +99,7 @@ func (dt *DataType) UnmarshalGQL(v interface{}) error {
 // LogicalCondition Struct
 type LogicalCondition struct {
 	ID            string             `json:"id"`
-	Field         string             `json:"field,omitempty"`
+	Field         any                `json:"field,omitempty"`
 	Operator      LogicalOperator    `json:"operator"`
 	Value         any                `json:"value,omitempty"`
 	Type          DataType           `json:"type,omitempty"`
