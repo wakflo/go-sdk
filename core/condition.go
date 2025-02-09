@@ -104,7 +104,7 @@ type LogicalCondition struct {
 	Value         any                `json:"value,omitempty"`
 	Type          DataType           `json:"type,omitempty"`
 	CaseSensitive bool               `json:"caseSensitive,omitempty"`
-	Conditions    []LogicalCondition `json:"conditions"`
+	Conditions    []LogicalCondition `json:"conditions,omitempty"`
 }
 
 // LogicalGroup Struct

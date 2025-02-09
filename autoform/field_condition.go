@@ -28,7 +28,7 @@ func NewConditionField() *ConditionField {
 		BaseComponentField: NewBaseComponentField(),
 		props:              map[string]sdkcore.AutoFormSchema{},
 	}
-	c.builder.WithType(sdkcore.Array)
+	c.builder.WithType(sdkcore.Object)
 	c.builder.WithFieldType(sdkcore.AutoFormFieldTypeCondition)
 
 	return c
@@ -36,7 +36,28 @@ func NewConditionField() *ConditionField {
 
 func (b *ConditionField) Build() *sdkcore.AutoFormSchema {
 	b.schema = b.builder.Build()
+	if b.builder.schema.Default == nil {
+		b.builder = b.builder.WithDefault(sdkcore.LogicalGroup{
+			ID:       "root-1",
+			Operator: sdkcore.OperatorAND,
+			Conditions: []sdkcore.LogicalCondition{
+				{
+					ID:            "condition-1",
+					Field:         "",
+					Operator:      sdkcore.LogicalOperatorEqual,
+					Value:         "",
+					Type:          sdkcore.DataTypeString,
+					CaseSensitive: false,
+				},
+			},
+		})
+	}
 	return b.schema
+}
+
+func (b *ConditionField) SetDefault(condition sdkcore.LogicalGroup) *ConditionField {
+	b.builder.WithDefault(condition)
+	return b
 }
 
 func (b *ConditionField) SetDescription(desc string) *ConditionField {
