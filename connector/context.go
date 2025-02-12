@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sdk
+package connector
 
 import (
 	"bytes"
@@ -27,6 +27,7 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/wakflo/go-sdk/autoform"
 	sdkcore "github.com/wakflo/go-sdk/core"
+	"github.com/wakflo/go-sdk/sdk"
 )
 
 // IRunnable is an interface that represents a runnable entity.
@@ -34,10 +35,10 @@ import (
 // Test runs a test of the runnable entity with the provided context, and returns the result as a JSON object or an error.
 type IRunnable interface {
 	// Run executes the runnable entity with the provided context and run context, and returns the result as a JSON object or an error.
-	Run(ctx *RunContext) (JSON, error)
+	Run(ctx *RunContext) (sdk.JSON, error)
 
 	// Test runs a test of the runnable entity with the provided context, and returns the result as a JSON object or an error.
-	Test(ctx *RunContext) (JSON, error)
+	Test(ctx *RunContext) (sdk.JSON, error)
 }
 
 // PauseMetadata represents metadata for pausing execution.
@@ -164,36 +165,36 @@ type RunContext struct {
 	Metadata      *sdkcore.FlowRunMetadata `json:"metadata"`
 	input         any                      `json:"input"`
 	RawInput      map[string]any           `json:"input"`
-	Files         sdkcore.FileManager
+	Files         sdk.FileManager
 	ctx           context.Context
 	ExecutionType sdkcore.ExecutionType `json:"executionType"`
 	isPaused      bool
 	pausedTime    *time.Time
 	Log           *sdkcore.Log
-	//state         *sdkcore.StepRunData
-	//stepsState    map[string]*sdkcore.StepRunData
+	// state         *sdkcore.StepRunData
+	// stepsState    map[string]*sdkcore.StepRunData
 }
 
 func NewRunContext[InputType any](
 	ctx context.Context,
 	step *sdkcore.FlowStep,
-	//state *sdkcore.StepRunData,
+	// state *sdkcore.StepRunData,
 	meta *sdkcore.FlowMetadata,
 	auth *sdkcore.AuthContext,
 	input InputType,
-	//stepsState map[string]*sdkcore.StepRunData,
+	// stepsState map[string]*sdkcore.StepRunData,
 	onWrite func(sdkcore.WriteLogLineOpts),
 ) *RunContext {
 	var sid string
 	if meta.Status == sdkcore.FlowVersionStateLocked {
-		//sid = state.ID.String()
+		// sid = state.ID.String()
 	}
 
 	return &RunContext{
 		ctx:  ctx,
 		step: step,
-		//state:         state,
-		//stepsState:    stepsState,
+		// state:         state,
+		// stepsState:    stepsState,
 		Auth:          auth,
 		Files:         nil,
 		input:         input,
@@ -225,13 +226,13 @@ func (r *RunContext) GetContext() context.Context {
 	return r.ctx
 }
 
-//func (r *RunContext) SetState(state *sdkcore.StepRunData) {
+// func (r *RunContext) SetState(state *sdkcore.StepRunData) {
 //	r.state = state
-//}
+// }
 
-//func (r *RunContext) GetStepsState() map[string]*sdkcore.StepRunData {
+// func (r *RunContext) GetStepsState() map[string]*sdkcore.StepRunData {
 //	return r.stepsState
-//}
+// }
 
 // IsPaused returns a boolean value indicating whether the execution is currently paused.
 // It checks the value of the 'isPaused' field in the RunContext struct.
@@ -254,7 +255,7 @@ func (r *RunContext) Input() any {
 // PauseExecution pauses the execution of the RunContext.
 // It sets the isPaused field of the RunContext to true and the pausedTime field to the provided resume time from the PauseMetadata.
 // It returns a pointer to a PauseMetadataFull object and nil error.
-func (r *RunContext) PauseExecution(metadata PauseMetadata) (JSON, error) {
+func (r *RunContext) PauseExecution(metadata PauseMetadata) (sdk.JSON, error) {
 	r.isPaused = true
 	r.pausedTime = metadata.ResumeAt
 

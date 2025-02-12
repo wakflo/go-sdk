@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package core
+package sdk
 
 import (
 	"io"
@@ -20,7 +20,7 @@ import (
 
 type FileManager interface {
 	Put(name string, data io.Reader) (*string, error)
-	PutFlow(metadata *FlowRunMetadata, name string, data io.Reader) (*string, error)
-	ReadFlow(metadata *FlowRunMetadata, name string) ([]byte, error)
+	PutFlow(metadata *ExecuteMetadata, name string, data io.Reader) (*string, error)
+	ReadFlow(metadata *ExecuteMetadata, name string) ([]byte, error)
 	Read(name string) ([]byte, error)
 }

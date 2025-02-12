@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package integration
+package sdk
 
 import (
 	"bytes"
@@ -38,7 +38,7 @@ type BaseContext struct {
 	input         any
 	metadata      *ExecuteMetadata
 	log           sdkcore.Logger
-	Files         sdkcore.FileManager
+	Files         FileManager
 	ExecutionMode ExecutionMode `json:"execution_mode"`
 }
 
@@ -69,7 +69,7 @@ func (r *BaseContext) Log() sdkcore.Logger {
 
 func NewBaseContext(
 	ctx context.Context,
-	files sdkcore.FileManager,
+	files FileManager,
 	meta *ExecuteMetadata,
 	auth *sdkcore.AuthContext,
 	resolvedInput sdkcore.JSON,
@@ -104,7 +104,7 @@ type PerformContext struct {
 
 func NewExecuteContext(
 	ctx context.Context,
-	files sdkcore.FileManager,
+	files FileManager,
 	meta *ExecuteMetadata,
 	auth *sdkcore.AuthContext,
 	resolvedInput sdkcore.JSON,

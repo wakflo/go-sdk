@@ -1,4 +1,4 @@
-package integration
+package sdk
 
 import "github.com/wakflo/go-sdk/core"
 

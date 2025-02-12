@@ -1,7 +1,8 @@
-package integration
+package sdk
 
 import (
 	"context"
+
 	"github.com/wakflo/go-sdk/core"
 )
 
@@ -9,13 +10,13 @@ type Auth = core.OperationAuth
 
 // Integration defines an interface for managing a set of triggers and actions for a specific system or service.
 type Integration interface {
-	// Auth returns the authentication schema configuration required by the integration.
+	// Auth returns the authentication schema configuration required by the sdk.
 	Auth() *Auth
 
-	// Triggers returns all triggers supported by this integration.
+	// Triggers returns all triggers supported by this sdk.
 	Triggers() []Trigger
 
-	// Actions returns all actions supported by this integration.
+	// Actions returns all actions supported by this sdk.
 	Actions() []Action
 }
 
@@ -39,7 +40,7 @@ type JSONOutput any
 type OperationContextFn = func() (*JSONOutput, error)
 
 type BaseOperation interface {
-	// Name returns the human-readable name for the integration (e.g., "Slack", "Stripe").
+	// Name returns the human-readable name for the sdk (e.g., "Slack", "Stripe").
 	Name() string
 
 	// The Description returns a detailed explanation or summary of the trigger or action being executed.
@@ -48,10 +49,10 @@ type BaseOperation interface {
 	// Documentation returns an OperationDocumentation instance, providing optional detailed documentation for the operation.
 	Documentation() *OperationDocumentation
 
-	// Icon returns a pointer to a string representing the icon for the integration or operation.
+	// Icon returns a pointer to a string representing the icon for the sdk or operation.
 	Icon() *string
 
-	// SampleData retrieves example or mock data related to the operation, often used for testing or integration scenarios.
+	// SampleData retrieves example or mock data related to the operation, often used for testing or sdk scenarios.
 	// Returns a pointer to the JSON data and an error if the retrieval fails.
 	SampleData() core.JSON
 
@@ -82,7 +83,7 @@ type Trigger interface {
 	Criteria(ctx context.Context) core.TriggerCriteria
 }
 
-// Action defines a generic interface for performing an operation within the integration.
+// Action defines a generic interface for performing an operation within the sdk.
 type Action interface {
 	BaseOperation
 

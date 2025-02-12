@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sdk
+package connector
 
 import (
 	"context"
 
 	sdkcore "github.com/wakflo/go-sdk/core"
+	"github.com/wakflo/go-sdk/sdk"
 )
 
 // TriggerInfo represents the information of a trigger.
@@ -66,10 +67,10 @@ type CreateTriggerArgs struct {
 	Input       *map[string]interface{}
 	Output      *map[string]interface{}
 
-	Run                *func(ctx context.Context) (JSON, error)
-	Auth               *func(ctx context.Context) (JSON, error)
-	Test               *func(ctx context.Context) (JSON, error)
-	GenerateSampleData *func(ctx context.Context) (JSON, error)
+	Run                *func(ctx context.Context) (sdk.JSON, error)
+	Auth               *func(ctx context.Context) (sdk.JSON, error)
+	Test               *func(ctx context.Context) (sdk.JSON, error)
+	GenerateSampleData *func(ctx context.Context) (sdk.JSON, error)
 }
 
 func CreateTrigger(args CreateTriggerArgs) {

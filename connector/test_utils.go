@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sdk
+package connector
 
 import (
 	"errors"
@@ -20,6 +20,7 @@ import (
 	"testing"
 
 	sdkcore "github.com/wakflo/go-sdk/core"
+	"github.com/wakflo/go-sdk/sdk"
 	"golang.org/x/exp/maps"
 )
 
@@ -55,7 +56,7 @@ func (s *SpiderTestRuntime) TriggerConfig(name string) *sdkcore.Trigger {
 	return s.instance.TriggerMetadata[name]
 }
 
-func (s *SpiderTestRuntime) RunOperation(name string, run *RunContext) (JSON, error) {
+func (s *SpiderTestRuntime) RunOperation(name string, run *RunContext) (sdk.JSON, error) {
 	ops, err := s.getOperationByName(name)
 	if err != nil {
 		return nil, err
@@ -63,7 +64,7 @@ func (s *SpiderTestRuntime) RunOperation(name string, run *RunContext) (JSON, er
 	return ops.Run(run)
 }
 
-func (s *SpiderTestRuntime) RunTrigger(name string, run *RunContext) (JSON, error) {
+func (s *SpiderTestRuntime) RunTrigger(name string, run *RunContext) (sdk.JSON, error) {
 	trigger, err := s.getTriggerByName(name)
 	if err != nil {
 		return nil, err

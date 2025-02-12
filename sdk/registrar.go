@@ -1,14 +1,15 @@
-package integration
+package sdk
 
 import (
 	"fmt"
-	"github.com/gosimple/slug"
-	"github.com/pelletier/go-toml/v2"
-	"github.com/wakflo/go-sdk/validator"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/gosimple/slug"
+	"github.com/pelletier/go-toml/v2"
+	"github.com/wakflo/go-sdk/validator"
 )
 
 type RegistrationFn = []func() (Registration, error)

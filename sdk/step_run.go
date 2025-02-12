@@ -1,9 +1,10 @@
-package integration
+package sdk
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"github.com/wakflo/go-sdk/core"
-	"time"
 )
 
 type StepRunState struct {
