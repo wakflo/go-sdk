@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/wakflo/go-sdk/compare/v0.9.0...v0.10.0) (2025-02-12)
+
+
+### Features
+
+* updated schemas ([271bd6f](https://github.com/wakflo/go-sdk/commit/271bd6f66e72e611cc3fee28253af259eb04fbb8))
+
 ## [0.9.0](https://github.com/wakflo/go-sdk/compare/v0.8.0...v0.9.0) (2025-01-30)
 
 
