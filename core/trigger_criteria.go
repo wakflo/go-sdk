@@ -1,8 +1,9 @@
 package core
 
 import (
-	"github.com/robfig/cron/v3"
 	"time"
+
+	"github.com/robfig/cron/v3"
 )
 
 // PollingTriggerCriteria defines criteria for a polling-based trigger.

@@ -83,7 +83,7 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 		info.Name = strings.TrimSpace(info.Name)
 		key := utils.GenerateUniqueSlug(info.Name)
 
-		//defCron := "*/2 * * * *"
+		// defCron := "*/2 * * * *"
 		s := sdkcore.TriggerSettings{
 			Type: info.Type,
 		}
@@ -107,8 +107,8 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			DisplayName: info.Name,
 			Description: info.Description,
 			Input:       autoform.NewInputMapField().SetProperties(info.Input).Build(),
-			//RequireAuth:   info.RequireAuth,
-			//Auth:          info.Auth,
+			// RequireAuth:   info.RequireAuth,
+			// Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
 			Settings:      info.Settings,
 			Type:          info.Type,
@@ -138,8 +138,8 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 			DisplayName: info.Name,
 			Description: info.Description,
 			Input:       autoform.NewInputMapField().SetProperties(info.Input).Build(),
-			//RequireAuth:   info.RequireAuth,
-			//Auth:          info.Auth,
+			// RequireAuth:   info.RequireAuth,
+			// Auth:          info.Auth,
 			SampleOutput:  info.SampleOutput,
 			Documentation: info.Documentation,
 			HelpText:      info.HelpText,

@@ -2,8 +2,10 @@ package sdk
 
 import "github.com/wakflo/go-sdk/core"
 
-type ScheduledOutput = core.ScheduleTriggerCriteria
-type WebhookOutput = core.WebhookTriggerCriteria
+type (
+	ScheduledOutput = core.ScheduleTriggerCriteria
+	WebhookOutput   = core.WebhookTriggerCriteria
+)
 
 func OutputScheduled(criteria ScheduledOutput) ScheduledOutput {
 	return ScheduledOutput{

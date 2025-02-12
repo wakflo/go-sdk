@@ -59,6 +59,7 @@ func (r *BaseContext) GetRawInput() sdkcore.JSONObject {
 func (r *BaseContext) Input() any {
 	return r.input
 }
+
 func (r *BaseContext) RawInput() map[string]any {
 	return r.rawInput
 }
