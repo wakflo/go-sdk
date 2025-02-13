@@ -2,7 +2,6 @@ package sdk
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -14,25 +13,25 @@ import (
 
 type RegistrationFn = []func() (Registration, error)
 
-func registerSafely(integration Integration) (*Registration, error) {
-	return registerInternal(integration)
+func registerSafely(integration Integration, flow string, readme string) (*Registration, error) {
+	return registerInternal(integration, flow, readme)
 }
 
-func Register(integration Integration) *Registration {
-	reg, err := registerInternal(integration)
+func Register(integration Integration, flow string, readme string) *Registration {
+	reg, err := registerInternal(integration, flow, readme)
 	if err != nil {
 		panic(err)
 	}
 	return reg
 }
 
-func registerInternal(integration Integration) (*Registration, error) {
-	readme, err := ReadREADME()
+func registerInternal(integration Integration, flow string, readme string) (*Registration, error) {
+	readme, err := ReadREADME(readme)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read README.md: %w", err)
 	}
 
-	info, err := ReadFloFile()
+	info, err := ReadFloFile(flow)
 	if err != nil {
 		return nil, err
 	}
@@ -91,24 +90,24 @@ type RegistrationMap struct {
 	Info     RegistrationInfo
 }
 
-func ReadFloFile() (*IntegrationSchemaModel, error) {
-	fileName := "flo.toml"
-
-	// Resolve the full path relative to the caller's directory
-	fullPath, err := GetRelativePathWithDepth(fileName, 4)
-	if err != nil {
-		return nil, fmt.Errorf("failed to resolve full path: %w", err)
-	}
-
-	// Read the file
-	data, err := os.ReadFile(fullPath)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read file %s: %w", fullPath, err)
-	}
+func ReadFloFile(content string) (*IntegrationSchemaModel, error) {
+	// fileName := "flo.toml"
+	//
+	// // Resolve the full path relative to the caller's directory
+	// fullPath, err := GetRelativePathWithDepth(fileName, 4)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("failed to resolve full path: %w", err)
+	// }
+	//
+	// // Read the file
+	// data, err := os.ReadFile(fullPath)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("failed to read file %s: %w", fullPath, err)
+	// }
 
 	// Deserialize the file content into SchemaConfig
 	var config SchemaConfig
-	err = toml.Unmarshal(data, &config)
+	err := toml.Unmarshal([]byte(content), &config)
 	if err != nil {
 		return nil, fmt.Errorf("failed to deserialize TOML: %w", err)
 	}
@@ -124,27 +123,27 @@ func ReadFloFile() (*IntegrationSchemaModel, error) {
 }
 
 // ReadREADME extracts the content of README.md from the current directory.
-func ReadREADME() (string, error) {
-	fileName := "README.md"
-	// Resolve the full path relative to the caller's directory
-	fullPath, err := GetRelativePathWithDepth(fileName, 4)
-	if err != nil {
-		return "", fmt.Errorf("failed to resolve full path: %w", err)
-	}
-
-	// Define the path to README.md
-	readmePath := filepath.Join(fullPath)
-
-	// Check if the file exists
-	if _, err := os.Stat(readmePath); os.IsNotExist(err) {
-		return "", fmt.Errorf("README.md not found in the directory: %s", fullPath)
-	}
-
-	// Read the file content
-	content, err := os.ReadFile(readmePath)
-	if err != nil {
-		return "", fmt.Errorf("failed to read README.md: %w", err)
-	}
+func ReadREADME(content string) (string, error) {
+	// fileName := "README.md"
+	// // Resolve the full path relative to the caller's directory
+	// fullPath, err := GetRelativePathWithDepth(fileName, 4)
+	// if err != nil {
+	// 	return "", fmt.Errorf("failed to resolve full path: %w", err)
+	// }
+	//
+	// // Define the path to README.md
+	// readmePath := filepath.Join(fullPath)
+	//
+	// // Check if the file exists
+	// if _, err := os.Stat(readmePath); os.IsNotExist(err) {
+	// 	return "", fmt.Errorf("README.md not found in the directory: %s", fullPath)
+	// }
+	//
+	// // Read the file content
+	// content, err := os.ReadFile(readmePath)
+	// if err != nil {
+	// 	return "", fmt.Errorf("failed to read README.md: %w", err)
+	// }
 
 	// Trim any leading or trailing whitespace
 	return strings.TrimSpace(string(content)), nil
