@@ -41,7 +41,7 @@ func NewOAuthField(authURL string, tokenURL *string, scopes []string) *OAuthFiel
 		AuthURL:          &authURL,
 		TokenURL:         tokenURL,
 		Scope:            scopes,
-		RedirectParamKey: "redirect_uri",
+		RedirectParamKey: "redirect_uri", 
 	}
 
 	return c
