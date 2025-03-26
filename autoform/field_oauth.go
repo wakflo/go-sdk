@@ -38,9 +38,10 @@ func NewOAuthField(authURL string, tokenURL *string, scopes []string) *OAuthFiel
 
 	c.builder = c.builder.WithFieldRequired(true)
 	c.builder.schema.UIProps.Auth = &sdkcore.AuthSchemaProps{
-		AuthURL:  &authURL,
-		TokenURL: tokenURL,
-		Scope:    scopes,
+		AuthURL:          &authURL,
+		TokenURL:         tokenURL,
+		Scope:            scopes,
+		RedirectParamKey: "redirect_uri",
 	}
 
 	return c
@@ -142,6 +143,15 @@ func (b *OAuthField) SetExcludedQueryParams(params []string) *OAuthField {
 		b.builder.schema.UIProps.Auth = &sdkcore.AuthSchemaProps{}
 	}
 	b.builder.schema.UIProps.Auth.ExcludedParams = params
+	return b
+}
+
+func (b *OAuthField) SetRedirectQueryParamKey(key string) *OAuthField {
+	if b.builder.schema.UIProps.Auth == nil {
+		b.builder.schema.UIProps.Auth = &sdkcore.AuthSchemaProps{}
+	}
+
+	b.builder.schema.UIProps.Auth.RedirectParamKey = key
 	return b
 }
 
