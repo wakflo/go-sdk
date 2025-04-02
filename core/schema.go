@@ -209,9 +209,10 @@ type AuthSchemaProps struct {
 	TokenURL *string  `json:"tokenUrl,omitempty"`
 	AuthURL  *string  `json:"authUrl,omitempty"`
 
-	Username         *string  `json:"username,omitempty"`
-	Password         *string  `json:"password,omitempty"`
-	Secret           *string  `json:"secret,omitempty"`
-	ExcludedParams   []string `json:"excludedParams,omitempty"`
-	RedirectParamKey string   `json:"redirectParamKey,omitempty"`
+	Username         *string           `json:"username,omitempty"`
+	Password         *string           `json:"password,omitempty"`
+	Secret           *string           `json:"secret,omitempty"`
+	ExcludedParams   []string          `json:"excludedParams,omitempty"`
+	RedirectParamKey string            `json:"redirectParamKey,omitempty"`
+	ExtraParams      map[string]string `json:"extraParams,omitempty"`
 }
