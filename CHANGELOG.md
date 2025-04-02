@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.10.2](https://github.com/wakflo/go-sdk/compare/v0.10.1...v0.10.2) (2025-04-02)
+
+
+### Bug Fixes
+
+* fix s3 update ([47c2e2c](https://github.com/wakflo/go-sdk/commit/47c2e2cf48ebe2a14ffd3a0d7f79826a423220b8))
+* fix s3 update ([13fc04d](https://github.com/wakflo/go-sdk/commit/13fc04dfeea337f66b0480f01913c137cc581383))
+* update README with additional info section ([7c89488](https://github.com/wakflo/go-sdk/commit/7c894880564a90ff27b2116bb46822c1f89f77b3))
+
 ## [0.10.1](https://github.com/wakflo/go-sdk/compare/v0.10.0...v0.10.1) (2025-02-13)
 
 
