@@ -1,5 +1,4 @@
 # Wakflo Go SDK
-
 This SDK provides tools for interacting with the Wakflo Workflow Automation platform using the Go programming language.
 It supports creation of workflows, custom connectors or applications, and includes core functionalities of the platform.
 
