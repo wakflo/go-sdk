@@ -26,8 +26,9 @@ import (
 type FlowVersionState string
 
 const (
-	FlowVersionStateLocked FlowVersionState = "LOCKED"
-	FlowVersionStateDraft  FlowVersionState = "DRAFT"
+	FlowVersionStatePublished FlowVersionState = "PUBLISHED"
+	FlowVersionStateDraft     FlowVersionState = "DRAFT"
+	FlowVersionStateArchived  FlowVersionState = "ARCHIVE"
 )
 
 func (FlowVersionState) SQLTypeName() string {
@@ -37,8 +38,9 @@ func (FlowVersionState) SQLTypeName() string {
 // Values returns a slice of all String values of the enum.
 func (FlowVersionState) Values() []string {
 	return []string{
-		"LOCKED",
+		"PUBLISHED",
 		"DRAFT",
+		"ARCHIVE",
 	}
 }
 
@@ -242,11 +244,13 @@ func FlowVersionStateFromStringIgnoreCase(raw string) (FlowVersionState, bool) {
 
 var (
 	_FlowVersionStateStringToValueMap = map[string]FlowVersionState{
-		"LOCKED": FlowVersionStateLocked,
-		"DRAFT":  FlowVersionStateDraft,
+		"PUBLISHED": FlowVersionStatePublished,
+		"DRAFT":     FlowVersionStateDraft,
+		"ARCHIVE":   FlowVersionStateArchived,
 	}
 	_FlowVersionStateLowerStringToValueMap = map[string]FlowVersionState{
-		"LOCKED": FlowVersionStateLocked,
-		"DRAFT":  FlowVersionStateDraft,
+		"PUBLISHED": FlowVersionStatePublished,
+		"DRAFT":     FlowVersionStateDraft,
+		"ARCHIVE":   FlowVersionStateArchived,
 	}
 )

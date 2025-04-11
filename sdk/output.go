@@ -3,8 +3,8 @@ package sdk
 import "github.com/wakflo/go-sdk/core"
 
 type (
-	ScheduledOutput = core.ScheduleTriggerCriteria
-	WebhookOutput   = core.WebhookTriggerCriteria
+	ScheduledOutput = core.OldScheduleTriggerCriteria
+	WebhookOutput   = core.OldWebhookTriggerCriteria
 )
 
 func OutputScheduled(criteria ScheduledOutput) ScheduledOutput {

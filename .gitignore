@@ -52,3 +52,5 @@ vendor
 # docs
 golang.org
 coverage.txt
+
+_know/

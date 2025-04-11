@@ -1,12 +1,12 @@
 package core
 
 import (
-	"github.com/google/uuid"
+	"github.com/rs/xid"
 )
 
 // StepNodeNodeAuthInput represents the authentication input for a node in a step, including a connection ID as a UUID.
 type StepNodeNodeAuthInput struct {
-	ConnectionID *uuid.UUID `json:"connectionId"`
+	ConnectionID *xid.ID `json:"connectionId"`
 }
 
 // StepNodeFormInput represents the input structure for a form node, containing form state and input data.
@@ -43,8 +43,8 @@ type StepNodeConnector struct {
 }
 
 type StepNodeSettings struct {
-	Branch    *BranchSettings   `json:"branch,omitempty"`
-	Connector StepNodeConnector `json:"connector"`
-	Trigger   *TriggerSettings  `json:"trigger,omitempty"`
-	Error     StepErrorSettings `json:"error,omitempty"`
+	Branch    *BranchSettings     `json:"branch,omitempty"`
+	Connector StepNodeConnector   `json:"connector"`
+	Trigger   *OldTriggerSettings `json:"trigger,omitempty"`
+	Error     StepErrorSettings   `json:"error,omitempty"`
 }

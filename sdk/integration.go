@@ -80,7 +80,7 @@ type Trigger interface {
 	GetType() core.TriggerType
 
 	// Criteria Additional criteria or filter rules required to activate the trigger.
-	Criteria(ctx context.Context) core.TriggerCriteria
+	Criteria(ctx context.Context) core.OldTriggerCriteria
 }
 
 // Action defines a generic interface for performing an operation within the sdk.

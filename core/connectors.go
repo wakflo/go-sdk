@@ -18,7 +18,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/google/uuid"
+	"github.com/rs/xid"
 	"github.com/wakflo/go-sdk/core/authenums"
 )
 
@@ -103,7 +103,7 @@ type ConnectorAuthentication struct {
 
 // TaskOperation is a Task operation type.
 type TaskOperation struct {
-	ID          uuid.UUID      `json:"id"`
+	ID          xid.ID         `json:"id"`
 	Name        string         `json:"name"`
 	Description string         `json:"description"`
 	Input       map[string]any `json:"input"`
@@ -212,7 +212,7 @@ type Trigger struct {
 	// Type holds the value of the "description" field.
 	Type TriggerType `json:"type,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK"`
 
-	Settings *TriggerSettings `json:"settings,omitempty"`
+	Settings *OldTriggerSettings `json:"settings,omitempty"`
 
 	// Documentation represents the field used to store the connector's documentation in markdown.
 	Documentation *string `json:"documentation,omitempty"`
@@ -225,7 +225,7 @@ type (
 
 type FlowRunMetadata struct {
 	// FlowID holds the value of the "id" field.
-	FlowID uuid.UUID `json:"flowId,omitempty"`
+	FlowID xid.ID `json:"flowId,omitempty"`
 	// Name holds the value of the "name" field.
 	FlowName string `json:"flowName,omitempty"`
 	// StepName holds the value of the "name" field.
@@ -245,7 +245,7 @@ type ActionSettings struct {
 // ConnectorVersionMetadata is the model entity for the ConnectorVersion schema.
 type ConnectorVersionMetadata struct {
 	// ID of the ent.
-	ID uuid.UUID `json:"id,omitempty"`
+	ID xid.ID `json:"id,omitempty"`
 	// DeletedAt holds the value of the "delete_time" field.
 	DeletedAt time.Time `json:"delete_time,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -271,7 +271,7 @@ type ConnectorVersionMetadata struct {
 	// ReleaseNotes holds the value of the "release_notes" field.
 	ReleaseNotes *string `json:"release_notes,omitempty"`
 	// ConnectorID holds the value of the "connector_id" field.
-	ConnectorID uuid.UUID `json:"connector_id,omitempty"`
+	ConnectorID xid.ID `json:"connector_id,omitempty"`
 	// BuildMetadata holds the value of the "build_metadata" field.
 	BuildMetadata *string `json:"build_metadata,omitempty"`
 	// FileURL holds the value of the "file_url" field.
@@ -289,8 +289,8 @@ type ConnectorVersionMetadata struct {
 }
 
 type TestFlowStepInput struct {
-	StepName string    `json:"stepName"`
-	FlowID   uuid.UUID `json:"flowId"`
+	StepName string `json:"stepName"`
+	FlowID   xid.ID `json:"flowId"`
 }
 
 func FlattenSteps(node *FlowStep) []*FlowStep {

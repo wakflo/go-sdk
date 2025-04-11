@@ -6,8 +6,8 @@ import (
 	"github.com/robfig/cron/v3"
 )
 
-// PollingTriggerCriteria defines criteria for a polling-based trigger.
-type PollingTriggerCriteria struct {
+// OldPollingTriggerCriteria defines criteria for a polling-based trigger.
+type OldPollingTriggerCriteria struct {
 	// Interval defines the duration between each poll (e.g., every 5 minutes).
 	Interval time.Duration `json:"interval" validate:"required,gt=0"`
 
@@ -33,15 +33,15 @@ type PollingTriggerCriteria struct {
 	ExcludedDays []time.Weekday `json:"excludedDays,omitempty"`
 }
 
-// NewPollingTriggerCriteria initializes and returns a new PollingTriggerCriteria instance with default values applied.
-func NewPollingTriggerCriteria() *PollingTriggerCriteria {
-	c := &PollingTriggerCriteria{}
+// NewPollingTriggerCriteria initializes and returns a new OldPollingTriggerCriteria instance with default values applied.
+func NewPollingTriggerCriteria() *OldPollingTriggerCriteria {
+	c := &OldPollingTriggerCriteria{}
 	c.SetDefaults()
 	return c
 }
 
-// SetDefaults applies default values for PollingTriggerCriteria.
-func (c *PollingTriggerCriteria) SetDefaults() {
+// SetDefaults applies default values for OldPollingTriggerCriteria.
+func (c *OldPollingTriggerCriteria) SetDefaults() {
 	if c.Interval == 0 {
 		c.Interval = 5 * time.Minute // Default to 5 minutes.
 	}
@@ -59,8 +59,8 @@ func (c *PollingTriggerCriteria) SetDefaults() {
 	}
 }
 
-// WebhookTriggerCriteria defines the criteria for triggering via webhook.
-type WebhookTriggerCriteria struct {
+// OldWebhookTriggerCriteria defines the criteria for triggering via webhook.
+type OldWebhookTriggerCriteria struct {
 	// Endpoint is the URL where the webhook should listen for incoming requests.
 	Endpoint string `json:"endpoint" validate:"required,url"`
 
@@ -83,15 +83,15 @@ type WebhookTriggerCriteria struct {
 	Enabled bool `json:"enabled" validate:"required"`
 }
 
-// NewWebhookTriggerCriteria creates a new instance of WebhookTriggerCriteria and initializes default values.
-func NewWebhookTriggerCriteria() *WebhookTriggerCriteria {
-	c := &WebhookTriggerCriteria{}
+// NewWebhookTriggerCriteria creates a new instance of OldWebhookTriggerCriteria and initializes default values.
+func NewWebhookTriggerCriteria() *OldWebhookTriggerCriteria {
+	c := &OldWebhookTriggerCriteria{}
 	c.SetDefaults()
 	return c
 }
 
-// SetDefaults applies default values for WebhookTriggerCriteria.
-func (c *WebhookTriggerCriteria) SetDefaults() {
+// SetDefaults applies default values for OldWebhookTriggerCriteria.
+func (c *OldWebhookTriggerCriteria) SetDefaults() {
 	if c.HttpMethod == "" {
 		c.HttpMethod = "POST" // Default to POST method.
 	}
@@ -103,8 +103,8 @@ func (c *WebhookTriggerCriteria) SetDefaults() {
 	}
 }
 
-// ManualTriggerCriteria defines criteria for manually triggered workflows.
-type ManualTriggerCriteria struct {
+// OldManualTriggerCriteria defines criteria for manually triggered workflows.
+type OldManualTriggerCriteria struct {
 	// Description is an optional field to describe the purpose of the manual trigger.
 	Description string `json:"description,omitempty"`
 
@@ -118,15 +118,15 @@ type ManualTriggerCriteria struct {
 	ExecutionTimeout *time.Duration `json:"executionTimeout,omitempty"`
 }
 
-// NewManualTriggerCriteria creates a new instance of ManualTriggerCriteria and sets its default values.
-func NewManualTriggerCriteria() *ManualTriggerCriteria {
-	c := &ManualTriggerCriteria{}
+// NewManualTriggerCriteria creates a new instance of OldManualTriggerCriteria and sets its default values.
+func NewManualTriggerCriteria() *OldManualTriggerCriteria {
+	c := &OldManualTriggerCriteria{}
 	c.SetDefaults()
 	return c
 }
 
-// SetDefaults applies default values for ManualTriggerCriteria.
-func (c *ManualTriggerCriteria) SetDefaults() {
+// SetDefaults applies default values for OldManualTriggerCriteria.
+func (c *OldManualTriggerCriteria) SetDefaults() {
 	if c.Description == "" {
 		c.Description = "Manual Trigger" // Default description.
 	}
@@ -137,8 +137,8 @@ func (c *ManualTriggerCriteria) SetDefaults() {
 	}
 }
 
-// EventTriggerCriteria defines trigger criteria based on system or external events.
-type EventTriggerCriteria struct {
+// OldEventTriggerCriteria defines trigger criteria based on system or external events.
+type OldEventTriggerCriteria struct {
 	// EventName specifies the name of the event to subscribe to (e.g., "file_uploaded").
 	EventName string `json:"eventName" validate:"required"`
 
@@ -149,22 +149,22 @@ type EventTriggerCriteria struct {
 	Filters map[string]any `json:"filters,omitempty"`
 }
 
-// NewEventTriggerCriteria initializes a new EventTriggerCriteria instance with default values applied.
-func NewEventTriggerCriteria() *EventTriggerCriteria {
-	c := &EventTriggerCriteria{}
+// NewEventTriggerCriteria initializes a new OldEventTriggerCriteria instance with default values applied.
+func NewEventTriggerCriteria() *OldEventTriggerCriteria {
+	c := &OldEventTriggerCriteria{}
 	c.SetDefaults()
 	return c
 }
 
-// SetDefaults applies default values for EventTriggerCriteria.
-func (c *EventTriggerCriteria) SetDefaults() {
+// SetDefaults applies default values for OldEventTriggerCriteria.
+func (c *OldEventTriggerCriteria) SetDefaults() {
 	if c.Filters == nil {
 		c.Filters = make(map[string]any) // Default to an empty filter map.
 	}
 }
 
-// ScheduleTriggerCriteria defines trigger criteria for scheduled workflows.
-type ScheduleTriggerCriteria struct {
+// OldScheduleTriggerCriteria defines trigger criteria for scheduled workflows.
+type OldScheduleTriggerCriteria struct {
 	// CronExpression specifies the schedule using a cron expression.
 	CronExpression string `json:"cronExpression" validate:"required,cron"`
 
@@ -182,7 +182,7 @@ type ScheduleTriggerCriteria struct {
 }
 
 // ScheduledInterval derives the scheduled interval as a time.Duration based on the cron expression.
-func (c *ScheduleTriggerCriteria) ScheduledInterval() time.Duration {
+func (c *OldScheduleTriggerCriteria) ScheduledInterval() time.Duration {
 	// This is a simplified derivation. Use a cron library for precise parsing.
 	schedule, err := cron.ParseStandard(c.CronExpression)
 	if err != nil {
@@ -196,15 +196,15 @@ func (c *ScheduleTriggerCriteria) ScheduledInterval() time.Duration {
 	return interval
 }
 
-// NewScheduleTriggerCriteria creates and initializes a new ScheduleTriggerCriteria instance with default values applied.
-func NewScheduleTriggerCriteria() *ScheduleTriggerCriteria {
-	c := &ScheduleTriggerCriteria{}
+// NewScheduleTriggerCriteria creates and initializes a new OldScheduleTriggerCriteria instance with default values applied.
+func NewScheduleTriggerCriteria() *OldScheduleTriggerCriteria {
+	c := &OldScheduleTriggerCriteria{}
 	c.ApplyDefaults()
 	return c
 }
 
-// ApplyDefaults applies default values to a ScheduleTriggerCriteria struct.
-func (c *ScheduleTriggerCriteria) ApplyDefaults() {
+// ApplyDefaults applies default values to a OldScheduleTriggerCriteria struct.
+func (c *OldScheduleTriggerCriteria) ApplyDefaults() {
 	if c.CronExpression == "" {
 		c.CronExpression = "0 0 * * *" // Default to daily execution.
 	}
@@ -216,8 +216,8 @@ func (c *ScheduleTriggerCriteria) ApplyDefaults() {
 	}
 }
 
-// RetryPolicy defines the retry policy for failed event triggers.
-type RetryPolicy struct {
+// OldRetryPolicy defines the retry policy for failed event triggers.
+type OldRetryPolicy struct {
 	Enabled bool `json:"enabled" validate:"required"`
 
 	// MaxRetries specifies the maximum number of retry attempts.
@@ -230,15 +230,15 @@ type RetryPolicy struct {
 	ExponentialBackoff bool `json:"exponentialBackoff"`
 }
 
-// NewRetryPolicy creates and returns a new RetryPolicy instance with default values applied.
-func NewRetryPolicy() *RetryPolicy {
-	rp := &RetryPolicy{}
+// NewRetryPolicy creates and returns a new OldRetryPolicy instance with default values applied.
+func NewRetryPolicy() *OldRetryPolicy {
+	rp := &OldRetryPolicy{}
 	rp.SetDefaults()
 	return rp
 }
 
-// SetDefaults applies default values for RetryPolicy.
-func (rp *RetryPolicy) SetDefaults() {
+// SetDefaults applies default values for OldRetryPolicy.
+func (rp *OldRetryPolicy) SetDefaults() {
 	rp.Enabled = false
 
 	if rp.MaxRetries == 0 {
@@ -249,33 +249,33 @@ func (rp *RetryPolicy) SetDefaults() {
 	}
 }
 
-// TriggerCriteria defines the settings and criteria for configuring step-based triggers in the system.
-type TriggerCriteria struct {
+// OldTriggerCriteria defines the settings and criteria for configuring step-based triggers in the system.
+type OldTriggerCriteria struct {
 	// Polling specifies the configuration used for defining triggers based on polling mechanisms.
-	Polling *PollingTriggerCriteria `json:"pollingCriteria,omitempty"`
+	Polling *OldPollingTriggerCriteria `json:"pollingCriteria,omitempty"`
 
 	// Event specifies the conditions that define event-based triggers in the system.
-	Event *EventTriggerCriteria `json:"eventCriteria,omitempty"`
+	Event *OldEventTriggerCriteria `json:"eventCriteria,omitempty"`
 
 	// Manual defines the criteria needed for a manual trigger configuration in the system.
-	Manual *ManualTriggerCriteria `json:"manualCriteria,omitempty"`
+	Manual *OldManualTriggerCriteria `json:"manualCriteria,omitempty"`
 
 	// Webhook specifies the conditions required for triggering actions via a webhook.
-	Webhook *WebhookTriggerCriteria `json:"webhookCriteria,omitempty"`
+	Webhook *OldWebhookTriggerCriteria `json:"webhookCriteria,omitempty"`
 
 	// Schedule specifies the criteria for configuring scheduled triggers in the system.
-	Schedule *ScheduleTriggerCriteria `json:"scheduleCriteria,omitempty"`
+	Schedule *OldScheduleTriggerCriteria `json:"scheduleCriteria,omitempty"`
 }
 
-// NewTriggerCriteria creates a new instance of TriggerSettings and applies default values using SetDefaults().
-func NewTriggerCriteria() *TriggerCriteria {
-	ts := &TriggerCriteria{}
+// NewTriggerCriteria creates a new instance of OldTriggerSettings and applies default values using SetDefaults().
+func NewTriggerCriteria() *OldTriggerCriteria {
+	ts := &OldTriggerCriteria{}
 	ts.SetDefaults()
 	return ts
 }
 
-// SetDefaults applies default values to TriggerSettings.
-func (ts *TriggerCriteria) SetDefaults() {
+// SetDefaults applies default values to OldTriggerSettings.
+func (ts *OldTriggerCriteria) SetDefaults() {
 	if ts.Polling != nil {
 		ts.Polling.SetDefaults()
 	}
@@ -293,8 +293,8 @@ func (ts *TriggerCriteria) SetDefaults() {
 	}
 }
 
-// SetDefaultByType applies default values to TriggerSettings.
-func (ts *TriggerCriteria) SetDefaultByType(strategy TriggerType) {
+// SetDefaultByType applies default values to OldTriggerSettings.
+func (ts *OldTriggerCriteria) SetDefaultByType(strategy TriggerType) {
 	switch strategy {
 	case TriggerTypeManual:
 		ts.Manual = NewManualTriggerCriteria()
@@ -313,20 +313,20 @@ func (ts *TriggerCriteria) SetDefaultByType(strategy TriggerType) {
 	}
 }
 
-// TriggerSettings defines the settings and criteria for configuring step-based triggers in the system.
-type TriggerSettings struct {
+// OldTriggerSettings defines the settings and criteria for configuring step-based triggers in the system.
+type OldTriggerSettings struct {
 	// Type holds the value of the "type" field.
 	Type TriggerType `json:"strategy,omitempty" validate:"required,oneof=SCHEDULED EVENT POLLING WEBHOOK MANUAL"`
 
 	// Criteria specifies the configuration settings and conditions for initializing step-based triggers.
-	Criteria *TriggerCriteria `json:"criteria,omitempty"`
+	Criteria *OldTriggerCriteria `json:"criteria,omitempty"`
 
 	// RetryPolicy specifies the retry behavior for handling failed event triggers, including limits and intervals.
-	RetryPolicy *RetryPolicy `json:"retryPolicy,omitempty"`
+	RetryPolicy *OldRetryPolicy `json:"retryPolicy,omitempty"`
 }
 
-// SetDefaults applies default values to TriggerSettings.
-func (ts *TriggerSettings) SetDefaults() {
+// SetDefaults applies default values to OldTriggerSettings.
+func (ts *OldTriggerSettings) SetDefaults() {
 	if ts.Criteria == nil {
 		ts.Criteria = NewTriggerCriteria()
 	}
@@ -342,15 +342,15 @@ func (ts *TriggerSettings) SetDefaults() {
 	ts.Criteria.SetDefaultByType(ts.Type)
 }
 
-// NewTriggerSettings creates a new instance of TriggerSettings and applies default values using SetDefaults().
-func NewTriggerSettings() *TriggerSettings {
-	ts := &TriggerSettings{}
+// NewTriggerSettings creates a new instance of OldTriggerSettings and applies default values using SetDefaults().
+func NewTriggerSettings() *OldTriggerSettings {
+	ts := &OldTriggerSettings{}
 	ts.SetDefaults()
 	return ts
 }
 
-// SetDefaultByType applies default values to TriggerSettings.
-func (ts *TriggerSettings) SetDefaultByType(strategy TriggerType) {
+// SetDefaultByType applies default values to OldTriggerSettings.
+func (ts *OldTriggerSettings) SetDefaultByType(strategy TriggerType) {
 	switch strategy {
 	case TriggerTypeEvent:
 	case TriggerTypePolling:

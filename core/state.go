@@ -90,4 +90,5 @@ type StateError struct {
 	Reason  StateErrorReason `json:"reason"`
 	Message string           `json:"message"`
 	Details JSON             `json:"details,omitempty"`
+	Time    time.Time        `json:"time"`
 }
