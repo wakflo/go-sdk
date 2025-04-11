@@ -38,7 +38,7 @@ type TriggerInfo struct {
 
 	SampleOutput sdkcore.JSONObject `json:"sample_output"`
 
-	Settings *sdkcore.TriggerSettings `json:"settings" validate:"required"`
+	Settings *sdkcore.OldTriggerSettings `json:"settings" validate:"required"`
 
 	ErrorSettings *sdkcore.StepErrorSettings `json:"error_settings" validate:"required"`
 
