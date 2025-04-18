@@ -31,7 +31,7 @@ func TestValidatorInvalidName(t *testing.T) {
 		DisplayName: "&&!!",
 	})
 
-	require.ErrorContains(t, err, "validation for 'DisplayName' failed on the 'spiderName' tag", "should throw error on invalid name")
+	require.ErrorContains(t, err, "validation for 'Name' failed on the 'spiderName' tag", "should throw error on invalid name")
 }
 
 func TestValidatorValidName(t *testing.T) {

@@ -33,8 +33,8 @@ func NewBranchField() *BranchField {
 }
 
 func (b *BranchField) Build() *sdkcore.AutoFormSchema {
-	b.schema = b.setProps().builder.Build()
-	return b.schema
+	b.props = b.setProps().builder.Build()
+	return b.props
 }
 
 func (b *BranchField) setProps() *BranchField {
@@ -117,8 +117,8 @@ func (b *BranchField) SetRequired(required bool) *BranchField {
 }
 
 func (b *BranchField) SetDisabled(disabled bool) *BranchField {
-	b.builder.schema.UIProps.Disabled = disabled
-	b.builder.schema.Disabled = disabled
+	b.builder.props.UIProps.Disabled = disabled
+	b.builder.props.Disabled = disabled
 	return b
 }
 
@@ -138,22 +138,22 @@ func (b *BranchField) SetAllOf(schemas []*sdkcore.AutoFormSchema) *BranchField {
 }
 
 func (b *BranchField) SetPlaceholder(placeholder string) *BranchField {
-	b.builder.schema.UIProps.Placeholder = placeholder
+	b.builder.props.UIProps.Placeholder = placeholder
 	return b
 }
 
 func (b *BranchField) SetLabel(label string) *BranchField {
 	b.builder.WithTitle(label)
-	b.builder.schema.UIProps.Label = label
+	b.builder.props.UIProps.Label = label
 	return b
 }
 
 func (b *BranchField) SetHint(hint string) *BranchField {
-	b.builder.schema.UIProps.Hint = hint
+	b.builder.props.UIProps.Hint = hint
 	return b
 }
 
 func (b *BranchField) SetHidden(hidden bool) *BranchField {
-	b.builder.schema.UIProps.Hidden = hidden
+	b.builder.props.UIProps.Hidden = hidden
 	return b
 }

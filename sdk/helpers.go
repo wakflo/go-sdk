@@ -15,7 +15,7 @@
 package sdk
 
 import (
-	"github.com/wakflo/go-sdk/core"
+	"github.com/wakflo/go-sdk/oldcore"
 )
 
-type JSON = core.JSON
+type JSON = oldcore.JSON

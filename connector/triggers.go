@@ -17,7 +17,7 @@ package connector
 import (
 	"context"
 
-	sdkcore "github.com/wakflo/go-sdk/core"
+	sdkcore "github.com/wakflo/go-sdk/oldcore"
 	"github.com/wakflo/go-sdk/sdk"
 )
 

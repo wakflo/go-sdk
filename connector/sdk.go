@@ -15,7 +15,7 @@
 package connector
 
 import (
-	sdkcore "github.com/wakflo/go-sdk/core"
+	sdkcore "github.com/wakflo/go-sdk/oldcore"
 )
 
 type CreateConnectorArgs struct {
