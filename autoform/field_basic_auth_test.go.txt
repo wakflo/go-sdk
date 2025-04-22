@@ -9,8 +9,8 @@ func TestAuthBasicField_Build(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.Build()
 
-		if basicAuth.schema == nil {
-			t.Fatal("schema not built properly")
+		if basicAuth.props == nil {
+			t.Fatal("props not built properly")
 		}
 	})
 }
@@ -20,7 +20,7 @@ func TestAuthBasicField_SetDescription(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.SetDescription("new description")
 
-		if basicAuth.builder.schema.Description != "new description" {
+		if basicAuth.builder.props.Description != "new description" {
 			t.Fatal("description was not set correctly")
 		}
 	})
@@ -42,7 +42,7 @@ func TestAuthBasicField_SetUsernamePlaceholder(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.SetUsernamePlaceholder("username placeholder")
 
-		if basicAuth.usernameField.schema.UIProps.Placeholder != "username placeholder" {
+		if basicAuth.usernameField.props.UIProps.Placeholder != "username placeholder" {
 			t.Fatal("username placeholder not set correctly")
 		}
 	})
@@ -53,7 +53,7 @@ func TestAuthBasicField_SetPasswordPlaceholder(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.SetPasswordPlaceholder("password placeholder")
 
-		if basicAuth.passwordField.schema.UIProps.Placeholder != "password placeholder" {
+		if basicAuth.passwordField.props.UIProps.Placeholder != "password placeholder" {
 			t.Fatal("password placeholder not set correctly")
 		}
 	})
@@ -64,7 +64,7 @@ func TestAuthBasicField_SetUsernameLabel(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.SetUsernameLabel("username label")
 
-		if basicAuth.usernameField.schema.UIProps.Label != "username label" {
+		if basicAuth.usernameField.props.UIProps.Label != "username label" {
 			t.Fatal("username label not set correctly")
 		}
 	})
@@ -75,7 +75,7 @@ func TestAuthBasicField_SetPasswordLabel(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.SetPasswordLabel("password label")
 
-		if basicAuth.passwordField.schema.UIProps.Label != "password label" {
+		if basicAuth.passwordField.props.UIProps.Label != "password label" {
 			t.Fatal("password label not set correctly")
 		}
 	})
@@ -86,7 +86,7 @@ func TestAuthBasicField_SetUsernameHint(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.SetUsernameHint("username hint")
 
-		if basicAuth.usernameField.schema.UIProps.Hint != "username hint" {
+		if basicAuth.usernameField.props.UIProps.Hint != "username hint" {
 			t.Fatal("username hint not set correctly")
 		}
 	})
@@ -97,7 +97,7 @@ func TestAuthBasicField_SetPasswordHint(t *testing.T) {
 		basicAuth := NewAuthBasicField()
 		basicAuth.SetPasswordHint("password hint")
 
-		if basicAuth.passwordField.schema.UIProps.Hint != "password hint" {
+		if basicAuth.passwordField.props.UIProps.Hint != "password hint" {
 			t.Fatal("password hint not set correctly")
 		}
 	})
@@ -112,7 +112,7 @@ func TestNewAuthBasicField(t *testing.T) {
 			return
 		}
 
-		if basicAuth.builder.schema.UIProps.Required != true {
+		if basicAuth.builder.props.UIProps.Required != true {
 			t.Fatal("field required not set correctly")
 		}
 	})

@@ -32,7 +32,7 @@ const (
 	EmailErr      = "Invalid email address"
 	PasswordErr   = "Invalid password. Passwords must be at least 8 characters in length, contain an upper and lowercase letter, and contain at least one number."
 	UUIDErr       = "Invalid UUID reference"
-	SpiderNameErr = "Hatchet names must match the regex ^[a-zA-Z0-9\\.\\-_]+$"
+	SpiderNameErr = "Spider names must match the regex ^[a-zA-Z0-9\\.\\-_]+$"
 	ActionIDErr   = "Invalid action FlowID. Action IDs must be in the format <integrationId>:<verb>"
 	CronErr       = "Invalid cron expression"
 	DurationErr   = "Invalid duration. Durations must be in the format <number><unit>, where unit is one of: 's', 'm', 'h', 'd', 'w', 'M', 'y'"
@@ -50,7 +50,7 @@ const (
 //	}
 //
 //	return sb.String()
-//}
+// }
 
 // Validator will validate the fields for a request object to ensure that
 // the request is well-formed. For example, it searches for required fields
@@ -138,7 +138,7 @@ func getErrorStr(errObj *ValidationErrObject) string {
 		return PasswordErr
 	case "email":
 		return errObj.SafeExternalError(EmailErr)
-	case "spidername":
+	case "spiderName":
 		return errObj.SafeExternalError(SpiderNameErr)
 	case "uuid":
 		return errObj.SafeExternalError(UUIDErr)

@@ -1,6 +1,6 @@
 module github.com/wakflo/go-sdk
 
-go 1.23.4
+go 1.24.1
 
 require (
 	encore.dev v1.44.6
@@ -14,8 +14,10 @@ require (
 	github.com/gosimple/slug v1.15.0
 	github.com/grokify/goauth v0.23.2
 	github.com/hashicorp/go-multierror v1.1.1
+	github.com/juicycleff/smartform v0.3.0
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/robfig/cron/v3 v3.0.1
+	github.com/rs/xid v1.6.0
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/exp v0.0.0-20250106191152-7588d65b2ba8
 	golang.org/x/oauth2 v0.25.0

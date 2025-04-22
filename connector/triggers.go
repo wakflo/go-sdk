@@ -17,7 +17,7 @@ package connector
 import (
 	"context"
 
-	sdkcore "github.com/wakflo/go-sdk/core"
+	sdkcore "github.com/wakflo/go-sdk/oldcore"
 	"github.com/wakflo/go-sdk/sdk"
 )
 
@@ -38,7 +38,7 @@ type TriggerInfo struct {
 
 	SampleOutput sdkcore.JSONObject `json:"sample_output"`
 
-	Settings *sdkcore.TriggerSettings `json:"settings" validate:"required"`
+	Settings *sdkcore.OldTriggerSettings `json:"settings" validate:"required"`
 
 	ErrorSettings *sdkcore.StepErrorSettings `json:"error_settings" validate:"required"`
 

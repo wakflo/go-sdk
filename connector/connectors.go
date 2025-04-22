@@ -21,8 +21,8 @@ import (
 	"strings"
 
 	"github.com/wakflo/go-sdk/autoform"
-	sdkcore "github.com/wakflo/go-sdk/core"
 	"github.com/wakflo/go-sdk/internal/utils"
+	sdkcore "github.com/wakflo/go-sdk/oldcore"
 	"github.com/wakflo/go-sdk/validator"
 )
 
@@ -84,14 +84,14 @@ func NewConnectorPlugin(args *CreateConnectorArgs) (*ConnectorPlugin, error) {
 		key := utils.GenerateUniqueSlug(info.Name)
 
 		// defCron := "*/2 * * * *"
-		s := sdkcore.TriggerSettings{
+		s := sdkcore.OldTriggerSettings{
 			Type: info.Type,
 		}
 
 		if info.Settings != nil {
-			//if info.Settings.Cron == nil {
+			// if info.Settings.Cron == nil {
 			//	info.Settings.Cron = &defCron
-			//}
+			// }
 		} else {
 			info.Settings = &s
 		}

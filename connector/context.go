@@ -26,7 +26,7 @@ import (
 	"github.com/cavaliergopher/grab/v3"
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/wakflo/go-sdk/autoform"
-	sdkcore "github.com/wakflo/go-sdk/core"
+	sdkcore "github.com/wakflo/go-sdk/oldcore"
 	"github.com/wakflo/go-sdk/sdk"
 )
 
@@ -186,7 +186,7 @@ func NewRunContext[InputType any](
 	onWrite func(sdkcore.WriteLogLineOpts),
 ) *RunContext {
 	var sid string
-	if meta.Status == sdkcore.FlowVersionStateLocked {
+	if meta.Status == sdkcore.FlowVersionStatePublished {
 		// sid = state.ID.String()
 	}
 

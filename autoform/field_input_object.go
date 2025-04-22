@@ -15,7 +15,7 @@
 package autoform
 
 import (
-	sdkcore "github.com/wakflo/go-sdk/core"
+	sdkcore "github.com/wakflo/go-sdk/oldcore"
 )
 
 type InputMapField struct {
