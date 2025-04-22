@@ -22,7 +22,7 @@ import (
 
 	"github.com/wakflo/go-sdk/autoform"
 	"github.com/wakflo/go-sdk/internal/utils"
-	sdkcore "github.com/wakflo/go-sdk/ol
+	sdkcore "github.com/wakflo/go-sdk/oldcore"
 	"github.com/wakflo/go-sdk/validator"
 )
 

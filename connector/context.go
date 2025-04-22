@@ -186,7 +186,7 @@ func NewRunContext[InputType any](
 	onWrite func(sdkcore.WriteLogLineOpts),
 ) *RunContext {
 	var sid string
-	if meta.Status == sdkcore.FlowVersionStateLocked {
+	if meta.Status == sdkcore.FlowVersionStatePublished {
 		// sid = state.ID.String()
 	}
 
