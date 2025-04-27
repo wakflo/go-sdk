@@ -12,5 +12,5 @@ This project was built using Go SDK v1.22.3 in GoLand 2024.1.1.
 - **Core Functionalities:** Integrates core functions of the Wakflo platform for a seamless automation experience.
 
 ## Getting Started
-Some info
+Some info coming
 
