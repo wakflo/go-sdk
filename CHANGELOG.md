@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.3](https://github.com/wakflo/go-sdk/compare/v0.10.2...v0.10.3) (2025-04-27)
+
+
+### Bug Fixes
+
+* **docs:** update placeholder text in README ([a0bca6a](https://github.com/wakflo/go-sdk/commit/a0bca6a9e77355dedc328bfb806a8f618eefd5c9))
+
 ## [0.10.2](https://github.com/wakflo/go-sdk/compare/v0.10.1...v0.10.2) (2025-04-02)
 
 
