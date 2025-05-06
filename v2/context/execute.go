@@ -15,8 +15,6 @@
 package context
 
 import (
-	"context"
-
 	"github.com/juicycleff/smartform/v1"
 	"github.com/rs/xid"
 	"github.com/wakflo/go-sdk/v2/core"
@@ -26,8 +24,7 @@ import (
 // It provides methods for handling trigger execution, including input validation,
 // authentication, and output processing.
 type ExecuteContext interface {
-	// Context returns the underlying Go context for the execution operation.
-	Context() context.Context
+	BaseContext
 
 	// WorkflowID returns the unique identifier of the workflow.
 	WorkflowID() xid.ID
@@ -46,9 +43,6 @@ type ExecuteContext interface {
 
 	// Logger returns a structured logger for the execution.
 	Logger() core.Logger
-
-	// Input returns the validated input data for the trigger execution.
-	Input() core.JSONObject
 
 	// SetInput updates the input data for the trigger execution.
 	SetInput(input core.JSONObject) error
