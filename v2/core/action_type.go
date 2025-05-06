@@ -55,6 +55,7 @@ func (ActionType) Values() []string {
 		"BOOLEAN",
 		"LOOP",
 		"ROUTER",
+		"FLOW",
 	}
 }
 

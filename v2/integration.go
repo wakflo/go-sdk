@@ -16,35 +16,100 @@ package sdk
 
 import (
 	"context"
+	"database/sql/driver"
+	"encoding/json"
+	"fmt"
 
 	"github.com/wakflo/go-sdk/v2/core"
 )
 
-// IntegrationType categorizes the integration functionality.
+// IntegrationType defines the type of integration
 type IntegrationType string
 
 const (
-	// IntegrationTypeData indicates an integration focused on data operations.
-	IntegrationTypeData IntegrationType = "data"
+	// IntegrationTypeStandard represents a standard integration
+	IntegrationTypeStandard IntegrationType = "STANDARD"
 
-	// IntegrationTypeMessaging indicates an integration focused on messaging.
-	IntegrationTypeMessaging IntegrationType = "messaging"
+	// IntegrationTypeFlow represents a flow control integration
+	IntegrationTypeFlow IntegrationType = "FLOW"
 
-	// IntegrationTypeStorage indicates an integration focused on storage.
-	IntegrationTypeStorage IntegrationType = "storage"
+	// IntegrationTypeInternal represents an internal system integration
+	IntegrationTypeInternal IntegrationType = "INTERNAL"
 
-	// IntegrationTypeAnalytics indicates an integration focused on analytics.
-	IntegrationTypeAnalytics IntegrationType = "analytics"
-
-	// IntegrationTypeUtility indicates an integration providing utility functions.
-	IntegrationTypeUtility IntegrationType = "utility"
-
-	// IntegrationTypeFlow indicates an integration providing flow control.
-	IntegrationTypeFlow IntegrationType = "flow"
-
-	// IntegrationTypeAI indicates an integration providing AI/ML capabilities.
-	IntegrationTypeAI IntegrationType = "ai"
+	// IntegrationTypeCustom represents a custom user-defined integration
+	IntegrationTypeCustom IntegrationType = "CUSTOM"
 )
+
+// String returns the string representation of IntegrationType
+func (i IntegrationType) String() string {
+	return string(i)
+}
+
+// Values provides list valid values for Enum
+func (IntegrationType) Values() []string {
+	return []string{
+		string(IntegrationTypeStandard),
+		string(IntegrationTypeFlow),
+		string(IntegrationTypeInternal),
+		string(IntegrationTypeCustom),
+	}
+}
+
+// Value implements the driver.Valuer interface
+func (i IntegrationType) Value() (driver.Value, error) {
+	return i.String(), nil
+}
+
+// Scan implements the sql.Scanner interface
+func (i *IntegrationType) Scan(value interface{}) error {
+	if value == nil {
+		*i = ""
+		return nil
+	}
+
+	str, ok := value.(string)
+	if !ok {
+		bytes, ok := value.([]byte)
+		if !ok {
+			return fmt.Errorf("value is not a string or []byte")
+		}
+		str = string(bytes)
+	}
+
+	*i = IntegrationType(str)
+	return nil
+}
+
+// MarshalText implements the encoding.TextMarshaler interface
+func (i IntegrationType) MarshalText() ([]byte, error) {
+	return []byte(i.String()), nil
+}
+
+// UnmarshalText implements the encoding.TextUnmarshaler interface
+func (i *IntegrationType) UnmarshalText(text []byte) error {
+	*i = IntegrationType(string(text))
+	return nil
+}
+
+// MarshalJSON implements json.Marshaler interface.
+func (i IntegrationType) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf("%q", i)), nil
+}
+
+// UnmarshalJSON implements json.Unmarshaler interface.
+func (i *IntegrationType) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return fmt.Errorf("integration type should be a string, got %s", data)
+	}
+	*i = IntegrationType(s)
+	return nil
+}
+
+// GormDataType defines the data type for GORM.
+func (IntegrationType) GormDataType() string {
+	return "varchar"
+}
 
 // IntegrationDefinition represents the definition of an integration
 type IntegrationDefinition struct {
@@ -85,6 +150,8 @@ type IntegrationMetadata struct {
 
 	// Type categorizes the integration functionality
 	Type IntegrationType `json:"type"`
+
+	FlowType core.FlowComponentType
 
 	// Version is the semantic version of the integration
 	Version string `json:"version" toml:"version" yaml:"version" validate:"required"`

@@ -91,7 +91,7 @@ type ActionDefinition struct {
 	Tags []string `json:"tags,omitempty"`
 
 	// Implementation specifies the action implementation logic or function to be executed.
-	Implementation Action
+	Implementation Action `json:"-"`
 }
 
 // ActionError represents a specific error that can occur during action execution.

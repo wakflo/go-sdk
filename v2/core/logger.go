@@ -16,7 +16,10 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"time"
+
+	"github.com/rs/zerolog/log"
 )
 
 // LogLevel represents the severity of a log.
@@ -38,17 +41,93 @@ type LogEntry struct {
 
 // Logger provides a centralized interface for managing logs.
 type Logger interface {
-	AddLog(ctx context.Context, level LogLevel, message string)
+	AddLog(level LogLevel, message string, a ...any)
 	SetPrefix(prefix string)
 	GetLogs() []LogEntry
 	ClearLogs()
-	LogInfo(ctx context.Context, message string)
-	LogWarning(ctx context.Context, message string)
-	LogError(ctx context.Context, err error)
-	LogDebug(ctx context.Context, message string)
+	Info(message string)
+	Infof(message string, a ...any)
+	Warn(message string)
+	Warnf(message string, a ...any)
+	Error(err error)
+	Errorf(err error, message string, a ...any)
+	Debug(message string)
+	Debugf(message string, a ...any)
+	WithField(key string, value interface{}) Logger
+	WithFields(fields map[string]interface{}) Logger
 }
 
 // LogSink defines an interface for persisting logs to external systems.
 type LogSink interface {
 	Write(ctx context.Context, logEntry LogEntry) error // Write a log entry to the sink
+}
+
+type NoopLogger struct {
+	logs   []LogEntry
+	prefix string
+}
+
+func (n *NoopLogger) AddLog(level LogLevel, message string, a ...any) {
+	log.Info().Msg(message)
+	n.logs = append(n.logs, LogEntry{
+		Timestamp: time.Now(),
+		Level:     level,
+		Message:   fmt.Sprintf(message, a...),
+	})
+}
+
+func (n *NoopLogger) SetPrefix(prefix string) {
+	n.prefix = prefix
+}
+
+func (n *NoopLogger) GetLogs() []LogEntry {
+	return n.logs
+}
+
+func (n *NoopLogger) ClearLogs() {
+	n.logs = []LogEntry{}
+}
+
+func (n *NoopLogger) Info(message string) {
+	n.AddLog(LevelInfo, message)
+}
+
+func (n *NoopLogger) Infof(message string, a ...any) {
+	n.AddLog(LevelInfo, message, a...)
+}
+
+func (n *NoopLogger) Warn(message string) {
+	n.AddLog(LevelWarning, message)
+}
+
+func (n *NoopLogger) Warnf(message string, a ...any) {
+	n.AddLog(LevelWarning, message, a...)
+}
+
+func (n *NoopLogger) Error(err error) {
+	n.AddLog(LevelError, err.Error())
+}
+
+func (n *NoopLogger) Errorf(err error, message string, a ...any) {
+	n.AddLog(LevelError, fmt.Sprintf(message, a...), err)
+}
+
+func (n *NoopLogger) Debug(message string) {
+	n.AddLog(LevelDebug, message)
+}
+
+func (n *NoopLogger) Debugf(message string, a ...any) {
+	n.AddLog(LevelDebug, message, a...)
+}
+
+func (n *NoopLogger) WithField(key string, value interface{}) Logger {
+	return n
+}
+
+func (n *NoopLogger) WithFields(fields map[string]interface{}) Logger {
+	return n
+}
+
+func NewNoopLogger() Logger {
+	return &NoopLogger{}
 }
