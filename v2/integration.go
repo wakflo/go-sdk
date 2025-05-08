@@ -178,6 +178,15 @@ type IntegrationMetadata struct {
 	Documentation string `json:"documentation,omitempty"`
 }
 
+func LoadMetadataFromFlo(flo string, readme string) IntegrationMetadata {
+	return registerIntegration(flo, readme)
+}
+
+func (i *IntegrationMetadata) LoadFromFlo(flo string, readme string) {
+	o := LoadMetadataFromFlo(flo, readme)
+	i = &o
+}
+
 // Integration defines the interface for integration plugins.
 type Integration interface {
 	// Metadata returns metadata about the integration

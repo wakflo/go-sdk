@@ -15,7 +15,7 @@
 package autoform
 
 import (
-	sdkcore "github.com/wakflo/go-sdk/oldcore"
+	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
 // BaseTextField is a type that represents a text field component in a form. It is a composition of BaseComponentField, and inherits its properties and methods.

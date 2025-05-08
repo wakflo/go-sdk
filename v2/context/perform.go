@@ -52,9 +52,6 @@ type PerformContext interface {
 	// Validate validates the input against the action's schema.
 	Validate() error
 
-	// AuthContext provides authentication context for the action.
-	AuthContext() (*AuthContext, error)
-
 	// SetOutput sets the output data from the action.
 	SetOutput(output core.JSON) error
 

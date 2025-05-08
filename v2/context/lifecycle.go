@@ -44,9 +44,6 @@ type LifecycleContext interface {
 	// Config returns the configuration for the trigger.
 	Config() map[string]interface{}
 
-	// AuthContext provides authentication context for the trigger.
-	AuthContext() (*AuthContext, error)
-
 	// GetLastRunTime returns the timestamp of the last successful run.
 	GetLastRunTime() (*time.Time, error)
 

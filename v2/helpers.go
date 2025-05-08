@@ -10,7 +10,7 @@ import (
 	"github.com/cavaliergopher/grab/v3"
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/wakflo/go-sdk/autoform"
-	sdkcore "github.com/wakflo/go-sdk/oldcore"
+	sdkcore "github.com/wakflo/go-sdk/core"
 	sdkcontext "github.com/wakflo/go-sdk/v2/context"
 )
 
@@ -72,8 +72,8 @@ func InputPropsToType[T any](input sdkcore.JSON) (*T, error) {
 // It uses JSON marshaling and unmarshalling to perform the conversion.
 // If any error occurs during marshaling or unmarshaling, it returns nil.
 // The function returns a pointer to the converted value of type T.
-func DynamicInputToType[T any](ctx *sdkcore.DynamicFieldContext) *T {
-	b, err := json.Marshal(ctx.Input)
+func DynamicInputToType[T any](ctx sdkcontext.BaseContext) *T {
+	b, err := json.Marshal(ctx.Input())
 	if err != nil {
 		return nil
 	}

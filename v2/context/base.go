@@ -16,6 +16,9 @@ type BaseContext interface {
 	// Input returns the validated input data for the trigger execution.
 	Input() core.JSONObject
 
-	// SetInput updates the input data for the trigger execution.
-	SetInput(input core.JSONObject) error
+	// AuthContext provides authentication context for the trigger execution.
+	AuthContext() (*AuthContext, error)
+
+	// Auth provides authentication context for the trigger execution.
+	Auth() *AuthContext
 }

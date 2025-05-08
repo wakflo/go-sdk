@@ -15,7 +15,7 @@
 package autoform
 
 import (
-	sdkcore "github.com/wakflo/go-sdk/oldcore"
+	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
 // AuthBasicField type is a composite structure for building basic authentication fields in a form schema.

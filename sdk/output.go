@@ -1,10 +1,10 @@
 package sdk
 
-import "github.com/wakflo/go-sdk/oldcore"
+import "github.com/wakflo/go-sdk/core"
 
 type (
-	ScheduledOutput = oldcore.OldScheduleTriggerCriteria
-	WebhookOutput   = oldcore.OldWebhookTriggerCriteria
+	ScheduledOutput = core.OldScheduleTriggerCriteria
+	WebhookOutput   = core.OldWebhookTriggerCriteria
 )
 
 func OutputScheduled(criteria ScheduledOutput) ScheduledOutput {

@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/rs/xid"
-	"github.com/wakflo/go-sdk/oldcore"
+	"github.com/wakflo/go-sdk/core"
 )
 
 type StepRunState struct {
@@ -17,7 +17,7 @@ type StepRunState struct {
 	// ProjectID holds the value of the "team_id" field.
 	ProjectID xid.ID `json:"project_id,omitempty"`
 	// Status holds the value of the "status" field.
-	Status oldcore.StepRunStatus `json:"status,omitempty"`
+	Status core.StepRunStatus `json:"status,omitempty"`
 	// Order holds the value of the "order" field.
 	Order int `json:"order,omitempty"`
 	// FlowID holds the value of the "flow_id" field.
@@ -35,9 +35,9 @@ type StepRunState struct {
 	// Input holds the value of the "input" field.
 	Input map[string]interface{} `json:"input,omitempty"`
 	// Errors holds the value of the "errors" field.
-	Errors []oldcore.StateError `json:"errors,omitempty"`
+	Errors []core.StateError `json:"errors,omitempty"`
 	// Output holds the value of the "output" field.
-	Output oldcore.JSON `json:"output,omitempty"`
+	Output core.JSON `json:"output,omitempty"`
 	// StartTime represents the start time of a step run.
 	StartTime *time.Time `json:"start_time,omitempty"`
 	// EndTime represents the end time of a step run.
@@ -47,6 +47,6 @@ type StepRunState struct {
 	// It is a pointer to a time.Time value and can be nil.
 	EndTime *time.Time `json:"end_time,omitempty"`
 	// Type represents the type of the flow step, defined by the FlowStepType enumeration, such as STEP, LOOP, or ROUTER.
-	Type          oldcore.FlowStepType `json:"type,omitempty"`
-	ExecutionMode ExecutionMode        `json:"mode,omitempty"`
+	Type          core.FlowStepType `json:"type,omitempty"`
+	ExecutionMode ExecutionMode     `json:"mode,omitempty"`
 }

@@ -50,9 +50,6 @@ type ExecuteContext interface {
 	// Validate validates the input against the trigger's schema.
 	Validate() error
 
-	// AuthContext provides authentication context for the trigger execution.
-	AuthContext() (*AuthContext, error)
-
 	// EmitEvent allows triggers to emit events during execution.
 	EmitEvent(eventType string, payload core.JSON) error
 

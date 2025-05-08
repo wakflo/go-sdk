@@ -21,8 +21,8 @@ import (
 	"strings"
 
 	"github.com/wakflo/go-sdk/autoform"
+	sdkcore "github.com/wakflo/go-sdk/core"
 	"github.com/wakflo/go-sdk/internal/utils"
-	sdkcore "github.com/wakflo/go-sdk/oldcore"
 	"github.com/wakflo/go-sdk/validator"
 )
 
