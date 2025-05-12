@@ -14,7 +14,7 @@ func WithDynamicFunctionCalling(fn *DynamicOptionsFn) smartform.DynamicFunction 
 			return nil, nil
 		}
 
-		ctxRaw, ok := args["context"]
+		ctxRaw, ok := args["ctx"]
 		if !ok {
 			return nil, nil
 		}
