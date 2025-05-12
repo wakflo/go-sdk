@@ -113,24 +113,15 @@ func (IntegrationType) GormDataType() string {
 
 // IntegrationDefinition represents the definition of an integration
 type IntegrationDefinition struct {
+	IntegrationMetadata
+
 	ID            string                        `json:"id"`
-	Name          string                        `json:"name"`
 	DisplayName   string                        `json:"displayName"`
-	Description   string                        `json:"description"`
-	Version       string                        `json:"version"`
-	Icon          string                        `json:"icon"`
 	Actions       map[string]*ActionDefinition  `json:"actions"`
 	Triggers      map[string]*TriggerDefinition `json:"triggers"`
-	Auth          core.AuthMetadata             `json:"auth"`
+	Auth          *core.AuthMetadata            `json:"auth"`
 	Metadata      IntegrationMetadata           `json:"metadata"`
 	BuildMetadata core.IntegrationBuildMetadata `json:"buildMetadata"`
-	Documentation string                        `json:"documentation,omitempty"`
-	ReleaseNotes  string                        `json:"releaseNotes,omitempty"`
-	Type          IntegrationType               `json:"type"`
-	Categories    []string                      `json:"categories"`
-	Tags          []string                      `json:"tags"`
-	Authors       []string                      `json:"authors"`
-	Website       *string                       `json:"website"`
 	License       *string                       `json:"license"`
 	Copyright     *string                       `json:"copyright"`
 	LicenseURL    *string                       `json:"licenseUrl"`
@@ -268,6 +259,8 @@ type IntegrationRegistry interface {
 
 	// GetAction retrieves an action by integration ID and action ID
 	GetAction(integrationID, version, actionID string) (*ActionDefinition, error)
+
+	LoadIntegrationsFromRegistrar(ctx context.Context, reg IntegrationsRegistrar) error
 
 	// GetTrigger retrieves a trigger by integration ID and trigger ID
 	GetTrigger(integrationID, version, actionID string) (*TriggerDefinition, error)

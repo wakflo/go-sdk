@@ -2,6 +2,7 @@ package sdk
 
 import (
 	"fmt"
+	"log"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -11,6 +12,10 @@ import (
 )
 
 func Register(integration Integration) Integration {
+	err := validator.NewDefaultValidator().Validate(integration.Metadata())
+	if err != nil {
+		log.Panicf("invalid integration: %s", err)
+	}
 	return integration
 }
 

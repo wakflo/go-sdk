@@ -15,6 +15,8 @@
 package context
 
 import (
+	"time"
+
 	"github.com/juicycleff/smartform/v1"
 	"github.com/rs/xid"
 	"github.com/wakflo/go-sdk/v2/core"
@@ -43,6 +45,9 @@ type ExecuteContext interface {
 
 	// Logger returns a structured logger for the execution.
 	Logger() core.Logger
+
+	// Logger returns a structured logger for the execution.
+	LastRun() *time.Time
 
 	// SetInput updates the input data for the trigger execution.
 	SetInput(input core.JSONObject) error

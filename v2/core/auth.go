@@ -21,8 +21,8 @@ import (
 // AuthMetadata defines the authentication configuration for an integration
 type AuthMetadata struct {
 	// Type of authentication (oauth2, api_key, basic, etc.)
-	Type     AuthType `json:"type"`
-	Schema   *smartform.FormSchema
-	Required bool `json:"required"`
-	Inherit  bool `json:"inherit"`
+	Type     AuthType              `json:"type"`
+	Schema   *smartform.FormSchema `json:"schema"`
+	Required bool                  `json:"required"`
+	Inherit  bool                  `json:"inherit"`
 }

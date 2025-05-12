@@ -47,7 +47,7 @@ type TriggerMetadata struct {
 	SampleOutput core.JSON `json:"sampleOutput,omitempty"`
 
 	// Criteria returns additional trigger criteria configuration
-	Criteria *core.TriggerSettings
+	Criteria *core.TriggerSettings `json:"criteria"`
 }
 
 // TriggerDefinition contains metadata about a trigger.
@@ -71,7 +71,7 @@ type TriggerDefinition struct {
 	Type core.TriggerType `json:"type"`
 
 	// Auth represents the authentication configuration required to perform the action, encapsulated in core.AuthMetadata.
-	Auth *core.AuthMetadata
+	Auth *core.AuthMetadata `json:"auth"`
 
 	// Documentation provides comprehensive usage instructions
 	Documentation string `json:"documentation,omitempty"`
@@ -80,10 +80,10 @@ type TriggerDefinition struct {
 	SampleOutput core.JSON `json:"sampleOutput,omitempty"`
 
 	// Properties defines the schema for additional configuration required for the trigger in the form of a smartform.
-	Properties *smartform.FormSchema
+	Properties *smartform.FormSchema `json:"properties"`
 
 	// Implementation specifies the action implementation logic or function to be executed.
-	Implementation Trigger
+	Implementation Trigger `json:"-"`
 }
 
 // Trigger defines the interface for workflow triggers.

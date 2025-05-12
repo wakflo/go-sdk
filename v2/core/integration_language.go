@@ -192,8 +192,9 @@ func (_j IntegrationPlatform) String() string {
 
 // MarshalJSON implements the json.Marshaler interface for IntegrationPlatform.
 func (_j IntegrationPlatform) MarshalJSON() ([]byte, error) {
-	if err := _j.Validate(); err != nil {
-		return nil, fmt.Errorf("cannot marshal value %q as IntegrationPlatform. %w", _j, err)
+	if !_j.IsValid() {
+		// Use default value instead of returning an error
+		return json.Marshal(IntegrationPlatformNative.String())
 	}
 	return json.Marshal(_j.String())
 }
