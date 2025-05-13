@@ -26,6 +26,12 @@ type PollingTriggerCriteria struct {
 	// Interval defines the duration between each poll
 	Interval time.Duration `json:"interval" validate:"required,gt=0"`
 
+	// MinInterval defines the duration between each poll
+	MinInterval time.Duration `json:"minInterval" validate:"required,gt=0"`
+
+	// MaxInterval defines the duration between each poll
+	MaxInterval time.Duration `json:"maxInterval" validate:"required,gt=0"`
+
 	// MaxRetries specifies the maximum number of retries in case polling fails
 	MaxRetries int `json:"maxRetries,omitempty" validate:"min=0"`
 
