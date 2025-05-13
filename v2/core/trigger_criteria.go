@@ -127,6 +127,9 @@ type WebhookTriggerCriteria struct {
 
 	// ContentType is the expected content type of the webhook request
 	ContentType string `json:"contentType,omitempty"`
+
+	BasePath     string `json:"basePath,omitempty"`
+	SecretHeader string `json:"secretHeader,omitempty"`
 }
 
 // NewWebhookTriggerCriteria creates a new instance of WebhookTriggerCriteria with default values
