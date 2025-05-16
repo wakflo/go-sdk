@@ -55,6 +55,7 @@ type Logger interface {
 	Debugf(message string, a ...any)
 	WithField(key string, value interface{}) Logger
 	WithFields(fields map[string]interface{}) Logger
+	Clone() Logger
 }
 
 // LogSink defines an interface for persisting logs to external systems.
@@ -82,6 +83,13 @@ func (n *NoopLogger) SetPrefix(prefix string) {
 
 func (n *NoopLogger) GetLogs() []LogEntry {
 	return n.logs
+}
+
+func (n *NoopLogger) Clone() Logger {
+	return &NoopLogger{
+		logs:   n.logs,
+		prefix: n.prefix,
+	}
 }
 
 func (n *NoopLogger) ClearLogs() {

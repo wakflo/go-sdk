@@ -76,7 +76,7 @@ func NewPollingTriggerCriteria() *PollingTriggerCriteria {
 // SetDefaults applies default values for PollingTriggerCriteria
 func (c *PollingTriggerCriteria) SetDefaults() {
 	if c.Interval == 0 {
-		c.Interval = 5 * time.Minute // Default to 5 minutes
+		c.Interval = 1 * time.Minute // Default to 5 minutes
 	}
 	if c.MaxRetries == 0 {
 		c.MaxRetries = 3 // Default to 3 retries
