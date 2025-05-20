@@ -63,6 +63,8 @@ const (
 
 	// StepRunStatusRejected indicates a step was manually rejected
 	StepRunStatusRejected StepRunStatus = "REJECTED"
+
+	StepRunStatusRetrying StepRunStatus = "RETRY"
 )
 
 // SQLTypeName returns the SQL type name for serialization
@@ -85,6 +87,7 @@ func (StepRunStatus) Values() []string {
 		"BLOCKED",
 		"APPROVED",
 		"REJECTED",
+		"RETRY",
 	}
 }
 
@@ -301,6 +304,7 @@ var (
 		"BLOCKED":   StepRunStatusBlocked,
 		"APPROVED":  StepRunStatusApproved,
 		"REJECTED":  StepRunStatusRejected,
+		"RETRY":     StepRunStatusRetrying,
 	}
 	_StepRunStatusLowerStringToValueMap = map[string]StepRunStatus{
 		"pending":   StepRunStatusPending,
@@ -315,13 +319,14 @@ var (
 		"blocked":   StepRunStatusBlocked,
 		"approved":  StepRunStatusApproved,
 		"rejected":  StepRunStatusRejected,
+		"retry":     StepRunStatusRetrying,
 	}
 )
 
 // IsActive returns true if the status indicates the step is still active
 func (s StepRunStatus) IsActive() bool {
 	return s == StepRunStatusPending || s == StepRunStatusRunning ||
-		s == StepRunStatusPaused || s == StepRunStatusWaiting ||
+		s == StepRunStatusPaused || s == StepRunStatusWaiting || s == StepRunStatusRetrying ||
 		s == StepRunStatusBlocked
 }
 
@@ -352,7 +357,7 @@ func (s StepRunStatus) StatusColor() string {
 		return "green"
 	case StepRunStatusFailed, StepRunStatusRejected, StepRunStatusTimeout:
 		return "red"
-	case StepRunStatusRunning, StepRunStatusPending, StepRunStatusWaiting:
+	case StepRunStatusRunning, StepRunStatusPending, StepRunStatusWaiting, StepRunStatusRetrying:
 		return "blue"
 	case StepRunStatusPaused, StepRunStatusBlocked:
 		return "yellow"
@@ -383,6 +388,8 @@ func (s StepRunStatus) StatusIcon() string {
 	case StepRunStatusSkipped:
 		return "skip-forward"
 	case StepRunStatusTimeout:
+		return "alert-circle"
+	case StepRunStatusRetrying:
 		return "alert-circle"
 	default:
 		return "circle"
