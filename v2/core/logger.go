@@ -70,10 +70,31 @@ type NoopLogger struct {
 
 func (n *NoopLogger) AddLog(level LogLevel, message string, a ...any) {
 	log.Info().Msg(message)
+
+	var formattedMessage string
+	if len(a) > 0 {
+		formattedMessage = fmt.Sprintf(message, a...)
+	} else {
+		formattedMessage = message
+	}
+
 	n.logs = append(n.logs, LogEntry{
 		Timestamp: time.Now(),
 		Level:     level,
-		Message:   fmt.Sprintf(message, a...),
+		Message:   formattedMessage,
+	})
+}
+
+func (n *NoopLogger) AddLogMessage(level LogLevel, message string) {
+	log.Info().Msg(message)
+
+	var formattedMessage string
+	formattedMessage = message
+
+	n.logs = append(n.logs, LogEntry{
+		Timestamp: time.Now(),
+		Level:     level,
+		Message:   formattedMessage,
 	})
 }
 
@@ -97,7 +118,7 @@ func (n *NoopLogger) ClearLogs() {
 }
 
 func (n *NoopLogger) Info(message string) {
-	n.AddLog(LevelInfo, message)
+	n.AddLogMessage(LevelInfo, message)
 }
 
 func (n *NoopLogger) Infof(message string, a ...any) {
@@ -105,7 +126,8 @@ func (n *NoopLogger) Infof(message string, a ...any) {
 }
 
 func (n *NoopLogger) Warn(message string) {
-	n.AddLog(LevelWarning, message)
+	//nolint:govet,printf // Disable multiple linters
+	n.AddLogMessage(LevelWarning, message)
 }
 
 func (n *NoopLogger) Warnf(message string, a ...any) {
@@ -113,15 +135,17 @@ func (n *NoopLogger) Warnf(message string, a ...any) {
 }
 
 func (n *NoopLogger) Error(err error) {
-	n.AddLog(LevelError, err.Error())
+	n.AddLogMessage(LevelError, err.Error())
 }
 
 func (n *NoopLogger) Errorf(err error, message string, a ...any) {
-	n.AddLog(LevelError, fmt.Sprintf(message, a...), err)
+	// Format the message first, then pass as single argument
+	formattedMessage := fmt.Sprintf(message, a...)
+	n.AddLog(LevelError, "%s: %v", formattedMessage, err)
 }
 
 func (n *NoopLogger) Debug(message string) {
-	n.AddLog(LevelDebug, message)
+	n.AddLogMessage(LevelDebug, message)
 }
 
 func (n *NoopLogger) Debugf(message string, a ...any) {

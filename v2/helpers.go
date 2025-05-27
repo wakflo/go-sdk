@@ -1,15 +1,11 @@
 package sdk
 
 import (
-	"bytes"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 
-	valid "github.com/asaskevich/govalidator"
 	"github.com/cavaliergopher/grab/v3"
-	"github.com/gabriel-vasile/mimetype"
-	"github.com/wakflo/go-sdk/autoform"
+	autoform "github.com/wakflo/go-sdk/autoform"
 	sdkcore "github.com/wakflo/go-sdk/core"
 	sdkcontext "github.com/wakflo/go-sdk/v2/context"
 )
@@ -91,42 +87,42 @@ func DynamicInputToType[T any](ctx sdkcontext.BaseContext) *T {
 //
 // The function checks if the file string is a base64-encoded data or a URL. If the file string is base64-encoded data, it decodes the data and assigns it to the `Data` field of the
 func StringToFile(fileStr string) (*autoform.File, error) {
-	file := &autoform.File{}
-
-	if valid.IsBase64(fileStr) {
-		data, err := base64.StdEncoding.DecodeString(fileStr)
-		if err != nil {
-			return nil, err
-		}
-
-		mime := mimetype.Detect(data)
-		file.Data = bytes.NewReader(data)
-		file.Extension = mime.Extension()
-		file.Mime = mime.String()
-
-		return file, nil
-	}
-
-	if valid.IsURL(fileStr) {
-		data, err := DownloadFile(fileStr)
-		if err != nil {
-			return nil, err
-		}
-
-		bt, err := data.Bytes()
-		if err != nil {
-			return nil, err
-		}
-
-		mime := mimetype.Detect(bt)
-		file.Data = bytes.NewReader(bt)
-		file.Extension = mime.Extension()
-		file.Size = data.Size()
-		file.Name = data.Filename
-		file.Mime = mime.String()
-
-		return file, nil
-	}
+	// file := &autoform.File{}
+	//
+	// if valid.IsBase64(fileStr) {
+	// 	data, err := base64.StdEncoding.DecodeString(fileStr)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	//
+	// 	mime := mimetype.Detect(data)
+	// 	file.Data = bytes.NewReader(data)
+	// 	file.Extension = mime.Extension()
+	// 	file.Mime = mime.String()
+	//
+	// 	return file, nil
+	// }
+	//
+	// if valid.IsURL(fileStr) {
+	// 	data, err := DownloadFile(fileStr)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	//
+	// 	bt, err := data.Bytes()
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	//
+	// 	mime := mimetype.Detect(bt)
+	// 	file.Data = bytes.NewReader(bt)
+	// 	file.Extension = mime.Extension()
+	// 	file.Size = data.Size()
+	// 	file.Name = data.Filename
+	// 	file.Mime = mime.String()
+	//
+	// 	return file, nil
+	// }
 
 	return nil, errors.New("invalid file string")
 }

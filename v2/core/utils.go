@@ -75,3 +75,11 @@ func RawJSONToAny(raw json.RawMessage) (any, error) {
 
 	return result, nil
 }
+
+func PrettyPrint(data interface{}) {
+	prettyJSON, err := json.MarshalIndent(data, "", "    ")
+	if err != nil {
+		return
+	}
+	fmt.Printf("%s\n", prettyJSON)
+}
