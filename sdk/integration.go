@@ -3,10 +3,10 @@ package sdk
 import (
 	"context"
 
-	"github.com/wakflo/go-sdk/oldcore"
+	"github.com/wakflo/go-sdk/core"
 )
 
-type Auth = oldcore.OperationAuth
+type Auth = core.OperationAuth
 
 // Integration defines an interface for managing a set of triggers and actions for a specific system or service.
 type Integration interface {
@@ -28,7 +28,7 @@ type OperationMetadata struct {
 	// SampleOutput holds the value of the "sampleOutput" field.
 	SampleOutput map[string]any `json:"sampleOutput,omitempty"`
 	// Auth holds the value of the "auth" field.
-	Auth *oldcore.AutoFormSchema `json:"auth,omitempty"`
+	Auth *core.AutoFormSchema `json:"auth,omitempty"`
 }
 
 type OperationDocumentation struct {
@@ -54,10 +54,10 @@ type BaseOperation interface {
 
 	// SampleData retrieves example or mock data related to the operation, often used for testing or sdk scenarios.
 	// Returns a pointer to the JSON data and an error if the retrieval fails.
-	SampleData() oldcore.JSON
+	SampleData() core.JSON
 
 	// Properties returns a map of property names to their corresponding AutoFormSchema definitions.
-	Properties() map[string]*oldcore.AutoFormSchema
+	Properties() map[string]*core.AutoFormSchema
 
 	// Auth returns the authentication schema required for the operation, defined as an AutoFormSchema.
 	Auth() *Auth
@@ -74,13 +74,13 @@ type Trigger interface {
 	Stop(ctx LifecycleContext) error
 
 	// Execute handles the trigger's action when manually invoked with an input schema.
-	Execute(ctx ExecuteContext) (oldcore.JSON, error)
+	Execute(ctx ExecuteContext) (core.JSON, error)
 
 	// GetType returns the trigger type (e.g., POLLING, EVENT, WEBHOOK, MANUAL, SCHEDULED).
-	GetType() oldcore.TriggerType
+	GetType() core.TriggerType
 
 	// Criteria Additional criteria or filter rules required to activate the trigger.
-	Criteria(ctx context.Context) oldcore.OldTriggerCriteria
+	Criteria(ctx context.Context) core.OldTriggerCriteria
 }
 
 // Action defines a generic interface for performing an operation within the sdk.
@@ -88,11 +88,11 @@ type Action interface {
 	BaseOperation
 
 	// Perform executes the action with the given input schema and returns a result or an error.
-	Perform(ctx PerformContext) (oldcore.JSON, error)
+	Perform(ctx PerformContext) (core.JSON, error)
 
 	// GetType returns the trigger type (e.g., BRANCH, BOOLEAN, FLOW, STEP).
-	GetType() oldcore.ActionType
+	GetType() core.ActionType
 
 	// Settings provides operation-specific configuration details necessary for executing the action.
-	Settings() oldcore.ActionSettings
+	Settings() core.ActionSettings
 }

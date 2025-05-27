@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"testing"
 
-	sdkcore "github.com/wakflo/go-sdk/oldcore"
+	sdkcore "github.com/wakflo/go-sdk/core"
 	"github.com/wakflo/go-sdk/sdk"
 	"golang.org/x/exp/maps"
 )

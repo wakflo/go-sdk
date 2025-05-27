@@ -4,7 +4,7 @@ package autoform
 import (
 	"testing"
 
-	sdkcore "github.com/wakflo/go-sdk/oldcore"
+	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
 func TestNewSchemaBuilder(t *testing.T) {

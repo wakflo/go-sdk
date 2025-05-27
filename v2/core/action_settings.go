@@ -1,5 +1,7 @@
 package core
 
 type ActionSettings struct {
-	Branch *RouterSettings `json:"branch,omitempty"`
+	// Loop *LoopSettings `json:"loop,omitempty"`
+	Branch *BranchSettings `json:"branch,omitempty"`
+	Router *RouterSettings `json:"router,omitempty"`
 }

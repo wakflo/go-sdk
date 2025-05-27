@@ -15,7 +15,6 @@
 package context
 
 import (
-	"context"
 	"time"
 
 	"github.com/juicycleff/smartform/v1"
@@ -27,8 +26,7 @@ import (
 // It provides methods for handling action execution, including input validation,
 // authentication, output processing, and error handling.
 type PerformContext interface {
-	// Context returns the underlying Go context for the perform operation.
-	Context() context.Context
+	BaseContext
 
 	// WorkflowID returns the unique identifier of the workflow.
 	WorkflowID() xid.ID
@@ -48,20 +46,11 @@ type PerformContext interface {
 	// StepRunID returns the unique identifier of the current step run.
 	StepRunID() xid.ID
 
-	// Logger returns a structured logger for the action.
-	Logger() core.Logger
-
-	// Input returns the validated input data for the action.
-	Input() core.JSONObject
-
 	// PreviousStepOutput returns the output from the previous step in the workflow.
 	PreviousStepOutput() (core.JSONObject, error)
 
 	// Validate validates the input against the action's schema.
 	Validate() error
-
-	// AuthContext provides authentication context for the action.
-	AuthContext() (*AuthContext, error)
 
 	// SetOutput sets the output data from the action.
 	SetOutput(output core.JSON) error

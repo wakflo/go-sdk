@@ -26,6 +26,12 @@ type PollingTriggerCriteria struct {
 	// Interval defines the duration between each poll
 	Interval time.Duration `json:"interval" validate:"required,gt=0"`
 
+	// MinInterval defines the duration between each poll
+	MinInterval time.Duration `json:"minInterval" validate:"required,gt=0"`
+
+	// MaxInterval defines the duration between each poll
+	MaxInterval time.Duration `json:"maxInterval" validate:"required,gt=0"`
+
 	// MaxRetries specifies the maximum number of retries in case polling fails
 	MaxRetries int `json:"maxRetries,omitempty" validate:"min=0"`
 
@@ -70,7 +76,7 @@ func NewPollingTriggerCriteria() *PollingTriggerCriteria {
 // SetDefaults applies default values for PollingTriggerCriteria
 func (c *PollingTriggerCriteria) SetDefaults() {
 	if c.Interval == 0 {
-		c.Interval = 5 * time.Minute // Default to 5 minutes
+		c.Interval = 20 * time.Second // Default to 5 minutes
 	}
 	if c.MaxRetries == 0 {
 		c.MaxRetries = 3 // Default to 3 retries
@@ -127,6 +133,9 @@ type WebhookTriggerCriteria struct {
 
 	// ContentType is the expected content type of the webhook request
 	ContentType string `json:"contentType,omitempty"`
+
+	BasePath     string `json:"basePath,omitempty"`
+	SecretHeader string `json:"secretHeader,omitempty"`
 }
 
 // NewWebhookTriggerCriteria creates a new instance of WebhookTriggerCriteria with default values

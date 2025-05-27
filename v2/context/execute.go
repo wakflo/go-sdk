@@ -15,7 +15,7 @@
 package context
 
 import (
-	"context"
+	"time"
 
 	"github.com/juicycleff/smartform/v1"
 	"github.com/rs/xid"
@@ -26,8 +26,7 @@ import (
 // It provides methods for handling trigger execution, including input validation,
 // authentication, and output processing.
 type ExecuteContext interface {
-	// Context returns the underlying Go context for the execution operation.
-	Context() context.Context
+	BaseContext
 
 	// WorkflowID returns the unique identifier of the workflow.
 	WorkflowID() xid.ID
@@ -47,17 +46,17 @@ type ExecuteContext interface {
 	// Logger returns a structured logger for the execution.
 	Logger() core.Logger
 
-	// Input returns the validated input data for the trigger execution.
-	Input() core.JSONObject
+	// Logger returns a structured logger for the execution.
+	LastRun() *time.Time
 
 	// SetInput updates the input data for the trigger execution.
 	SetInput(input core.JSONObject) error
 
+	// Environment returns the environment for the trigger execution.
+	Environment() core.Environment
+
 	// Validate validates the input against the trigger's schema.
 	Validate() error
-
-	// AuthContext provides authentication context for the trigger execution.
-	AuthContext() (*AuthContext, error)
 
 	// EmitEvent allows triggers to emit events during execution.
 	EmitEvent(eventType string, payload core.JSON) error

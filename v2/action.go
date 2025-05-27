@@ -53,7 +53,7 @@ type ActionMetadata struct {
 	Category string `json:"category,omitempty"`
 
 	// Settings returns action-specific settings
-	Settings core.ActionSettings
+	Settings core.ActionSettings `json:"settings"`
 }
 
 // ActionDefinition contains metadata about an action.
@@ -77,7 +77,7 @@ type ActionDefinition struct {
 	Type core.ActionType `json:"type"`
 
 	// Auth represents the authentication configuration required to perform the action, encapsulated in core.AuthMetadata.
-	Auth *core.AuthMetadata
+	Auth *core.AuthMetadata `json:"auth"`
 
 	// Documentation provides comprehensive usage instructions
 	Documentation string `json:"documentation,omitempty"`
@@ -85,13 +85,16 @@ type ActionDefinition struct {
 	// SampleOutput contains an example of the action's output
 	SampleOutput core.JSON `json:"sampleOutput,omitempty"`
 
-	Properties *smartform.FormSchema
+	Properties *smartform.FormSchema `json:"properties"`
 
 	// Tags are searchable labels for the action
 	Tags []string `json:"tags,omitempty"`
 
 	// Implementation specifies the action implementation logic or function to be executed.
-	Implementation Action
+	Implementation Action `json:"-"`
+
+	// Settings provides a settings for this action
+	Settings core.ActionSettings `json:"settings"`
 }
 
 // ActionError represents a specific error that can occur during action execution.

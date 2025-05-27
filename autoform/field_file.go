@@ -17,7 +17,7 @@ package autoform
 import (
 	"io"
 
-	sdkcore "github.com/wakflo/go-sdk/oldcore"
+	sdkcore "github.com/wakflo/go-sdk/core"
 )
 
 type FileField struct {

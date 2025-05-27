@@ -33,6 +33,8 @@ const (
 	// TriggerTypeEvent indicates a workflow triggered by an event
 	TriggerTypeEvent TriggerType = "EVENT"
 
+	TriggerTypePubsub TriggerType = "PUBSUB"
+
 	// TriggerTypePolling indicates a workflow triggered by polling for changes
 	TriggerTypePolling TriggerType = "POLLING"
 
