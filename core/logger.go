@@ -26,7 +26,7 @@ type LogLevel string
 
 const (
 	LevelInfo    LogLevel = "INFO"
-	LevelWarning LogLevel = "WARNING"
+	LevelWarning LogLevel = "WARN"
 	LevelError   LogLevel = "ERROR"
 	LevelDebug   LogLevel = "DEBUG" // Optional: for verbose debugging messages
 )

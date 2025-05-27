@@ -92,6 +92,9 @@ type ActionDefinition struct {
 
 	// Implementation specifies the action implementation logic or function to be executed.
 	Implementation Action `json:"-"`
+
+	// Settings provides a settings for this action
+	Settings core.ActionSettings `json:"settings"`
 }
 
 // ActionError represents a specific error that can occur during action execution.

@@ -27,3 +27,18 @@ func WithDynamicFunctionCalling(fn *DynamicOptionsFn) smartform.DynamicFunction 
 		return (*fn)(ctx)
 	}
 }
+
+type FieldType string
+
+const (
+	FieldTypeCondition         FieldType = "condition"
+	FieldTypeEnhancedCondition FieldType = "enhanced_condition"
+	FieldTypeMap               FieldType = "map"
+	FieldTypeKeyValue          FieldType = "keyvalue"
+	FieldTypeKeyCode           FieldType = "code"
+	FieldTypeKeyIDECode        FieldType = "ide_code"
+	FieldTypeBranch            FieldType = "branch"
+	FieldTypeRouter            FieldType = "router"
+)
+
+func (t FieldType) String() string { return string(t) }

@@ -52,6 +52,9 @@ type ExecuteContext interface {
 	// SetInput updates the input data for the trigger execution.
 	SetInput(input core.JSONObject) error
 
+	// Environment returns the environment for the trigger execution.
+	Environment() core.Environment
+
 	// Validate validates the input against the trigger's schema.
 	Validate() error
 

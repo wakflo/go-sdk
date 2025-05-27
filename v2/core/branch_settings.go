@@ -14,8 +14,24 @@
 
 package core
 
+// RouterType defines the type of router.
+type RouterType string
+
+const (
+	// RouterTypeSwitch routes based on evaluating an expression and matching the result.
+	RouterTypeSwitch RouterType = "switch"
+
+	// RouterTypeCondition routes based on evaluating multiple conditions and taking the first match.
+	RouterTypeCondition RouterType = "condition"
+
+	// RouterTypeMultiPath allows taking multiple paths if their conditions are true.
+	RouterTypeMultiPath RouterType = "multipath"
+)
+
 // RouterSettings defines the configuration for a branching flow step.
 type RouterSettings struct {
+	Type RouterType `json:"type,omitempty"`
+
 	// DefaultBranch specifies which branch to follow when no condition is met
 	DefaultBranch string `json:"defaultBranch,omitempty"`
 
@@ -72,7 +88,7 @@ type FlowRouter struct {
 	Name string `json:"name,omitempty"`
 
 	// Condition is the condition expression for this branch
-	Condition string `json:"condition,omitempty"`
+	Condition any `json:"condition,omitempty"`
 
 	// Value is the expected value for this branch
 	// (used with BranchModeValue)
@@ -95,16 +111,18 @@ type FlowRouter struct {
 
 	// ConditionValue is the value to compare against for this branch
 	ConditionValue interface{} `json:"conditionValue,omitempty"`
+
+	// Description is the description of the branch
+	Description string `json:"description,omitempty"`
 }
 
-// NewBranchSettings creates a new RouterSettings with default values
-func NewBranchSettings() *RouterSettings {
+// NewRouterSettings creates a new BranchSettings with default values
+func NewRouterSettings() *RouterSettings {
 	return &RouterSettings{
-		EvaluateAll:      false,
-		AllowMultiPath:   false,
-		BranchMode:       BranchModeExpression,
-		ExpressionEngine: "javascript",
-		Branches:         make([]FlowRouter, 0),
+		EvaluateAll:    false,
+		AllowMultiPath: false,
+		BranchMode:     BranchModeCondition,
+		Branches:       make([]FlowRouter, 0),
 	}
 }
 
