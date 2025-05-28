@@ -31,6 +31,13 @@ func (e Environment) IsValid() bool {
 	}
 }
 
+func (e Environment) Values() (kinds []string) {
+	for _, s := range []Environment{EnvironmentTest, EnvironmentDebug, EnvironmentProd} {
+		kinds = append(kinds, string(s))
+	}
+	return
+}
+
 // ParseEnvironment parses a string into an Environment
 func ParseEnvironment(s string) (Environment, error) {
 	env := Environment(s)
