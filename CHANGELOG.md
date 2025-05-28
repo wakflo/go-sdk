@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.11.0](https://github.com/wakflo/go-sdk/compare/v0.10.4...v0.11.0) (2025-05-28)
+
+
+### Features
+
+* enhance SDK with flow, logging, and JSON utilities ([36509fe](https://github.com/wakflo/go-sdk/commit/36509fec3d9b10641657081ccae2e3615e8f6cf8))
+* updated weebhook trigger criteria ([a0ffb89](https://github.com/wakflo/go-sdk/commit/a0ffb891de865f11b7e637b9a51fa72dde22fdcf))
+
+
+### Bug Fixes
+
+* fixed logger ([927572e](https://github.com/wakflo/go-sdk/commit/927572ec500fecd4f07f7af81084cf740cc253df))
+* fixed logger lint bug ([b9bf36d](https://github.com/wakflo/go-sdk/commit/b9bf36d5c8c96c737f482da4f0f98946b2b986db))
+* fixed logger lint bug ([b76b272](https://github.com/wakflo/go-sdk/commit/b76b272564de5dbc5d8af3f4acc6037d90ada02c))
+* fixed smartform version ([299dacc](https://github.com/wakflo/go-sdk/commit/299dacc827ac2c943cd06e10bc247f6473c91813))
+* improved logs and criteria api ([aa994be](https://github.com/wakflo/go-sdk/commit/aa994be648ee8461e2fce8cccb6c946c517b89fc))
+* improved worker with node and service discovery ([7cf66ca](https://github.com/wakflo/go-sdk/commit/7cf66ca64fa44f7cec8b2d5a60d9d246d9419233))
+* update placeholder text in README ([9ecdbb3](https://github.com/wakflo/go-sdk/commit/9ecdbb3b0800bf542517159f987b6970b53abf0c))
+* updated pooling trigger criteria ([5e32cf3](https://github.com/wakflo/go-sdk/commit/5e32cf38b9e9ad4579f6c81c92fcc1c559cdb7ed))
+
 ## [0.10.4](https://github.com/wakflo/go-sdk/compare/v0.10.3...v0.10.4) (2025-04-27)
 
 
