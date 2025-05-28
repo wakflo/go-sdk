@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/wakflo/go-sdk/compare/v0.11.0...v0.11.1) (2025-05-28)
+
+
+### Bug Fixes
+
+* fixed env ([125009e](https://github.com/wakflo/go-sdk/commit/125009e1ab258be802b1dff82f96e4cda7a84703))
+
 ## [0.11.0](https://github.com/wakflo/go-sdk/compare/v0.10.4...v0.11.0) (2025-05-28)
 
 
