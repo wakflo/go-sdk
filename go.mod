@@ -14,7 +14,7 @@ require (
 	github.com/gosimple/slug v1.15.0
 	github.com/grokify/goauth v0.23.2
 	github.com/hashicorp/go-multierror v1.1.1
-	github.com/juicycleff/smartform v0.10.1
+	github.com/juicycleff/smartform v0.10.5
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/rs/xid v1.6.0

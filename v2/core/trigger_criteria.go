@@ -297,6 +297,8 @@ type ScheduleTriggerCriteria struct {
 	// Enabled determines if the schedule trigger is active
 	Enabled bool `json:"enabled" validate:"required"`
 
+	Interval *time.Duration `json:"interval,omitempty"`
+
 	// MaxConcurrentRuns is the maximum number of concurrent runs
 	MaxConcurrentRuns int `json:"maxConcurrentRuns,omitempty"`
 
@@ -404,6 +406,8 @@ type WorkflowTriggerCriteria struct {
 
 	// Condition is a condition that must be met for the trigger to fire
 	Condition string `json:"condition,omitempty"`
+
+	Timeout time.Duration `json:"timeout,omitempty"`
 
 	// Enabled determines if the workflow trigger is active
 	Enabled bool `json:"enabled"`
@@ -525,6 +529,15 @@ type TriggerCriteria struct {
 
 	// Message specifies the configuration for message triggers
 	Message *MessageTriggerCriteria `json:"messageCriteria,omitempty"`
+
+	// Enabled determines if the trigger is enabled
+	Enabled bool `json:"enabled"`
+
+	// MaxEvents is the maximum number of events to process at once
+	MaxEvents int `json:"maxEvents,omitempty"`
+
+	// Deduplicate determines if duplicate events should be filtered
+	Filters map[string]any `json:"filters,omitempty"`
 }
 
 // NewTriggerCriteria creates a new TriggerCriteria with default values

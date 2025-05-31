@@ -44,6 +44,9 @@ type LifecycleContext interface {
 	// Config returns the configuration for the trigger.
 	Config() map[string]interface{}
 
+	// Input returns the Input for the trigger.
+	Input() map[string]interface{}
+
 	// GetLastRunTime returns the timestamp of the last successful run.
 	GetLastRunTime() (*time.Time, error)
 
