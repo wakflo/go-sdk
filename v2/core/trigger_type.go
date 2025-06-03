@@ -67,6 +67,7 @@ func (TriggerType) Values() []string {
 	return []string{
 		"SCHEDULED",
 		"EVENT",
+		"PUBSUB",
 		"POLLING",
 		"WEBHOOK",
 		"MANUAL",
@@ -278,6 +279,7 @@ var (
 	_TriggerTypeStringToValueMap = map[string]TriggerType{
 		"SCHEDULED": TriggerTypeScheduled,
 		"EVENT":     TriggerTypeEvent,
+		"PUBSUB":    TriggerTypePubsub,
 		"POLLING":   TriggerTypePolling,
 		"WEBHOOK":   TriggerTypeWebhook,
 		"MANUAL":    TriggerTypeManual,
@@ -289,6 +291,7 @@ var (
 	_TriggerTypeLowerStringToValueMap = map[string]TriggerType{
 		"scheduled": TriggerTypeScheduled,
 		"event":     TriggerTypeEvent,
+		"pubsub":    TriggerTypePubsub,
 		"polling":   TriggerTypePolling,
 		"webhook":   TriggerTypeWebhook,
 		"manual":    TriggerTypeManual,

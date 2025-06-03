@@ -654,3 +654,43 @@ func (ts *TriggerSettings) SetDefaultByType(strategy TriggerType) {
 		ts.RetryPolicy = NewRetryPolicy()
 	}
 }
+
+// RequiresExternalService returns true if the trigger type requires an external service
+func (t TriggerType) RequiresExternalService() bool {
+	switch t {
+	case TriggerTypePubsub, TriggerTypeWebhook, TriggerTypePolling:
+		return true
+	default:
+		return false
+	}
+}
+
+// SupportsFiltering returns true if the trigger type supports message/event filtering
+func (t TriggerType) SupportsFiltering() bool {
+	switch t {
+	case TriggerTypePubsub, TriggerTypeEvent, TriggerTypeWebhook, TriggerTypePolling:
+		return true
+	default:
+		return false
+	}
+}
+
+// SupportsBatching returns true if the trigger type supports batching multiple events
+func (t TriggerType) SupportsBatching() bool {
+	switch t {
+	case TriggerTypePubsub, TriggerTypeEvent, TriggerTypePolling:
+		return true
+	default:
+		return false
+	}
+}
+
+// GetDefaultRetryPolicy returns the default retry policy for the trigger type
+func (t TriggerType) GetDefaultRetryPolicy() *RetryPolicy {
+	switch t {
+	case TriggerTypePubsub, TriggerTypeWebhook, TriggerTypePolling, TriggerTypeAPI, TriggerTypeEvent:
+		return NewRetryPolicy()
+	default:
+		return nil
+	}
+}

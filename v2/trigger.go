@@ -47,7 +47,7 @@ type TriggerMetadata struct {
 	SampleOutput core.JSON `json:"sampleOutput,omitempty"`
 
 	// Criteria returns additional trigger criteria configuration
-	Criteria *core.TriggerSettings `json:"criteria"`
+	Criteria *core.TriggerCriteria `json:"criteria"`
 }
 
 // TriggerDefinition contains metadata about a trigger.
@@ -81,6 +81,9 @@ type TriggerDefinition struct {
 
 	// Properties defines the schema for additional configuration required for the trigger in the form of a smartform.
 	Properties *smartform.FormSchema `json:"properties"`
+
+	// Settings provides a settings for this trigger
+	Settings core.TriggerSettings `json:"settings"`
 
 	// Implementation specifies the action implementation logic or function to be executed.
 	Implementation Trigger `json:"-"`
