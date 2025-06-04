@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.2](https://github.com/wakflo/go-sdk/compare/v0.11.1...v0.11.2) (2025-06-03)
+
+
+### Bug Fixes
+
+* added condition evaluator with templates ([a6ddfd5](https://github.com/wakflo/go-sdk/commit/a6ddfd542ce6aac5fda5e28d3b24013e512047b5))
+* added condition evaluator with templates ([afa3f7c](https://github.com/wakflo/go-sdk/commit/afa3f7c3f87bbe0061aacb61785d69884197a5a2))
+* added pubsub criteria ([b7a55de](https://github.com/wakflo/go-sdk/commit/b7a55dee6fbf8691f8adf60fa5d07ff597b0d3c8))
+
 ## [0.11.1](https://github.com/wakflo/go-sdk/compare/v0.11.0...v0.11.1) (2025-05-28)
 
 
