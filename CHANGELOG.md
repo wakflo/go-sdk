@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.11.3](https://github.com/wakflo/go-sdk/compare/v0.11.2...v0.11.3) (2025-08-27)
+
+
+### Bug Fixes
+
+* added go.sum file to the repository ([cee12b6](https://github.com/wakflo/go-sdk/commit/cee12b614e5a97f2acffb2900c3c12431cb8fd9f))
+* updated cms implementation ([cce19e4](https://github.com/wakflo/go-sdk/commit/cce19e468e8a9b65305782880a1cb84a87f243d1))
+
 ## [0.11.2](https://github.com/wakflo/go-sdk/compare/v0.11.1...v0.11.2) (2025-06-03)
 
 
