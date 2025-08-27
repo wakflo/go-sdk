@@ -15,7 +15,7 @@
 package flow
 
 import (
-	"github.com/wakflo/go-sdk/v2/context"
+	"github.com/wakflo/go-sdk/v2"
 	"github.com/wakflo/go-sdk/v2/core"
 )
 
@@ -60,7 +60,7 @@ type LoopIteration struct {
 // LoopExecutionContext provides context for loop execution.
 type LoopExecutionContext interface {
 	// Context provides the perform context for the loop operation
-	Context() context.PerformContext
+	Context() sdk.PerformContext
 
 	// LoopType returns the type of loop being executed
 	LoopType() LoopType
@@ -122,6 +122,8 @@ type LoopController interface {
 
 // Loop defines the interface for loop flow control.
 type Loop interface {
+	Flow
+
 	// Execute runs the loop until completion, using the provided controller
 	Execute(ctx LoopExecutionContext, controller LoopController) error
 

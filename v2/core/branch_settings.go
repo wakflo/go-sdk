@@ -32,8 +32,8 @@ const (
 type RouterSettings struct {
 	Type RouterType `json:"type,omitempty"`
 
-	// DefaultBranch specifies which branch to follow when no condition is met
-	DefaultBranch string `json:"defaultBranch,omitempty"`
+	// DefaultRoute specifies which branch to follow when no condition is met
+	DefaultRoute string `json:"defaultRoute,omitempty"`
 
 	// EvaluateAll determines if all branch conditions should be evaluated
 	// or only until the first match
@@ -58,25 +58,25 @@ type RouterSettings struct {
 	// AllowMultiPath determines if multiple branches can be activated simultaneously
 	AllowMultiPath bool `json:"allowMultiPath,omitempty"`
 
-	// BranchMode defines how branches are evaluated (expression, condition, or value)
-	BranchMode BranchMode `json:"branchMode,omitempty"`
+	// RouteMode defines how branches are evaluated (expression, condition, or value)
+	RouteMode RouteMode `json:"routeMode,omitempty"`
 
-	// Branches defines the specific branches available
-	Branches []FlowRouter `json:"branches,omitempty"`
+	// Routes defines the specific branches available
+	Routes []FlowRouter `json:"routes,omitempty"`
 }
 
-// BranchMode defines how branches in a workflow are selected.
-type BranchMode string
+// RouteMode defines how branches in a workflow are selected.
+type RouteMode string
 
 const (
-	// BranchModeExpression uses a JavaScript expression to determine the branch
-	BranchModeExpression BranchMode = "expression"
+	// RouteModeExpression uses a JavaScript expression to determine the branch
+	RouteModeExpression RouteMode = "expression"
 
-	// BranchModeCondition uses field-based condition matching
-	BranchModeCondition BranchMode = "condition"
+	// RouteModeCondition uses field-based condition matching
+	RouteModeCondition RouteMode = "condition"
 
-	// BranchModeValue uses direct value matching
-	BranchModeValue BranchMode = "value"
+	// RouteModeValue uses direct value matching
+	RouteModeValue RouteMode = "value"
 )
 
 // FlowRouter represents a single branch option in a branching flow.
@@ -91,7 +91,7 @@ type FlowRouter struct {
 	Condition any `json:"condition,omitempty"`
 
 	// Value is the expected value for this branch
-	// (used with BranchModeValue)
+	// (used with RouteModeValue)
 	Value interface{} `json:"value,omitempty"`
 
 	// Order determines the evaluation order of branches
@@ -121,43 +121,43 @@ func NewRouterSettings() *RouterSettings {
 	return &RouterSettings{
 		EvaluateAll:    false,
 		AllowMultiPath: false,
-		BranchMode:     BranchModeCondition,
-		Branches:       make([]FlowRouter, 0),
+		RouteMode:      RouteModeCondition,
+		Routes:         make([]FlowRouter, 0),
 	}
 }
 
-// AddBranch adds a new branch to the RouterSettings
-func (bs *RouterSettings) AddBranch(branch FlowRouter) {
-	bs.Branches = append(bs.Branches, branch)
+// AddRoute adds a new branch to the RouterSettings
+func (bs *RouterSettings) AddRoute(branch FlowRouter) {
+	bs.Routes = append(bs.Routes, branch)
 }
 
-// GetBranchByID retrieves a branch by its ID
-func (bs *RouterSettings) GetBranchByID(id string) *FlowRouter {
-	for i, branch := range bs.Branches {
+// GetRouteByID retrieves a branch by its ID
+func (bs *RouterSettings) GetRouteByID(id string) *FlowRouter {
+	for i, branch := range bs.Routes {
 		if branch.ID == id {
-			return &bs.Branches[i]
+			return &bs.Routes[i]
 		}
 	}
 	return nil
 }
 
-// GetDefaultBranch gets the default branch
-func (bs *RouterSettings) GetDefaultBranch() *FlowRouter {
+// GetDefaultRoute gets the default branch
+func (bs *RouterSettings) GetDefaultRoute() *FlowRouter {
 	// First check for explicitly marked default branch
-	for i, branch := range bs.Branches {
+	for i, branch := range bs.Routes {
 		if branch.IsDefault {
-			return &bs.Branches[i]
+			return &bs.Routes[i]
 		}
 	}
 
 	// Then check the DefaultBranch field
-	if bs.DefaultBranch != "" {
-		return bs.GetBranchByID(bs.DefaultBranch)
+	if bs.DefaultRoute != "" {
+		return bs.GetRouteByID(bs.DefaultRoute)
 	}
 
 	// If no default is specified and there's only one branch, use that
-	if len(bs.Branches) == 1 {
-		return &bs.Branches[0]
+	if len(bs.Routes) == 1 {
+		return &bs.Routes[0]
 	}
 
 	return nil
@@ -165,10 +165,10 @@ func (bs *RouterSettings) GetDefaultBranch() *FlowRouter {
 
 // SetDefaultBranch sets a branch as the default
 func (bs *RouterSettings) SetDefaultBranch(id string) {
-	bs.DefaultBranch = id
+	bs.DefaultRoute = id
 
 	// Also update IsDefault flags for clarity
-	for i := range bs.Branches {
-		bs.Branches[i].IsDefault = (bs.Branches[i].ID == id)
+	for i := range bs.Routes {
+		bs.Routes[i].IsDefault = (bs.Routes[i].ID == id)
 	}
 }

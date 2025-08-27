@@ -29,6 +29,11 @@ const (
 
 	// FlowComponentTypeSubflow represents a subflow flow component
 	FlowComponentTypeSubflow FlowComponentType = "SUBFLOW"
+
+	// FlowComponentTypeParallel represents a subflow flow component
+	FlowComponentTypeParallel FlowComponentType = "PARALLEL"
+
+	FlowComponentTypeSequential FlowComponentType = "SEQUENTIAL"
 )
 
 // Values provides list valid values for Enum.
@@ -41,6 +46,8 @@ func (FlowComponentType) Values() []string {
 		string(FlowComponentTypeApproval),
 		string(FlowComponentTypeDelay),
 		string(FlowComponentTypeSubflow),
+		string(FlowComponentTypeParallel),
+		string(FlowComponentTypeSequential),
 	}
 }
 

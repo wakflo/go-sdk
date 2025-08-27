@@ -37,8 +37,8 @@ const (
 	// StepRunStatusRunning indicates a step is currently executing
 	StepRunStatusRunning StepRunStatus = "RUNNING"
 
-	// StepRunStatusSucceeded indicates a step has completed successfully
-	StepRunStatusSucceeded StepRunStatus = "SUCCEEDED"
+	// StepRunStatusCompleted indicates a step has completed successfully
+	StepRunStatusCompleted StepRunStatus = "COMPLETED"
 
 	// StepRunStatusFailed indicates a step has failed
 	StepRunStatusFailed StepRunStatus = "FAILED"
@@ -78,7 +78,7 @@ func (StepRunStatus) Values() []string {
 		"PENDING",
 		"PAUSED",
 		"RUNNING",
-		"SUCCEEDED",
+		"COMPLETED",
 		"FAILED",
 		"CANCELLED",
 		"SKIPPED",
@@ -295,7 +295,7 @@ var (
 		"PENDING":   StepRunStatusPending,
 		"PAUSED":    StepRunStatusPaused,
 		"RUNNING":   StepRunStatusRunning,
-		"SUCCEEDED": StepRunStatusSucceeded,
+		"COMPLETED": StepRunStatusCompleted,
 		"FAILED":    StepRunStatusFailed,
 		"CANCELLED": StepRunStatusCancelled,
 		"SKIPPED":   StepRunStatusSkipped,
@@ -310,7 +310,7 @@ var (
 		"pending":   StepRunStatusPending,
 		"paused":    StepRunStatusPaused,
 		"running":   StepRunStatusRunning,
-		"succeeded": StepRunStatusSucceeded,
+		"completed": StepRunStatusCompleted,
 		"failed":    StepRunStatusFailed,
 		"cancelled": StepRunStatusCancelled,
 		"skipped":   StepRunStatusSkipped,
@@ -332,14 +332,14 @@ func (s StepRunStatus) IsActive() bool {
 
 // IsComplete returns true if the status indicates the step has finished
 func (s StepRunStatus) IsComplete() bool {
-	return s == StepRunStatusSucceeded || s == StepRunStatusFailed ||
+	return s == StepRunStatusCompleted || s == StepRunStatusFailed ||
 		s == StepRunStatusCancelled || s == StepRunStatusSkipped ||
 		s == StepRunStatusTimeout || s == StepRunStatusRejected
 }
 
 // IsSuccessful returns true if the status indicates successful completion
 func (s StepRunStatus) IsSuccessful() bool {
-	return s == StepRunStatusSucceeded || s == StepRunStatusApproved
+	return s == StepRunStatusCompleted || s == StepRunStatusApproved
 }
 
 func (s StepRunStatus) IsFailed() bool {
@@ -347,13 +347,56 @@ func (s StepRunStatus) IsFailed() bool {
 }
 
 func (s StepRunStatus) IsTerminalStatus() bool {
-	return s == StepRunStatusSucceeded || s == StepRunStatusFailed || s == StepRunStatusCancelled || s == StepRunStatusSkipped || s == StepRunStatusTimeout || s == StepRunStatusRejected
+	return s == StepRunStatusCompleted || s == StepRunStatusFailed || s == StepRunStatusCancelled || s == StepRunStatusSkipped || s == StepRunStatusTimeout || s == StepRunStatusRejected
+}
+
+// IsTerminal returns true if the status represents a terminal state
+func (s StepRunStatus) IsTerminal() bool {
+	switch s {
+	case StepRunStatusCompleted, StepRunStatusFailed, StepRunStatusSkipped, StepRunStatusCancelled, StepRunStatusTimeout, StepRunStatusRejected:
+		return true
+	default:
+		return false
+	}
+}
+
+// IsActive returns true if the status represents an active/running state
+func (s StepRunStatus) IsActive2() bool {
+	switch s {
+	case StepRunStatusRunning, StepRunStatusRetrying:
+		return true
+	default:
+		return false
+	}
+}
+
+// CanTransitionTo checks if a transition to the target status is valid
+func (s StepRunStatus) CanTransitionTo(target StepRunStatus) bool {
+	// Terminal states cannot transition to other states
+	if s.IsTerminal() {
+		return false
+	}
+
+	switch s {
+	case StepRunStatusPending:
+		return target == StepRunStatusRunning || target == StepRunStatusSkipped || target == StepRunStatusCancelled
+	case StepRunStatusRunning:
+		return target != StepRunStatusPending
+	case StepRunStatusPaused:
+		return target == StepRunStatusRunning || target == StepRunStatusCancelled
+	case StepRunStatusWaiting:
+		return target == StepRunStatusRunning || target == StepRunStatusCancelled || target == StepRunStatusTimeout
+	case StepRunStatusRetrying:
+		return target == StepRunStatusRunning || target == StepRunStatusFailed || target == StepRunStatusCancelled
+	default:
+		return false
+	}
 }
 
 // StatusColor returns a color associated with this status for UI display
 func (s StepRunStatus) StatusColor() string {
 	switch s {
-	case StepRunStatusSucceeded, StepRunStatusApproved:
+	case StepRunStatusCompleted, StepRunStatusApproved:
 		return "green"
 	case StepRunStatusFailed, StepRunStatusRejected, StepRunStatusTimeout:
 		return "red"
@@ -371,7 +414,7 @@ func (s StepRunStatus) StatusColor() string {
 // StatusIcon returns an icon associated with this status for UI display
 func (s StepRunStatus) StatusIcon() string {
 	switch s {
-	case StepRunStatusSucceeded, StepRunStatusApproved:
+	case StepRunStatusCompleted, StepRunStatusApproved:
 		return "check-circle"
 	case StepRunStatusFailed, StepRunStatusRejected:
 		return "x-circle"

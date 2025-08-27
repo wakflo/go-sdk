@@ -30,6 +30,15 @@ const (
 	// ActionTypeAction represents a standard action.
 	ActionTypeAction ActionType = "ACTION"
 
+	// ActionTypeDelay represents a standard action.
+	ActionTypeDelay ActionType = "DELAY"
+
+	// ActionTypeParallel represents a standard action.
+	ActionTypeParallel ActionType = "PARALLEL"
+
+	// ActionTypeSubflow represents a standard action.
+	ActionTypeSubflow ActionType = "SUBFLOW"
+
 	// ActionTypeBranch represents a branch action that can conditionally execute different paths.
 	ActionTypeBranch ActionType = "BRANCH"
 
@@ -41,6 +50,9 @@ const (
 
 	// ActionTypeRouter represents a router action that can direct flow based on conditions.
 	ActionTypeRouter ActionType = "ROUTER"
+
+	// ActionTypeApproval represents a router action that can direct flow based on conditions.
+	ActionTypeApproval ActionType = "APPROVAL"
 )
 
 func (ActionType) SQLTypeName() string {
@@ -51,11 +63,14 @@ func (ActionType) SQLTypeName() string {
 func (ActionType) Values() []string {
 	return []string{
 		"ACTION",
+		"DELAY",
+		"PARALLEL",
+		"SUBFLOW",
 		"BRANCH",
 		"BOOLEAN",
 		"LOOP",
 		"ROUTER",
-		"FLOW",
+		"APPROVAL",
 	}
 }
 
@@ -259,18 +274,26 @@ func ActionTypeFromStringIgnoreCase(raw string) (ActionType, bool) {
 
 var (
 	_ActionTypeStringToValueMap = map[string]ActionType{
-		"ACTION":  ActionTypeAction,
-		"BRANCH":  ActionTypeBranch,
-		"BOOLEAN": ActionTypeBoolean,
-		"LOOP":    ActionTypeLoop,
-		"ROUTER":  ActionTypeRouter,
+		"ACTION":   ActionTypeAction,
+		"DELAY":    ActionTypeDelay,
+		"PARALLEL": ActionTypeParallel,
+		"SUBFLOW":  ActionTypeSubflow,
+		"BRANCH":   ActionTypeBranch,
+		"BOOLEAN":  ActionTypeBoolean,
+		"LOOP":     ActionTypeLoop,
+		"ROUTER":   ActionTypeRouter,
+		"APPROVAL": ActionTypeApproval,
 	}
 	_ActionTypeLowerStringToValueMap = map[string]ActionType{
-		"action":  ActionTypeAction,
-		"branch":  ActionTypeBranch,
-		"boolean": ActionTypeBoolean,
-		"loop":    ActionTypeLoop,
-		"router":  ActionTypeRouter,
+		"action":   ActionTypeAction,
+		"branch":   ActionTypeBranch,
+		"boolean":  ActionTypeBoolean,
+		"loop":     ActionTypeLoop,
+		"router":   ActionTypeRouter,
+		"delay":    ActionTypeDelay,
+		"parallel": ActionTypeParallel,
+		"subflow":  ActionTypeSubflow,
+		"approval": ActionTypeApproval,
 	}
 )
 

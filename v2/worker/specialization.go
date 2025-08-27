@@ -41,6 +41,20 @@ const (
 	SpecializationTypeRegion SpecializationType = "region"
 )
 
+func (s SpecializationType) Values() []string {
+	return []string{
+		string(SpecializationTypeIntegration),
+		string(SpecializationTypeProject),
+		string(SpecializationTypeWorkflow),
+		string(SpecializationTypeResource),
+		string(SpecializationTypeRegion),
+	}
+}
+
+func (s SpecializationType) String() string {
+	return string(s)
+}
+
 // SpecializationRequirement defines requirements for a task to be processed.
 type SpecializationRequirement struct {
 	// Type is the category of specialization required

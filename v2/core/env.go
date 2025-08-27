@@ -14,6 +14,7 @@ const (
 	EnvironmentDebug Environment = "debug"
 	// EnvironmentProd represents the production environment
 	EnvironmentProd Environment = "prod"
+	EnvironmentDev  Environment = "dev"
 )
 
 // String returns the string representation of the environment

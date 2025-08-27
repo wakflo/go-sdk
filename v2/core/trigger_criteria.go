@@ -472,6 +472,8 @@ type RetryPolicy struct {
 	// RetryInterval defines the time to wait between retry attempts
 	RetryInterval time.Duration `json:"retryInterval" validate:"gt=0"`
 
+	BackoffFactor float64 `json:"backoffFactor"`
+
 	// ExponentialBackoff determines if exponential backoff is used for retries
 	ExponentialBackoff bool `json:"exponentialBackoff"`
 

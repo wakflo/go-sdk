@@ -1,0 +1,285 @@
+// Copyright 2022-present Wakflo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package flow
+
+import (
+	"github.com/wakflo/go-sdk/v2/context"
+	"github.com/wakflo/go-sdk/v2/core"
+)
+
+// LoopType represents the type of loop to execute.
+type LoopType string
+
+const (
+	// LoopTypeForEach iterates over each item in a collection.
+	LoopTypeForEach LoopType = "forEach"
+
+	// LoopTypeWhile continues execution while a condition is true.
+	LoopTypeWhile LoopType = "while"
+
+	// LoopTypeDoWhile executes at least once, then continues while a condition is true.
+	LoopTypeDoWhile LoopType = "doWhile"
+
+	// LoopTypeCount executes a fixed number of iterations.
+	LoopTypeCount LoopType = "count"
+)
+
+// LoopIteration represents a single iteration of a loop.
+type LoopIteration struct {
+	// Index is the zero-based index of the current iteration
+	Index int `json:"index"`
+
+	// Item is the current item being processed (for forEach loops)
+	Item interface{} `json:"item,omitempty"`
+
+	// Key is the key of the current item (for map-like collections)
+	Key interface{} `json:"key,omitempty"`
+
+	// IsFirst indicates if this is the first iteration
+	IsFirst bool `json:"isFirst"`
+
+	// IsLast indicates if this is the last iteration (when known)
+	IsLast bool `json:"isLast"`
+
+	// Data contains any additional context for this iteration
+	Data map[string]interface{} `json:"data,omitempty"`
+}
+
+// LoopExecutionContext provides context for loop execution.
+type LoopExecutionContext interface {
+	// Context provides the perform context for the loop operation
+	Context() context.PerformContext
+
+	// LoopType returns the type of loop being executed
+	LoopType() LoopType
+
+	// Collection returns the collection being iterated (for forEach loops)
+	Collection() (interface{}, error)
+
+	// Condition returns the condition expression (for while/doWhile loops)
+	Condition() string
+
+	// Count returns the total count for count-based loops
+	Count() (int, error)
+
+	// CurrentIteration returns information about the current iteration
+	CurrentIteration() *LoopIteration
+
+	// SetCurrentIteration updates the current iteration state
+	SetCurrentIteration(*LoopIteration) error
+
+	// MaxIterations returns the maximum allowed iterations to prevent infinite loops
+	MaxIterations() int
+
+	// Logger returns a structured logger for the loop execution
+	Logger() core.Logger
+
+	// WorkflowData provides access to the workflow data
+	WorkflowData() map[string]interface{}
+
+	// UpdateWorkflowData updates the workflow data
+	UpdateWorkflowData(map[string]interface{}) error
+}
+
+// LoopController defines the interface for controlling loop execution.
+type LoopController interface {
+	// Initialize prepares the loop for execution
+	Initialize(ctx LoopExecutionContext) error
+
+	// HasNext determines if there are more iterations to execute
+	HasNext(ctx LoopExecutionContext) (bool, error)
+
+	// Next advances to the next iteration
+	Next(ctx LoopExecutionContext) (*LoopIteration, error)
+
+	// Reset resets the loop to its initial state
+	Reset(ctx LoopExecutionContext) error
+
+	// Break immediately exits the loop
+	Break(ctx LoopExecutionContext) error
+
+	// Continue skips to the next iteration
+	Continue(ctx LoopExecutionContext) error
+
+	// GetState returns the current state of the loop for persistence
+	GetState(ctx LoopExecutionContext) (map[string]interface{}, error)
+
+	// SetState restores the loop state for resuming execution
+	SetState(ctx LoopExecutionContext, state map[string]interface{}) error
+}
+
+// Loop defines the interface for loop flow control.
+type Loop interface {
+	// Execute runs the loop until completion, using the provided controller
+	Execute(ctx LoopExecutionContext, controller LoopController) error
+
+	// ValidateConfiguration validates the loop configuration
+	ValidateConfiguration(ctx LoopExecutionContext) error
+
+	// CreateController creates an appropriate controller for this loop type
+	CreateController(loopType LoopType) (LoopController, error)
+}
+
+// BooleanOperator represents the logical operator to apply to boolean values.
+type BooleanOperator string
+
+const (
+	// OperatorAnd performs logical AND on the input values.
+	OperatorAnd BooleanOperator = "and"
+
+	// OperatorOr performs logical OR on the input values.
+	OperatorOr BooleanOperator = "or"
+
+	// OperatorNot performs logical NOT on a single input value.
+	OperatorNot BooleanOperator = "not"
+
+	// OperatorXor performs logical XOR (exclusive or) on the input values.
+	OperatorXor BooleanOperator = "xor"
+
+	// OperatorNand performs logical NAND (not and) on the input values.
+	OperatorNand BooleanOperator = "nand"
+
+	// OperatorNor performs logical NOR (not or) on the input values.
+	OperatorNor BooleanOperator = "nor"
+)
+
+// BooleanCondition represents a condition to be evaluated.
+type BooleanCondition struct {
+	// Expression is the condition expression to evaluate
+	Expression string `json:"expression"`
+
+	// Description provides a human-readable description of this condition
+	Description string `json:"description,omitempty"`
+
+	// Weight allows for weighted evaluation when using certain operators
+	Weight float64 `json:"weight,omitempty"`
+}
+
+// BooleanResult represents the result of a boolean evaluation.
+type BooleanResult struct {
+	// Result is the final boolean result of the evaluation
+	Result bool `json:"result"`
+
+	// Description explains how the result was determined
+	Description string `json:"description,omitempty"`
+
+	// ConditionResults contains the individual results of each condition
+	ConditionResults map[string]bool `json:"conditionResults,omitempty"`
+
+	// Metadata contains additional information about the evaluation
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+}
+
+// BooleanEvaluationContext provides context for boolean condition evaluation.
+type BooleanEvaluationContext interface {
+	// Context provides the perform context for the boolean operation
+	Context() context.PerformContext
+
+	// Operator returns the logical operator to apply
+	Operator() BooleanOperator
+
+	// Conditions returns the list of conditions to evaluate
+	Conditions() []BooleanCondition
+
+	// WorkflowData provides access to the workflow data for condition evaluation
+	WorkflowData() map[string]interface{}
+
+	// Logger returns a structured logger for the boolean evaluation
+	Logger() core.Logger
+}
+
+// Boolean defines the interface for boolean logical operations.
+type Boolean interface {
+	// Evaluate determines the result of applying the boolean operator to the conditions
+	Evaluate(ctx BooleanEvaluationContext) (*BooleanResult, error)
+
+	// ValidateExpression validates that a condition expression is syntactically correct
+	ValidateExpression(expression string) error
+
+	// GetSupportedOperators returns all supported boolean operators
+	GetSupportedOperators() []BooleanOperator
+}
+
+// BranchPathResult represents the result of a branch path evaluation.
+type BranchPathResult struct {
+	// PathName is the identifier of the chosen path
+	PathName string `json:"pathName"`
+
+	// Description provides a human-readable description of why this path was chosen
+	Description string `json:"description,omitempty"`
+
+	// Metadata contains additional information about the branch decision
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+}
+
+// BranchPath represents a potential path in a branch flow.
+type BranchPath struct {
+	// Name is the unique identifier for this path
+	Name string `json:"name"`
+
+	// DisplayName is a human-readable name for this path
+	DisplayName string `json:"displayName"`
+
+	// Description provides details about this path
+	Description string `json:"description,omitempty"`
+
+	// Condition is a serialized condition expression that determines if this path should be taken
+	Condition string `json:"condition,omitempty"`
+
+	// IsDefault indicates if this is the default path when no conditions match
+	IsDefault bool `json:"isDefault,omitempty"`
+
+	// Order specifies the evaluation order of paths (lower numbers evaluated first)
+	Order int `json:"order"`
+}
+
+// BranchEvaluationContext provides context for branch condition evaluation.
+type BranchEvaluationContext interface {
+	// Context provides the perform context for the branch operation
+	Context() context.PerformContext
+
+	// Paths returns the available branch paths to evaluate
+	Paths() []BranchPath
+
+	// GetPathByName returns a specific path by name
+	GetPathByName(name string) (*BranchPath, error)
+
+	// WorkflowData provides access to the workflow data for condition evaluation
+	WorkflowData() map[string]interface{}
+
+	// Logger returns a structured logger for the branch evaluation
+	Logger() core.Logger
+}
+
+// BranchConditionEvaluator defines the interface for evaluating branch conditions.
+type BranchConditionEvaluator interface {
+	// EvaluateCondition determines if a condition is satisfied
+	EvaluateCondition(condition any, data map[string]interface{}) (bool, error)
+
+	// GetFunctions returns the available functions that can be used in conditions
+	GetFunctions() map[string]interface{}
+}
+
+// Branch defines the interface for branch flow control.
+type Branch interface {
+	// Evaluate determines which branch path should be taken
+	Evaluate(ctx BranchEvaluationContext) (*BranchPathResult, error)
+
+	// ValidateCondition validates that a condition expression is syntactically correct
+	ValidateCondition(condition any) error
+
+	// GetConditionEvaluator returns the condition evaluator used by this branch
+	GetConditionEvaluator() BranchConditionEvaluator
+}

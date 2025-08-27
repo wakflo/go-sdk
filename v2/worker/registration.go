@@ -43,7 +43,38 @@ const (
 
 	// WorkerStatusMaintenance indicates the worker is in maintenance mode.
 	WorkerStatusMaintenance WorkerStatus = "maintenance"
+
+	// WorkerStatusOffline indicates the worker is currently not operational or unreachable.
+	WorkerStatusOffline WorkerStatus = "offline"
+
+	// WorkerStatusOnline indicates the worker is available and actively connected.
+	WorkerStatusOnline WorkerStatus = "online"
+
+	// WorkerStatusDraining indicates the worker is completing current tasks and not accepting new ones.
+	WorkerStatusDraining WorkerStatus = "draining"
 )
+
+func (s WorkerStatus) String() string {
+	return string(s)
+}
+
+func (s WorkerStatus) Values() []string {
+	return []string{
+		string(WorkerStatusIdle),
+		string(WorkerStatusBusy),
+		string(WorkerStatusStarting),
+		string(WorkerStatusStopping),
+		string(WorkerStatusError),
+		string(WorkerStatusMaintenance),
+		string(WorkerStatusOffline),
+		string(WorkerStatusOnline),
+		string(WorkerStatusDraining),
+	}
+}
+
+func (WorkerStatus) SQLTypeName() string {
+	return "worker_status"
+}
 
 // WorkerMetadata contains additional metadata about a worker.
 type WorkerMetadata struct {

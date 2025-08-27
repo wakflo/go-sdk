@@ -89,6 +89,7 @@ type BooleanEvaluationContext interface {
 
 // Boolean defines the interface for boolean logical operations.
 type Boolean interface {
+	Flow
 	// Evaluate determines the result of applying the boolean operator to the conditions
 	Evaluate(ctx BooleanEvaluationContext) (*BooleanResult, error)
 

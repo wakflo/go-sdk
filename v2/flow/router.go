@@ -75,12 +75,17 @@ type BranchConditionEvaluator interface {
 	// EvaluateCondition determines if a condition is satisfied
 	EvaluateCondition(condition any, data map[string]interface{}) (bool, error)
 
+	// ValidateCondition validates that a condition expression is syntactically correct and suitable for evaluation.
+	ValidateCondition(condition any) error
+
 	// GetFunctions returns the available functions that can be used in conditions
 	GetFunctions() map[string]interface{}
 }
 
 // Branch defines the interface for branch flow control.
 type Branch interface {
+	Flow
+
 	// Evaluate determines which branch path should be taken
 	Evaluate(ctx BranchEvaluationContext) (*BranchPathResult, error)
 

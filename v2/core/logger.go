@@ -17,6 +17,7 @@ package core
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/rs/zerolog/log"
@@ -45,13 +46,13 @@ type Logger interface {
 	SetPrefix(prefix string)
 	GetLogs() []LogEntry
 	ClearLogs()
-	Info(message string)
+	Info(message string, keysAndValues ...interface{})
 	Infof(message string, a ...any)
-	Warn(message string)
+	Warn(message string, keysAndValues ...interface{})
 	Warnf(message string, a ...any)
-	Error(err error)
+	Error(message string, keysAndValues ...interface{})
 	Errorf(err error, message string, a ...any)
-	Debug(message string)
+	Debug(message string, keysAndValues ...interface{})
 	Debugf(message string, a ...any)
 	WithField(key string, value interface{}) Logger
 	WithFields(fields map[string]interface{}) Logger
@@ -117,25 +118,55 @@ func (n *NoopLogger) ClearLogs() {
 	n.logs = []LogEntry{}
 }
 
-func (n *NoopLogger) Info(message string) {
-	n.AddLogMessage(LevelInfo, message)
+func (n *NoopLogger) formatStructuredMessage(message string, keysAndValues ...interface{}) string {
+	if len(keysAndValues) == 0 {
+		return message
+	}
+
+	// Process key-value pairs
+	var pairs []string
+	for i := 0; i < len(keysAndValues); i += 2 {
+		if i+1 < len(keysAndValues) {
+			key := fmt.Sprintf("%v", keysAndValues[i])
+			value := fmt.Sprintf("%v", keysAndValues[i+1])
+			pairs = append(pairs, fmt.Sprintf("%s=%s", key, value))
+		} else {
+			// Odd number of arguments, just append the key
+			key := fmt.Sprintf("%v", keysAndValues[i])
+			pairs = append(pairs, key)
+		}
+	}
+
+	if len(pairs) > 0 {
+		return fmt.Sprintf("%s [%s]", message, strings.Join(pairs, ", "))
+	}
+	return message
+}
+
+func (n *NoopLogger) Info(message string, keysAndValues ...interface{}) {
+	formattedMessage := n.formatStructuredMessage(message, keysAndValues...)
+	n.AddLogMessage(LevelInfo, formattedMessage)
 }
 
 func (n *NoopLogger) Infof(message string, a ...any) {
 	n.AddLog(LevelInfo, message, a...)
 }
 
-func (n *NoopLogger) Warn(message string) {
-	//nolint:govet,printf // Disable multiple linters
-	n.AddLogMessage(LevelWarning, message)
+func (n *NoopLogger) Warn(message string, keysAndValues ...interface{}) {
+	formattedMessage := n.formatStructuredMessage(message, keysAndValues...)
+	n.AddLogMessage(LevelWarning, formattedMessage)
 }
 
 func (n *NoopLogger) Warnf(message string, a ...any) {
 	n.AddLog(LevelWarning, message, a...)
 }
 
-func (n *NoopLogger) Error(err error) {
-	n.AddLogMessage(LevelError, err.Error())
+func (n *NoopLogger) Error(err string, keysAndValues ...interface{}) {
+	message := err
+	if len(keysAndValues) > 0 {
+		message = n.formatStructuredMessage(message, keysAndValues...)
+	}
+	n.AddLogMessage(LevelError, message)
 }
 
 func (n *NoopLogger) Errorf(err error, message string, a ...any) {
@@ -144,8 +175,9 @@ func (n *NoopLogger) Errorf(err error, message string, a ...any) {
 	n.AddLog(LevelError, "%s: %v", formattedMessage, err)
 }
 
-func (n *NoopLogger) Debug(message string) {
-	n.AddLogMessage(LevelDebug, message)
+func (n *NoopLogger) Debug(message string, keysAndValues ...interface{}) {
+	formattedMessage := n.formatStructuredMessage(message, keysAndValues...)
+	n.AddLogMessage(LevelDebug, formattedMessage)
 }
 
 func (n *NoopLogger) Debugf(message string, a ...any) {

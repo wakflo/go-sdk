@@ -89,7 +89,7 @@ type BranchSettings struct {
 	AllowMultiPath bool `json:"allowMultiPath,omitempty"`
 
 	// BranchMode defines how branches are evaluated (expression, condition, or value)
-	BranchMode BranchMode `json:"branchMode,omitempty"`
+	BranchMode RouteMode `json:"branchMode,omitempty"`
 
 	// Branches defines the specific branches available
 	Branches []FlowRouter `json:"branches,omitempty"`
@@ -100,7 +100,7 @@ func NewBranchSettings() *BranchSettings {
 	return &BranchSettings{
 		EvaluateAll:      false,
 		AllowMultiPath:   false,
-		BranchMode:       BranchModeExpression,
+		BranchMode:       RouteModeExpression,
 		ExpressionEngine: "javascript",
 		Branches:         make([]FlowRouter, 0),
 	}
