@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.4](https://github.com/wakflo/go-sdk/compare/v0.11.3...v0.11.4) (2025-09-02)
+
+
+### Bug Fixes
+
+* correct typo in README section ([2e3f10c](https://github.com/wakflo/go-sdk/commit/2e3f10c8c94c57f14550bf497ecadf528e6c05ce))
+
 ## [0.11.3](https://github.com/wakflo/go-sdk/compare/v0.11.2...v0.11.3) (2025-08-27)
 
 
