@@ -27,6 +27,15 @@ type BaseContext interface {
 	// Context returns the underlying Go context for the execution operation.
 	Context() context.Context
 
+	// WorkflowID returns the unique identifier of the workflow.
+	WorkflowID() xid.ID
+
+	// WorkflowVersionID returns the unique identifier of the workflow version.
+	WorkflowVersionID() xid.ID
+
+	// ProjectID returns the unique identifier of the project.
+	ProjectID() xid.ID
+
 	// Logger returns a structured logger for the execution.
 	Logger() core.Logger
 
@@ -38,6 +47,8 @@ type BaseContext interface {
 
 	// Auth provides authentication context for the trigger execution.
 	Auth() *AuthContext
+
+	Files() FileResource
 }
 
 // DynamicFieldContext defines the interface for performing an action in a workflow.
@@ -52,12 +63,6 @@ type DynamicFieldContext interface {
 
 	// RespondJSON creates a JSON response containing the provided data and total item count. Returns the JSON or an error.
 	RespondJSON(data any, totalItems int) (core.JSON, error)
-
-	// WorkflowID returns the unique identifier of the workflow.
-	WorkflowID() xid.ID
-
-	// WorkflowVersionID returns the unique identifier of the workflow version.
-	WorkflowVersionID() xid.ID
 
 	// FieldName returns the name of the current field within the workflow context.
 	FieldName() string
@@ -78,12 +83,6 @@ type DynamicFieldContext interface {
 type LifecycleContext interface {
 	// Context returns the underlying Go context for the lifecycle operation.
 	Context() context.Context
-
-	// WorkflowID returns the unique identifier of the workflow.
-	WorkflowID() xid.ID
-
-	// ProjectID returns the unique identifier of the project.
-	ProjectID() xid.ID
 
 	// TriggerID returns the unique identifier of the trigger being managed.
 	TriggerID() string
@@ -133,15 +132,6 @@ type LifecycleContext interface {
 // authentication, output processing, and error handling.
 type PerformContext interface {
 	BaseContext
-
-	// WorkflowID returns the unique identifier of the workflow.
-	WorkflowID() xid.ID
-
-	// WorkflowVersionID returns the unique identifier of the workflow version.
-	WorkflowVersionID() xid.ID
-
-	// ProjectID returns the unique identifier of the project.
-	ProjectID() xid.ID
 
 	// StepID returns the unique identifier of the step in the workflow.
 	StepID() string
@@ -200,15 +190,6 @@ type PerformContext interface {
 // authentication, and output processing.
 type ExecuteContext interface {
 	BaseContext
-
-	// WorkflowID returns the unique identifier of the workflow.
-	WorkflowID() xid.ID
-
-	// WorkflowVersionID returns the unique identifier of the workflow version.
-	WorkflowVersionID() xid.ID
-
-	// ProjectID returns the unique identifier of the project.
-	ProjectID() xid.ID
 
 	// TriggerID returns the unique identifier of the trigger being executed.
 	TriggerID() string
